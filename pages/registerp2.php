@@ -362,6 +362,7 @@
     addEventListeners();
   }
 
+  //Button Listeners
   function addEventListeners() {
     $("#team-add-button").click(addTeamClick);
     $("#register-button").click(registerClick);
