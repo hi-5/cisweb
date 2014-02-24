@@ -39,7 +39,7 @@
 
   <?php
     } else {
-      include 'pages/register.php';
+      include 'pages/teams.php';
     }
   ?>
   
