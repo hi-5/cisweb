@@ -348,7 +348,7 @@
   <div class='row'>
     <div class="col-md-10"></div>
     <div class="col-md-2">
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+      <button id="register-button" type="button" class="btn btn-lg btn-primary btn-block">Register</button>
     </div>
   </div>
 
@@ -364,6 +364,7 @@
 
   function addEventListeners() {
     $("#team-add-button").click(addTeamClick);
+    $("#register-button").click(registerClick);
   }
 
   function addTeamClick(event) {
