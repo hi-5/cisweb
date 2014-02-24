@@ -1,5 +1,5 @@
 <?php
-  if ( $_SESSION['isStudent'] ) {
+  if ( $_SESSION['isAthlete'] ) {
 ?>
 
   <h3>Athletes</h3>
@@ -9,7 +9,9 @@
   </div>
 
 <?php
-  } else {
+  }
+
+  if ($_SESSION['isFaculty']) {
 ?>
 
   <h3>Faculty</h3>

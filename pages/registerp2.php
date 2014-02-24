@@ -17,15 +17,21 @@
       
       <!-- new row -->
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
          <div class="form-group">
             <label for="studentNumber">Student #</label>
-            <input type="email" class="form-control" id="studentNumber" placeholder="">
+            <input type="input" class="form-control" id="studentNumber" placeholder="">
+          </div>
+        </div>
+        <div class="col-md-3">
+         <div class="form-group">
+            <label for="studentNumber">S.I.N. #</label>
+            <input type="input" class="form-control" id="studentNumber" placeholder="">
           </div>
         </div>
         <div class="col-md-6">
          <div class="form-group">
-            <label for="studentNumber">S.I.N. #</label>
+            <label for="studentNumber">Email</label>
             <input type="email" class="form-control" id="studentNumber" placeholder="">
           </div>
         </div>
@@ -98,17 +104,14 @@
 
       <!-- new row -->
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
          <div class="form-group">
             <label for="studentNumber">Street</label>
             <input type="email" class="form-control" id="studentNumber" placeholder="">
           </div>
         </div>
-      </div>
 
-      <!-- new row -->
-      <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">City</label>
             <input type="email" class="form-control" id="studentNumber" placeholder="">
@@ -125,7 +128,14 @@
 
       <!-- new row -->
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="studentNumber">Phone</label>
+            <input type="email" class="form-control" id="studentNumber" placeholder="">
+          </div>
+        </div>
+
+        <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Postal Code</label>
             <input type="email" class="form-control" id="studentNumber" placeholder="">
@@ -135,23 +145,6 @@
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Country</label>
-            <input type="email" class="form-control" id="studentNumber" placeholder="">
-          </div>
-        </div>
-      </div>
-
-      <!-- new row -->
-      <div class="row">
-        <div class="col-md-8">
-          <div class="form-group">
-            <label for="studentNumber">Phone</label>
-            <input type="email" class="form-control" id="studentNumber" placeholder="">
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="studentNumber">E-mail</label>
             <input type="email" class="form-control" id="studentNumber" placeholder="">
           </div>
         </div>
@@ -166,17 +159,14 @@
 
       <!-- new row -->
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
          <div class="form-group">
             <label for="studentNumber">Street</label>
             <input type="email" class="form-control" id="studentNumber" placeholder="">
           </div>
         </div>
-      </div>
 
-      <!-- new row -->
-      <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">City</label>
             <input type="email" class="form-control" id="studentNumber" placeholder="">
@@ -193,7 +183,14 @@
 
       <!-- new row -->
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="studentNumber">Phone</label>
+            <input type="email" class="form-control" id="studentNumber" placeholder="">
+          </div>
+        </div>
+
+        <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Postal Code</label>
             <input type="email" class="form-control" id="studentNumber" placeholder="">
@@ -203,23 +200,6 @@
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Country</label>
-            <input type="email" class="form-control" id="studentNumber" placeholder="">
-          </div>
-        </div>
-      </div>
-
-      <!-- new row -->
-      <div class="row">
-        <div class="col-md-8">
-          <div class="form-group">
-            <label for="studentNumber">Phone</label>
-            <input type="email" class="form-control" id="studentNumber" placeholder="">
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="studentNumber">E-mail</label>
             <input type="email" class="form-control" id="studentNumber" placeholder="">
           </div>
         </div>
@@ -246,8 +226,8 @@
       <div class="row">
         <div class="col-md-9">
          <div class="form-group">
-            <label for="studentNumber">University</label>
-            <input type="email" class="form-control" id="studentNumber" placeholder="">
+            <label for="studentNumber">Program</label>
+            <input type="input" class="form-control" id="studentNumber" placeholder="">
           </div>
         </div>
 
@@ -261,26 +241,6 @@
               <option>4</option>
               <option>5</option>
             </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- new row -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="studentNumber">Program</label>
-            <input type="email" class="form-control" id="studentNumber" placeholder="">
-          </div>
-        </div>
-      </div>
-
-      <!-- new row -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label for="studentNumber">Sport</label>
-            <input type="email" class="form-control" id="studentNumber" placeholder="">
           </div>
         </div>
       </div>
@@ -306,24 +266,76 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">History</div>
+    <div class="panel-heading">Athlete History</div>
     <div class="panel-body">
-      <textarea class="form-control" rows="3" placeholder="Please indicate all previous post-secondary institutions you have attended and in what years (inclusive of CEGEP, college, etc)."></textarea>
-      <br />
+
+      <!-- new row -->
+      <div class="row">
+        <div class="col-md-2">
+         <div class="form-group">
+            <label for="studentNumber">U of L Team</label>
+            <select class="form-control">
+              <option>team ajax</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="studentNumber">Other Team</label>
+            <input type="input" class="form-control" id="studentNumber" placeholder="">
+          </div>
+        </div>
+
+        <div class="col-md-2">
+         <div class="form-group">
+            <label for="studentNumber">Year</label>
+            <input type="input" class="form-control" id="studentNumber" placeholder="YYYY-YYYY">
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="studentNumber">Jersey #</label>
+            <input type="input" class="form-control" id="studentNumber" placeholder="">
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="form-group">
+            <label for="studentNumber">Charged</label>
+            <select class="form-control">
+              <option>yes</option>
+              <option>no</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-1">
+          <div class="form-group">
+            <label for="studentNumber">&nbsp</label>
+            <button id="team-add-button" type="button" class="btn btn-primary">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <td>Year</td>
+            <td>Team</td>
+            <td>Position</td>
+            <td>Jersey</td>
+            <td>Charged</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody id="team-table"></tbody>
+      </table>
+
+      <!-- suspensions text area -->
       <textarea class="form-control" rows="3" placeholder="Please indicate if you are presently under suspension from any sport organization or league."></textarea>
       <br />
-      <textarea class="form-control" rows="3" placeholder="Please indicate all previous teams and leagues that you have participated with, and in what years."></textarea>
-      <br />
-      <div class="form-group">
-        <label for="studentNumber">Total Number of Years of Eligibility (or equivalent) Used Previously</label>
-        <select class="form-control">
-          <option>0</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select>
-      </div>
     </div>
   </div>
 
@@ -341,4 +353,60 @@
   </div>
 
 </form>
+
+<script>
+
+  var teamHistory = new Array();
+
+  function init() {
+    addEventListeners();
+  }
+
+  function addEventListeners() {
+    $("#team-add-button").click(addTeamClick);
+  }
+
+  function addTeamClick(event) {
+    // validate input
+
+    // store in temp array
+    teamHistory.push({
+      startYear : "xxxx",
+      endYear   : "xxxx",
+      teamId    : 0,
+      teamName  : "",
+      position  : "",
+      jersey    : 0,
+      charged   : false
+    });
+
+    // redraw the table
+    redrawTable();
+  }
+
+  function redrawTable() {
+    var tableString = "";
+    for (var i = 0; i < teamHistory.length; i++) {
+      tableString += "<tr>";
+
+      tableString += "<td>" + teamHistory[i].startYear + "-" + teamHistory[i].endYear + "</td>";
+
+      if (teamHistory[i].teamId == 0)
+        tableString += "<td>put uofl team name here</td>";
+      else
+        tableString += "<td>" + teamHistory[i].teamName + "</td>";
+
+      tableString += "<td>" + teamHistory[i].position + "</td>";
+      tableString += "<td>" + teamHistory[i].jersey + "</td>";
+      tableString += "<td>" + teamHistory[i].charged + "</td>";
+      tableString += "<td>remove</td>";
+
+      tableString += "</tr>";
+    }
+    $('#team-table').html(tableString);
+  }
+
+  init();
+
+</script>
 
