@@ -17,7 +17,7 @@ $action = $_POST['action'];
 
     // update an account
     case 'update':
-      updateTeam( $_POST['args'] );
+      updateTeam( $_POST['args'], $_POST['name'] );
       break;
 
     // get list of account names
@@ -56,6 +56,30 @@ function addTeam($args) {
 	mysqli_query($sql, $query);
 
 	mysqli_close($sql);
+
+}
+
+//Deletes a team with the id $arg from the database
+function deleteTeam($args) {
+  global $sql;
+
+  $query = "DELETE FROM teams WHERE t_id = ('$args')";
+
+  mysqli_query($sql, $query);
+
+  mysqli_close($sql);
+
+}
+
+//Updates team name with id $arg in the database
+function updateTeam($args, $name) {
+  global $sql;
+
+  $query = "UPDATE teams SET t_description = ('$name') WHERE t_id = ('$args')";
+
+  mysqli_query($sql, $query);
+
+  mysqli_close($sql);
 
 }
 
