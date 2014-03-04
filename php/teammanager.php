@@ -31,7 +31,7 @@ function sendTeamList() {
 
 	global $sql;
 
-	$query = "SELECT t_id, t_description FROM teams";
+	$query = "SELECT t_id, t_name FROM teams";
 
 	$result = mysqli_query($sql, $query);
 
@@ -51,7 +51,7 @@ function addTeam($args) {
 
 	global $sql;
 
-	$query = "INSERT INTO teams (t_description) VALUES ('$args')";
+	$query = "INSERT INTO teams (t_name) VALUES ('$args')";
 
 	mysqli_query($sql, $query);
 
@@ -75,7 +75,7 @@ function deleteTeam($args) {
 function updateTeam($args, $name) {
   global $sql;
 
-  $query = "UPDATE teams SET t_description = ('$name') WHERE t_id = ('$args')";
+  $query = "UPDATE teams SET t_name = ('$name') WHERE t_id = ('$args')";
 
   mysqli_query($sql, $query);
 

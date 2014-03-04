@@ -9,12 +9,12 @@
       <div class="col-md-8">
         <form role="form">
           <div class="form-group">
-            <button type="button" class="btn btn-primary" id="team-new-button">New Team</button>
+            <button type="button" class="btn btn-primary" id="team-new-button"><span class='glyphicon glyphicon-plus'></span> Add Team</button>
             <section id="teamField" class="hidden">
               <label>Team Name</label>
               <input name="name" class="form-control" id="team-name" placeholder="Team Name">
-              <button type="button" class="btn btn-primary" id="team-add-button">Add Team</button>
-              <button type="button" class="btn btn-danger" id="team-cancel-button">Cancel</button>
+              <button type="button" class="btn btn-success" id="team-add-button"><span class='glyphicon glyphicon-plus'></span> Add Team</button>
+              <button type="button" class="btn btn-danger" id="team-cancel-button"><span class='glyphicon glyphicon-remove-circle'></span> Cancel</button>
             </section>
           </div>
         </form>
@@ -31,25 +31,21 @@
   </div>
 </div>
 
-<!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#confirm-del-modal">
-  Temp
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="confirm-del-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <span class="hidden" id="delete-id"></span>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">Delete Team?</h4>
       </div>
       <div class="modal-body">
-        ...
+        Are you sure you want to delete this team from the database? Doing so will also remove any association any athletes had to this team.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button id="delete-team-btn" type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -69,13 +65,14 @@
     $("#team-new-button").click(showForm);
     $("#team-cancel-button").click(showForm);
     $("#team-add-button").click(addTeam);
+    $("#delete-team-btn").click(deleteTeam);
     $(document).on('click', ".edit-btn", function() {
       var id = $(this).closest("tr").attr("id");
       displayEdit(id);       
     });
     $(document).on('click', ".del-btn", function() {
       var id = $(this).closest("tr").attr("id");
-      deleteTeam(id);       
+      deleteModal(id);       
     });
     $(document).on('click', ".change-btn", function() {
       var id = $(this).closest("tr").attr("id");
@@ -99,16 +96,16 @@
           var table = "<table class='table'>";
           for (var i = 0; i < result.length; i++) {
             table += "<tr id='" + result[i].t_id  + "'>" 
-                  + "<td><a href='#'>" + result[i].t_description + "</a></td>"
+                  + "<td><a href='#'>" + result[i].t_name + "</a></td>"
                   + "<td class='hidden'><input name='name' class='form-control'></td>"
                   + "<td><button type='button' class='btn btn-default btn-sm edit-btn'>" 
-                  + "<span class='glyphicon glyphicon-edit'></span></button>"
+                  + "<span class='glyphicon glyphicon-edit'></span> Edit</button> "
                   + "<button type='button' class='btn btn-danger btn-sm del-btn'>"
-                  + "<span class='glyphicon glyphicon-remove'></span></button></td>"
+                  + "<span class='glyphicon glyphicon-remove'></span> Delete</button></td>"
                   + "<td class='hidden'><button type='button' class='btn btn-success btn-sm change-btn'>"
-                  + "<span class='glyphicon glyphicon-ok-circle'></span></button>"
+                  + "<span class='glyphicon glyphicon-ok-circle'></span> Confirm</button> "
                   + "<button type='button' class='btn btn-danger btn-sm cancel-btn'>"
-                  + "<span class='glyphicon glyphicon-remove-circle'></span></button></td>"
+                  + "<span class='glyphicon glyphicon-remove-circle'></span> Cancel</button></td>"
                   + "</tr>";
           }
           table += "</table>";
@@ -165,6 +162,7 @@
     $("#" + id).children('td').eq(3).toggleClass("hidden");
   }
 
+  //changes the team with id to the value within the corresponding teams input box.
   function editTeam( id ) {
     var n = $("#" + id).children('td').eq(1).children('input').val();
     $.ajax({
@@ -186,8 +184,19 @@
     }); 
   }
 
+  function deleteModal( id ) {
+    $("#confirm-del-modal").modal('show');
+    $("#delete-id").html( id );
+
+  }
+
   //Deletes the team where id = t_id
-  function deleteTeam ( id ) {
+  //The id is retreived from the span in the modal which is set to the id of the target team
+  // when a deleteModal function is called.
+  function deleteTeam () {
+    var id = $("#delete-id").html();
+    $("#delete-id").html("");
+    $("#confirm-del-modal").modal('hide');
     $.ajax({
       type     : 'POST',
       url      : 'php/teammanager.php',
