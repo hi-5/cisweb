@@ -93,7 +93,7 @@
   <div class='row'>
     <div class="col-md-10"></div>
     <div class="col-md-2">
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Next &raquo;</button>
+      <a href="?p=form&t=reg&s=2"><button type="button" class="btn btn-lg btn-primary btn-block">Next &raquo;</button></a>
     </div>
   </div>
 

@@ -1,3 +1,5 @@
+
+
 <div class="row">
   <div class="col-md-2">
     <img src="images/letterhead.png" />
@@ -20,13 +22,13 @@
         <div class="col-md-6">
          <div class="form-group">
             <label for="studentNumber">Student #</label>
-            <input id="reg-student-number" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-student-number" type="input" class="form-control" placeholder="">
           </div>
         </div>
         <div class="col-md-6">
          <div class="form-group">
             <label for="studentNumber">Email</label>
-            <input id="reg-email" type="email" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-email" type="email" class="form-control" placeholder="">
           </div>
         </div>
       </div>
@@ -36,19 +38,19 @@
         <div class="col-md-5">
           <div class="form-group">
             <label for="studentNumber">First Name</label>
-            <input id="reg-first-name" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-first-name" type="input" class="form-control" placeholder="">
           </div>
         </div>
         <div class="col-md-5">
           <div class="form-group">
             <label for="studentNumber">Last Name</label>
-            <input id="reg-last-name" type="email" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-last-name" type="email" class="form-control" placeholder="">
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
             <label for="studentNumber">Initial(s)</label>
-            <input id="reg-initials" type="email" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-initials" type="email" class="form-control" placeholder="">
           </div>
         </div>
       </div>
@@ -70,21 +72,43 @@
         <div class="col-md-3">
           <div class="form-group">
             <label for="monthOfBirth">Date of Birth</label>
-            <input id="reg-date-of-birth" type="input" class="form-control" id="monthOfBirth" placeholder="MM/DD/YYYY">
+            <input id="reg-date-of-birth" type="input" class="form-control" placeholder="YYYY/MM/DD">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Height</label>
-            <input id="reg-height" type="email" class="form-control" id="studentNumber" placeholder="ex. 5&#39;8&#34;">
+            <input id="reg-height" type="email" class="form-control" placeholder="ex. 5&#39;8&#34;">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Weight (lbs.)</label>
-            <input id="reg-weight" type="email" class="form-control" id="studentNumber" placeholder="ex. 160">
+            <input id="reg-weight" type="email" class="form-control" placeholder="ex. 160">
+          </div>
+        </div>
+      </div>
+
+      <!-- new row -->
+      <div class="row">
+        <div class="col-md-5">
+          <div class="form-group">
+            <label for="studentNumber">High School</label>
+            <input id="reg-high-school" type="input" class="form-control" placeholder="">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="studentNumber">Year of Graduation</label>
+            <input id="reg-year-of-graduation" type="email" class="form-control" placeholder="YYYY">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="studentNumber">University Program</label>
+            <input id="reg-program" type="email" class="form-control" placeholder="">
           </div>
         </div>
       </div>
@@ -101,21 +125,21 @@
         <div class="col-md-6">
          <div class="form-group">
             <label for="studentNumber">Street</label>
-            <input id="reg-current-street" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-current-street" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">City</label>
-            <input id="reg-current-city" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-current-city" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Province</label>
-            <input id="reg-current-province" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-current-province" type="input" class="form-control" placeholder="">
           </div>
         </div>
       </div>
@@ -125,21 +149,21 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="studentNumber">Phone</label>
-            <input id="reg-current-phone" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-current-phone" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Postal Code</label>
-            <input id="reg-current-postal" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-current-postal" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Country</label>
-            <input id="reg-current-country" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-current-country" type="input" class="form-control" placeholder="">
           </div>
         </div>
       </div>
@@ -156,21 +180,21 @@
         <div class="col-md-6">
          <div class="form-group">
             <label for="studentNumber">Street</label>
-            <input id="reg-permanent-street" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-permanent-street" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">City</label>
-            <input id="reg-permanent-city" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-permanent-city" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Province</label>
-            <input id="reg-permanent-province" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-permanent-province" type="input" class="form-control" placeholder="">
           </div>
         </div>
       </div>
@@ -180,31 +204,21 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="studentNumber">Phone</label>
-            <input id="reg-permanent-phone" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-permanent-phone" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Postal Code</label>
-            <input id="reg-permanent-postal" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-permanent-postal" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Country</label>
-            <input id="reg-permanent-country" type="input" class="form-control" id="studentNumber" placeholder="">
-          </div>
-        </div>
-      </div>
-
-      <!-- new row -->
-      <div class="row">
-        <div class="col-md-12">
-         <div class="form-group">
-            <label for="studentNumber">Home Town</label>
-            <input id="reg-hometown" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-permanent-country" type="input" class="form-control" placeholder="">
           </div>
         </div>
       </div>
@@ -230,31 +244,31 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="studentNumber">Other Team</label>
-            <input id="reg-team-name" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-team-name" type="input" class="form-control" placeholder="">
           </div>
         </div>
       </div>
 
       <!-- new row -->
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
          <div class="form-group">
             <label for="studentNumber">Position</label>
-            <input id="reg-team-position" type="input" class="form-control" id="studentNumber" placeholder=""YYYY-YYYY"">
+            <input id="reg-team-position" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-2">
          <div class="form-group">
             <label for="studentNumber">Year</label>
-            <input id="reg-team-year" type="input" class="form-control" id="studentNumber" placeholder="YYYY-YYYY">
+            <input id="reg-team-year" type="input" class="form-control" placeholder="YYYY-YYYY">
           </div>
         </div>
 
         <div class="col-md-2">
           <div class="form-group">
             <label for="studentNumber">Jersey #</label>
-            <input id="reg-team-jersey" type="input" class="form-control" id="studentNumber" placeholder="">
+            <input id="reg-team-jersey" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
@@ -386,17 +400,18 @@
   // == register button ==
 
   function registerClick() {
-    var studentNum = $("#reg-student-number").val(),
+    var studentId = $("#reg-student-number").val(),
         email = $("#reg-email").val(),
-        firstName = $("#reg-first-name").val(),
         lastName = $("#reg-last-name").val(),
+        firstName = $("#reg-first-name").val(),
         initials = $("#reg-initials").val(),
         gender = $("#reg-gender").val(),
         dob = $("#reg-date-of-birth").val(),
         height = $("#reg-height").val(),
         weight = $("#reg-weight").val(),
-        hometown = $("#reg-hometown").val(),
-        suspensions = $("#reg-suspensions").val(),
+        highSchool = $("#reg-high-school").val(),
+        gradYear = $("#reg-year-of-graduation").val(),
+        program = $("#reg-program").val(),
 
         cStreet = $("#reg-current-street").val(),
         cCity = $("#reg-current-city").val(),
@@ -415,20 +430,23 @@
     // send registration data to the server via ajax
     $.ajax({
       type     : 'POST',
-      url      : 'php/registermanager.php',
+      url      : 'php/formmanager.php',
       dataType : 'json',
       data     : { 
-        studentNum : studentNum,
-        email      : email,
-        firstName  : firstName,
+        action     : 'register',
+
+        studentId  : studentId,
         lastName   : lastName,
+        firstName  : firstName,
         initials   : initials,
         gender     : gender,
         dob        : dob,
         height     : height,
         weight     : weight,
-        hometown   : hometown,
-        suspension : suspensions,
+        email      : email,
+        highSchool : highSchool,
+        gradYear   : gradYear,
+        program    : program,
 
         cStreet    : cStreet,
         cCity      : cCity,

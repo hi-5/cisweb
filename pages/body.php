@@ -3,7 +3,14 @@
 <div id="wrapper">
 
   <?php
-    if ( $_SESSION['loggedIn'] ) {
+
+    // DEBUG - next 4 lines
+    $_SESSION['username'] = "012345678";
+    $_SESSION['loggedIn'] = true;
+    $_SESSION['isAthlete'] = true;
+    $_SESSION['isFaculty'] = true;
+
+    if ($_SESSION['loggedIn']) {
   ?>
 
     <div class="row">
@@ -21,11 +28,10 @@
       <div class="col-md-10">
 
         <?php
-          if ( isset($_GET['p']) ) {
-            switch ( $_GET['p'] ) {
-              case 'regi' : $file = 'register.php'; break;
-              case 'veri' : $file = 'verify.php';   break;
-              case 'reqs' : $file = 'requests.php'; break;       
+          if (isset($_GET['p'])) {
+            switch ($_GET['p']) {
+              case 'form' : $file = 'form.php'; break;
+              case 'inbx' : $file = 'inbox.php'; break;      
               case 'sett' : $file = 'settings.php'; break;  
             }
           } else {
@@ -39,7 +45,7 @@
 
   <?php
     } else {
-      include 'pages/teams.php';
+      include 'pages/home.php';
     }
   ?>
   
