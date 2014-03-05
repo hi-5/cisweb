@@ -21,29 +21,25 @@ $action = $_POST['action'];
       break;
 
     // get list of account names
-    case 'list':
-      sendTeamList();
+    case 'getList':
+      getTeamList();
       break;
   }
 
 //Sends back an array of JSON objects for each team in the database
-function sendTeamList() {
-
+function getTeamList() {
 	global $sql;
 
-	$query = "SELECT t_id, t_name FROM teams";
-
+	$query = "SELECT DISTINCT t_id, t_name FROM teams";
 	$result = mysqli_query($sql, $query);
-
-	$rows = array();
-
-	while($r = mysqli_fetch_assoc($result)) {
-		$rows[] = $r;
+  
+	$teams = array();
+	while($row = mysqli_fetch_assoc($result)) {
+		$teams[] = $row;
 	}
 
-	print json_encode($rows);
-
-	mysqli_close($sql);
+  mysqli_close($sql);
+	print json_encode($teams);
 }
 
 //Adds a team with the name $arg into the database

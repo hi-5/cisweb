@@ -72,7 +72,7 @@
         <div class="col-md-3">
           <div class="form-group">
             <label for="monthOfBirth">Date of Birth</label>
-            <input id="reg-date-of-birth" type="input" class="form-control" placeholder="YYYY/MM/DD">
+            <input id="reg-date-of-birth" type="input" class="form-control" placeholder="YYYY-MM-DD">
           </div>
         </div>
 
@@ -234,16 +234,16 @@
       <div class="row">
         <div class="col-md-6">
          <div class="form-group">
-            <label for="studentNumber">U of L Team</label>
-            <select class="form-control">
-              <option>team ajax</option>
+            <label for="studentNumber">UofL Team</label>
+            <select id="reg-team-list" class="form-control">
+              <!-- teams will be populated here from getTeams() -->
             </select>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="studentNumber">Other Team</label>
+            <label for="studentNumber">Team Name</label>
             <input id="reg-team-name" type="input" class="form-control" placeholder="">
           </div>
         </div>
@@ -251,14 +251,14 @@
 
       <!-- new row -->
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
          <div class="form-group">
             <label for="studentNumber">Position</label>
             <input id="reg-team-position" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-3">
          <div class="form-group">
             <label for="studentNumber">Year</label>
             <input id="reg-team-year" type="input" class="form-control" placeholder="YYYY-YYYY">
@@ -305,9 +305,9 @@
 
   <!-- new row -->
   <div class='row'>
-    <div class="col-md-10"></div>
-    <div class="col-md-2">
-      <button id="register-button" type="button" class="btn btn-lg btn-primary btn-block">Register</button>
+    <div class="col-md-8"></div>
+    <div id="reg-buttons" class="col-md-4">
+      <!-- populates with buttons depending on form type (register, verify, approve/delete) -->
     </div>
   </div>
 
@@ -315,19 +315,177 @@
 
 <script>
 
-  var teamHistory = new Array();
-
+  var teamHistory = new Array(), // athletes team history
+      teamList = new Array(), // uofl team list
+      currentId = "000000000",
+      formType = "reg";
+      
   function init() {
-    addEventListeners();
+    getTeamList();
+
+    // populate known fields if verification or inbox form
+    currentId = getURLParameter("i");
+    formType = getURLParameter("t");
+    if (formType != "reg")
+      getKnownFormFields();
+
+    addButtons();
   }
 
-  //Button Listeners
+  function getTeamList() {
+    $.ajax({
+      type     : 'POST',
+      url      : 'php/teammanager.php',
+      dataType : 'json',
+      data     : { 
+        action : "getList"
+      },
+      cache    : false,
+      success  : function( result ) {
+        var htmlString = "<option>Non-UofL Team</option>";
+        for (var i = 0; i < result.length; i++) {
+          teamList.push({
+            id   : result[i].t_id,
+            name : result[i].t_name
+          });
+          htmlString += "<option>" + result[i].t_name + "</option>";
+        }
+        $("#reg-team-list").html(htmlString);
+        $("#reg-team-list").change(teamChange);
+      },
+      error    : function(a, b, c) {
+        console.log('Error:');
+        console.log(a);
+        console.log(b);
+        console.log(c);
+      }
+    });
+  }
+
+  function addButtons() {
+    var htmlString = "";
+    switch (formType) {
+      case "reg":
+        break;
+
+      case "ver":
+        break;
+
+      case "box":
+        htmlString += "<button id='reg-approve-button' type='button' class='btn btn-lg btn-warning'>Approve</button>" +
+                      "<button id='reg-delete-button' type='button' class='btn btn-lg btn-danger'>Delete</button>";
+        $("#reg-buttons").html(htmlString);
+
+        //$("#reg-approve-button").click();
+        //$("#reg-delete-button").click();
+        break;
+    }
+  }
+
+  function getURLParameter(token) {
+    var url = window.location.href,
+        parameters = url.split("?")[1].split("&");
+    for (var i = 0; i < parameters.length; i++) {
+      var split = parameters[i].split("=");
+      if (split[0] == token)
+        return split[1];
+    }
+    return "";
+  }
+
+  
+
+  function getKnownFormFields() {
+    var action = (formType == "ver") ? "getAthlete" : "getQueue";
+    $.ajax({
+      type     : 'POST',
+      url      : 'php/athletemanager.php',
+      dataType : 'json',
+      data     : { 
+        action    : action,
+        studentId : currentId
+      },
+      cache    : false,
+      success  : function( result ) {
+        populateKnownFormFields(result);
+      },
+      error    : function(a, b, c) {
+        console.log('Error:');
+        console.log(a);
+        console.log(b);
+        console.log(c);
+      }
+    });
+  }
+
+  function populateKnownFormFields(result) {
+    $("#reg-student-number").val(result.id);
+    $("#reg-email").val(result.email);
+    $("#reg-last-name").val(result.last);
+    $("#reg-first-name").val(result.first);
+    $("#reg-initials").val(result.init);
+    $("#reg-gender").val(result.gender);
+    $("#reg-date-of-birth").val(result.dob);
+    $("#reg-height").val(result.height);
+    $("#reg-weight").val(result.weight);
+    $("#reg-high-school").val(result.high);
+    $("#reg-year-of-graduation").val(result.grad);
+    $("#reg-program").val(result.prog);
+
+    $("#reg-current-street").val(result.cStrt);
+    $("#reg-current-city").val(result.cCity);
+    $("#reg-current-province").val(result.cProv);
+    $("#reg-current-postal").val(result.cPost);
+    $("#reg-current-country").val(result.cCntr);
+    $("#reg-current-phone").val(result.cPhone);
+
+    $("#reg-permanent-street").val(result.pStrt);
+    $("#reg-permanent-city").val(result.pCity);
+    $("#reg-permanent-province").val(result.pProv);
+    $("#reg-permanent-postal").val(result.pPost);
+    $("#reg-permanent-country").val(result.pCntr);
+    $("#reg-permanent-phone").val(result.pPhone);
+
+    // team history
+    var teams = result.teams.split("|");
+    for (var i = 0; i < teams.length; i++) {
+      var team = teams[i].split(":");
+      addTeam(team[0], team[1], team[2], team[3], team[4], team[5], team[6]);
+    }
+  }
+
   function addEventListeners() {
     $("#team-add-button").click(addTeamClick);
     $("#register-button").click(registerClick);
   }
 
   // == team history ==
+
+  function teamChange(event) {
+    if (event.target.value == "Non-UofL Team") {
+      $("#reg-team-name").val("");
+      $("#reg-team-name").removeAttr("disabled");
+    } else {
+      $("#reg-team-name").val(event.target.value);
+      $("#reg-team-name").attr("disabled", "disabled");
+    }
+  }
+
+  function addTeam(startYear, endYear, teamId, teamName, position, jersey, charged) {
+    // store in temp array
+    teamHistory.push({
+      startYear : startYear,
+      endYear   : endYear,
+      teamId    : teamId,
+      teamName  : teamName,
+      position  : position,
+      jersey    : jersey,
+      charged   : charged
+    });
+
+    // redraw the table
+    redrawTable();
+  }
 
   function addTeamClick(event) {
     // validate input
@@ -339,17 +497,19 @@
         position = $( "#reg-team-position" ).val(),
         jersey = $( "#reg-team-jersey" ).val(),
         charged = $( "#reg-team-charged" ).val();
+    addTeam(startYear, endYear, teamId, teamName, position, jersey, charged);
+  }
 
-    // store in temp array
-    teamHistory.push({
-      startYear : startYear,
-      endYear   : endYear,
-      teamId    : teamId,
-      teamName  : teamName,
-      position  : position,
-      jersey    : jersey,
-      charged   : charged
-    });
+  function removeTeamClick( event ) {
+    // remove delete listeners
+    for (var j = 0; j < teamHistory.length; j++) {
+      var id = "#team-entry-" + j;
+      $(id).unbind();
+    }
+
+    // remove array entry
+    var index = event.target.id.substr(11);
+    teamHistory.splice(index, 1);
 
     // redraw the table
     redrawTable();
@@ -382,20 +542,7 @@
     }
   }
 
-  function removeTeamClick( event ) {
-    // remove delete listeners
-    for (var j = 0; j < teamHistory.length; j++) {
-      var id = "#team-entry-" + j;
-      $(id).unbind();
-    }
-
-    // remove array entry
-    var index = event.target.id.substr(11);
-    teamHistory.splice(index, 1);
-
-    // redraw
-    redrawTable();
-  }
+  // == approve button ==
 
   // == register button ==
 
@@ -480,4 +627,3 @@
   init();
 
 </script>
-

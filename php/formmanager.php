@@ -2,15 +2,15 @@
   include "connect.php";
 
   $action = $_POST['action'];
-  switch ( $action ) {
+  switch ($action) {
 
     // submit registration form
     case 'register':
-      submitForm();
+      register();
       break;
   }
 
-  function submitForm() {
+  function register() {
     global $sql;
 
     // get form information from post
