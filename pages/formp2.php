@@ -44,13 +44,13 @@
         <div class="col-md-5">
           <div class="form-group">
             <label for="studentNumber">Last Name</label>
-            <input id="reg-last-name" type="email" class="form-control" placeholder="">
+            <input id="reg-last-name" type="input" class="form-control" placeholder="">
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
             <label for="studentNumber">Initial(s)</label>
-            <input id="reg-initials" type="email" class="form-control" placeholder="">
+            <input id="reg-initials" type="input" class="form-control" placeholder="">
           </div>
         </div>
       </div>
@@ -79,14 +79,14 @@
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Height</label>
-            <input id="reg-height" type="email" class="form-control" placeholder="ex. 5&#39;8&#34;">
+            <input id="reg-height" type="input" class="form-control" placeholder="ex. 5&#39;8&#34;">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Weight (lbs.)</label>
-            <input id="reg-weight" type="email" class="form-control" placeholder="ex. 160">
+            <input id="reg-weight" type="input" class="form-control" placeholder="ex. 160">
           </div>
         </div>
       </div>
@@ -102,13 +102,13 @@
         <div class="col-md-3">
           <div class="form-group">
             <label for="studentNumber">Year of Graduation</label>
-            <input id="reg-year-of-graduation" type="email" class="form-control" placeholder="YYYY">
+            <input id="reg-year-of-graduation" type="input" class="form-control" placeholder="YYYY">
           </div>
         </div>
         <div class="col-md-4">
           <div class="form-group">
             <label for="studentNumber">University Program</label>
-            <input id="reg-program" type="email" class="form-control" placeholder="">
+            <input id="reg-program" type="input" class="form-control" placeholder="">
           </div>
         </div>
       </div>
@@ -285,12 +285,12 @@
         <div class="col-md-1">
           <div class="form-group">
             <label for="studentNumber">&nbsp</label>
-            <button id="team-add-button" type="button" class="btn btn-primary">Add</button>
+            <button id="reg-team-add-button" type="button" class="btn btn-primary">Add</button>
           </div>
         </div>
       </div>
 
-      <table id="team-table" class="table table-condensed"></table>
+      <table id="reg-team-table" class="table table-condensed"></table>
 
       <!-- suspensions text area 
       <textarea id="reg-suspensions" class="form-control" rows="3" placeholder="Please indicate if you are presently under suspension from any sport organization or league."></textarea>
@@ -306,7 +306,10 @@
   <!-- new row -->
   <div class='row'>
     <div class="col-md-8"></div>
-    <div id="reg-buttons" class="col-md-4">
+    <div id="reg-buttons-1" class="col-md-2">
+      <!-- populates with buttons depending on form type (register, verify, approve/delete) -->
+    </div>
+    <div id="reg-buttons-2" class="col-md-2">
       <!-- populates with buttons depending on form type (register, verify, approve/delete) -->
     </div>
   </div>
@@ -321,101 +324,25 @@
       formType = "reg";
       
   function init() {
-    getTeamList();
+    // get target studentId and form type from the URL
+    currentId = cislib.getURLParameter("i");
+    formType = cislib.getURLParameter("t");
 
-    // populate known fields if verification or inbox form
-    currentId = getURLParameter("i");
-    formType = getURLParameter("t");
-    if (formType != "reg")
-      getKnownFormFields();
-
-    addButtons();
-  }
-
-  function getTeamList() {
-    $.ajax({
-      type     : 'POST',
-      url      : 'php/teammanager.php',
-      dataType : 'json',
-      data     : { 
-        action : "getList"
-      },
-      cache    : false,
-      success  : function( result ) {
-        var htmlString = "<option>Non-UofL Team</option>";
-        for (var i = 0; i < result.length; i++) {
-          teamList.push({
-            id   : result[i].t_id,
-            name : result[i].t_name
-          });
-          htmlString += "<option>" + result[i].t_name + "</option>";
-        }
-        $("#reg-team-list").html(htmlString);
-        $("#reg-team-list").change(teamChange);
-      },
-      error    : function(a, b, c) {
-        console.log('Error:');
-        console.log(a);
-        console.log(b);
-        console.log(c);
-      }
-    });
-  }
-
-  function addButtons() {
-    var htmlString = "";
-    switch (formType) {
-      case "reg":
-        break;
-
-      case "ver":
-        break;
-
-      case "box":
-        htmlString += "<button id='reg-approve-button' type='button' class='btn btn-lg btn-warning'>Approve</button>" +
-                      "<button id='reg-delete-button' type='button' class='btn btn-lg btn-danger'>Delete</button>";
-        $("#reg-buttons").html(htmlString);
-
-        //$("#reg-approve-button").click();
-        //$("#reg-delete-button").click();
-        break;
+    // populate known fields if verification or approval form
+    if (formType != "reg") {
+      var athleteAction = (formType == "ver") ? "getAthlete" : "getQueue";
+      cislib.managerRequest("athlete", athleteAction, currentId, populateKnownFormFields);
+    } else {
+      // populate studentId field
+      if (currentId)
+        $("#reg-student-number").val(currentId);
     }
-  }
+    // disable ability to change studentId
+    $("#reg-student-number").attr("disabled", "disabled");
 
-  function getURLParameter(token) {
-    var url = window.location.href,
-        parameters = url.split("?")[1].split("&");
-    for (var i = 0; i < parameters.length; i++) {
-      var split = parameters[i].split("=");
-      if (split[0] == token)
-        return split[1];
-    }
-    return "";
-  }
-
-  
-
-  function getKnownFormFields() {
-    var action = (formType == "ver") ? "getAthlete" : "getQueue";
-    $.ajax({
-      type     : 'POST',
-      url      : 'php/athletemanager.php',
-      dataType : 'json',
-      data     : { 
-        action    : action,
-        studentId : currentId
-      },
-      cache    : false,
-      success  : function( result ) {
-        populateKnownFormFields(result);
-      },
-      error    : function(a, b, c) {
-        console.log('Error:');
-        console.log(a);
-        console.log(b);
-        console.log(c);
-      }
-    });
+    // populate university team list on page and add appropriate buttons for form type
+    cislib.managerRequest("team", "getList", undefined, populateTeamList);
+    addButtonsAndEventListeners();
   }
 
   function populateKnownFormFields(result) {
@@ -452,11 +379,43 @@
       var team = teams[i].split(":");
       addTeam(team[0], team[1], team[2], team[3], team[4], team[5], team[6]);
     }
+    redrawTable();
   }
 
-  function addEventListeners() {
-    $("#team-add-button").click(addTeamClick);
-    $("#register-button").click(registerClick);
+  function populateTeamList(result) {
+    var htmlString = "<option>Non-UofL Team</option>";
+    for (var i = 0; i < result.length; i++) {
+      teamList.push({
+        id   : result[i].t_id,
+        name : result[i].t_name
+      });
+      htmlString += "<option>" + result[i].t_name + "</option>";
+    }
+    $("#reg-team-list").html(htmlString);
+    $("#reg-team-list").change(teamChange);
+  }
+
+  function addButtonsAndEventListeners() {
+    $("#reg-team-add-button").click(addButtonClick);
+    var htmlString = "";
+    switch (formType) {
+      case "reg":
+        $("#reg-buttons-2").html("<button id='reg-register-button' type='button' class='btn btn-lg btn-primary'>Register</button>");
+        $("#reg-register-button").click(registerButtonClick);
+        break;
+
+      case "ver":
+        $("#reg-buttons-2").html("<button id='reg-verify-button' type='button' class='btn btn-lg btn-primary'>Verify</button>");
+        $("#reg-verify-button").click(verifyButtonClick);
+        break;
+
+      case "box":
+        $("#reg-buttons-1").html("<button id='reg-approve-button' type='button' class='btn btn-lg btn-warning'>Approve</button>");
+        $("#reg-buttons-2").html("<button id='reg-delete-button' type='button' class='btn btn-lg btn-danger'>Delete</button>");
+        $("#reg-approve-button").click(approveButtonClick);
+        $("#reg-delete-button").click(deleteButtonClick);
+        break;
+    }
   }
 
   // == team history ==
@@ -471,8 +430,15 @@
     }
   }
 
+  function getSelectedTeamId() {
+    var selectedTeam = $("#reg-team-name").val();
+    for (var i = 0; i < teamList.length; i++)
+      if (teamList[i].name == selectedTeam)
+        return teamList[i].id;
+    return 0;
+  }
+
   function addTeam(startYear, endYear, teamId, teamName, position, jersey, charged) {
-    // store in temp array
     teamHistory.push({
       startYear : startYear,
       endYear   : endYear,
@@ -482,25 +448,23 @@
       jersey    : jersey,
       charged   : charged
     });
-
-    // redraw the table
-    redrawTable();
   }
 
-  function addTeamClick(event) {
+  function addButtonClick(event) {
     // validate input
     var years = $( "#reg-team-year" ).val().split("-"),
         startYear = years[0],
         endYear = years[1],
-        teamId = 0,
+        teamId = getSelectedTeamId(),
         teamName = $( "#reg-team-name" ).val(),
         position = $( "#reg-team-position" ).val(),
         jersey = $( "#reg-team-jersey" ).val(),
         charged = $( "#reg-team-charged" ).val();
     addTeam(startYear, endYear, teamId, teamName, position, jersey, charged);
+    redrawTable();
   }
 
-  function removeTeamClick( event ) {
+  function removeButtonClick( event ) {
     // remove delete listeners
     for (var j = 0; j < teamHistory.length; j++) {
       var id = "#team-entry-" + j;
@@ -520,33 +484,61 @@
     for (var i = 0; i < teamHistory.length; i++) {
       tableString += "<tr>";
       tableString += "<td>" + teamHistory[i].startYear + "-" + teamHistory[i].endYear + "</td>";
-
-      if (teamHistory[i].teamId != 0)
-        tableString += "<td>put uofl team name here</td>";
-      else
-        tableString += "<td>" + teamHistory[i].teamName + "</td>";
-
+      tableString += "<td>" + teamHistory[i].teamName + "</td>";
       tableString += "<td>" + teamHistory[i].position + "</td>";
       tableString += "<td>" + teamHistory[i].jersey + "</td>";
       tableString += "<td>" + teamHistory[i].charged + "</td>";
-      tableString += "<td><span id='team-entry-" + i + "'>remove</span></td>";
+      tableString += "<td><button id='team-entry-" + i + "' type='button' class='btn btn-xs btn-primary'>remove</button></td>";
       tableString += "</tr>";
     }
     tableString += "</tbody>";
-    $("#team-table").html(tableString);
+    $("#reg-team-table").html(tableString);
 
     // set delete listeners
     for (var j = 0; j < teamHistory.length; j++) {
       var id = "#team-entry-" + j;
-      $(id).click(removeTeamClick);
+      $(id).click(removeButtonClick);
     }
   }
 
   // == approve button ==
 
-  // == register button ==
+  // == button event listeners ==
 
-  function registerClick() {
+  function registerButtonClick(event) {
+    var athleteObject = getAthleteObject();
+    cislib.managerRequest("form", "register", athleteObject, undefined);
+  }
+
+  function verifyButtonClick(event) {
+
+  }
+
+  function approveButtonClick(event) {
+    var athleteObject = getAthleteObject();
+    cislib.managerRequest("form", "approve", athleteObject, function(result) {
+      if (result)
+        window.location.href = "?p=inbx&r=app";
+      else
+        window.location.href = "?p=inbx&r=appf";
+    });
+  }
+
+  function deleteButtonClick(event) {
+    if (event.target.innerHTML == "Delete") {
+      event.target.innerHTML = "Confirm";
+    } else {
+      cislib.managerRequest("form", "delete", currentId, function(result) {
+        if (result)
+          window.location.href = "?p=inbx&r=del";
+        else
+          window.location.href = "?p=inbx&r=delf";
+      });
+    }
+  }
+
+  function getAthleteObject() {
+    /*
     var studentId = $("#reg-student-number").val(),
         email = $("#reg-email").val(),
         lastName = $("#reg-last-name").val(),
@@ -573,55 +565,39 @@
         pPostal = $("#reg-permanent-postal").val(),
         pCountry = $("#reg-permanent-country").val(),
         pPhone = $("#reg-permanent-phone").val();
+    */
 
-    // send registration data to the server via ajax
-    $.ajax({
-      type     : 'POST',
-      url      : 'php/formmanager.php',
-      dataType : 'json',
-      data     : { 
-        action     : 'register',
+    // store the information as an object
+    return {
+      studentId  : $("#reg-student-number").val(),
+      lastName   : $("#reg-last-name").val(),
+      firstName  : $("#reg-first-name").val(),
+      initials   : $("#reg-initials").val(),
+      gender     : $("#reg-gender").val(),
+      dob        : $("#reg-date-of-birth").val(),
+      height     : $("#reg-height").val(),
+      weight     : $("#reg-weight").val(),
+      email      : $("#reg-email").val(),
+      highSchool : $("#reg-high-school").val(),
+      gradYear   : $("#reg-year-of-graduation").val(),
+      program    : $("#reg-program").val(),
 
-        studentId  : studentId,
-        lastName   : lastName,
-        firstName  : firstName,
-        initials   : initials,
-        gender     : gender,
-        dob        : dob,
-        height     : height,
-        weight     : weight,
-        email      : email,
-        highSchool : highSchool,
-        gradYear   : gradYear,
-        program    : program,
+      cStreet    : $("#reg-current-street").val(),
+      cCity      : $("#reg-current-city").val(),
+      cProvince  : $("#reg-current-province").val(),
+      cPostal    : $("#reg-current-postal").val(),
+      cCountry   : $("#reg-current-country").val(),
+      cPhone     : $("#reg-current-phone").val(),
 
-        cStreet    : cStreet,
-        cCity      : cCity,
-        cProvince  : cProvince,
-        cPostal    : cPostal,
-        cCountry   : cCountry,
-        cPhone     : cPhone,
+      pStreet    : $("#reg-permanent-street").val(),
+      pCity      : $("#reg-permanent-city").val(),
+      pProvince  : $("#reg-permanent-province").val(),
+      pPostal    : $("#reg-permanent-postal").val(),
+      pCountry   : $("#reg-permanent-country").val(),
+      pPhone     : $("#reg-permanent-phone").val(),
 
-        pStreet    : pStreet,
-        pCity      : pCity,
-        pProvince  : pProvince,
-        pPostal    : pPostal,
-        pCountry   : pCountry,
-        pPhone     : pPhone,
-
-        teamHist   : teamHistory
-      },
-      cache    : false,
-      success  : function( result ) {
-        console.log(result);
-      },
-      error    : function(a, b, c) {
-        console.log('Error:');
-        console.log(a);
-        console.log(b);
-        console.log(c);
-      }
-    });
+      teamHist   : teamHistory
+    };
   }
 
   init();

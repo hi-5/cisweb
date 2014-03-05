@@ -12,7 +12,7 @@
   function getQueue() {
     global $sql;
 
-    $studentId = mysqli_real_escape_string($sql, $_POST['studentId']);
+    $studentId = mysqli_real_escape_string($sql, $_POST['args']);
     $query = "SELECT * FROM athletequeue WHERE aq_studentId = '$studentId'";
     $result = mysqli_query($sql, $query);
     $row = mysqli_fetch_assoc($result);

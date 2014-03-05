@@ -13,7 +13,7 @@
     ?>
 
       <!-- show user name and logout button if logged in -->
-      <p class="navbar-text navbar-right">Signed in as <?php echo $_SESSION['username'];?> (<a href="php/logout.php">logout</a>)</p>
+      <p class="navbar-text navbar-right">Signed in as <?php echo $_SESSION['studentId'];?> (<a href="php/logout.php">logout</a>)</p>
 
     <?php
       } else {

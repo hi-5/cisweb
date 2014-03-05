@@ -25,27 +25,11 @@
 
   function init() {
     getInboxAmount();
+    cislib.managerRequest("inbox", "getAmount", undefined, updateBadge)
   }
 
-  function getInboxAmount() {
-    $.ajax({
-      type     : 'POST',
-      url      : 'php/inboxmanager.php',
-      dataType : 'json',
-      data     : { 
-        action : 'amount'
-      },
-      cache    : false,
-      success  : function( result ) {
-        $("#menu-inbox-badge").html(result);
-      },
-      error    : function(a, b, c) {
-        console.log('Error:');
-        console.log(a);
-        console.log(b);
-        console.log(c);
-      }
-    });
+  function updateBadge(result) {
+    $("#menu-inbox-badge").html(result);
   }
 
   init();

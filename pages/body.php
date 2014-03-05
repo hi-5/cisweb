@@ -5,7 +5,7 @@
   <?php
 
     // DEBUG - next 4 lines
-    $_SESSION['username'] = "012345678";
+    $_SESSION['studentId'] = "123456789";
     $_SESSION['loggedIn'] = true;
     $_SESSION['isAthlete'] = true;
     $_SESSION['isFaculty'] = true;
@@ -31,7 +31,8 @@
           if (isset($_GET['p'])) {
             switch ($_GET['p']) {
               case 'form' : $file = 'form.php'; break;
-              case 'inbx' : $file = 'inbox.php'; break;      
+              case 'inbx' : $file = 'inbox.php'; break; 
+              case 'srch' : $file = 'search.php'; break;     
               case 'sett' : $file = 'settings.php'; break;  
             }
           } else {
