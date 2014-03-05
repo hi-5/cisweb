@@ -11,7 +11,7 @@ $databaseusername ="mike";
 $databasepassword = "onetwo";
 $fieldseparator = ",";
 $lineseparator = "\n";
-$csvfile = "studentInfo.csv";
+$csvfile = "sports.csv";
 /********************************/
 /* Would you like to add an ampty field at the beginning of these records?
 /* This is useful if you have a table with the first field being an auto_increment integer
@@ -26,7 +26,7 @@ $addauto = 0;
 /* change the permissions, or execute at the prompt: touch output.sql && chmod 777 output.sql
 /********************************/
 $save = 1;
-$outputfile = "athletes.sql";
+$outputfile = "teams.sql";
 /********************************/
 
 
@@ -81,63 +81,7 @@ foreach(split($lineseparator,$csvcontent) as $line) {
 	Custom data formating code by Mike Paulson
 	/********************************/
 
-	//Parse date
-	$date = array();
-	$datestring = "";
-	if (isset($linearray[4]) && $linearray[4] != "") {
-		$date = explode("/", $linearray[4]);
-		if (isset($date[2])) {
-			$datestring = $date[2] . "-" . $date[0] . "-" . $date[1];
-		}
-		else {
-			echo "Date error on ID" . $linearray[0] . "<br />";
-		}
 
-
-		$linearray[4] = $datestring;
-	}
-
-
-	//Parse Height
-	$heightstring = "";
-	if (isset($linearray[5]) && $linearray[5] != "") {
-
-		$heightstring = $linearray[5];
-		$heightstring = preg_replace("/[^0-9,.]/", "", $heightstring);
-		$heightstring = substr_replace($heightstring, "''", 1, 0);
-		if (strlen($heightstring) > 3) $heightstring = substr_replace($heightstring, "\\\"", strlen($heightstring), 0);
-
-		$linearray[5] = $heightstring;
-	}
-
-	//Parse Weight
-	$weightstring = "";
-	if (isset($linearray[6]) && $linearray[6] != "") {
-
-		$weightstring = $linearray[6];
-		$weightstring = preg_replace("/[^0-9,.]/", "", $weightstring);
-
-		$linearray[6] = $weightstring;
-	}
-
-	//Parse postal code
-	if (isset($linearray[10])) {
-		$linearray[10] = str_replace(' ', '', $linearray[10]);
-		$linearray[10] = str_replace('-', '', $linearray[10]);
-	}
-	
-	if (isset($linearray[15])) {
-		$linearray[15] = str_replace(' ', '', $linearray[15]);
-		$linearray[15] = str_replace('-', '', $linearray[15]);
-	}
-
-	//Parse province
-	if (isset($linearray[15])) {
-		$linearray[14] = preg_replace("/[^A-Za-z0-9 ]/", '', $linearray[14]);
-	}
-
-	//Make it test data
-	//$linearray[1] = $linearray[0];
 
 	/***********************************
 	End of Custom data formating code
@@ -146,9 +90,9 @@ foreach(split($lineseparator,$csvcontent) as $line) {
 	$linemysql = implode("','",$linearray);
 	
 	if($addauto)
-		$query = "insert into $databasetable (a_studentId, a_lastName, a_firstName, a_gender, a_dob, a_height, a_weight, a_cStreet, a_cCity, a_cProvince, a_cPostalCode, a_cPhone, a_pStreet, a_pCity, a_pProvince, a_pPostalCode, a_pPhone, a_program) values('','$linemysql');";
+		$query = "insert into $databasetable (t_id, t_name) values('','$linemysql');";
 	else
-		$query = "insert into $databasetable (a_studentId, a_lastName, a_firstName, a_gender, a_dob, a_height, a_weight, a_cStreet, a_cCity, a_cProvince, a_cPostalCode, a_cPhone, a_pStreet, a_pCity, a_pProvince, a_pPostalCode, a_pPhone, a_program) values('$linemysql');";
+		$query = "insert into $databasetable (t_id, t_name) values('$linemysql');";
 	
 	$queries .= $query . "\n";
 
