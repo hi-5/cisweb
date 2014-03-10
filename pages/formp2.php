@@ -290,7 +290,19 @@
         </div>
       </div>
 
-      <table id="reg-team-table" class="table table-condensed"></table>
+      <table id="reg-team-table" class="table table-condensed">
+        <thead>
+          <tr>
+            <td>Year</td>
+            <td>Team</td>
+            <td>Position</td>
+            <td>Jersey</td>
+            <td>Charged</td>
+            <td> </td>
+          </tr>
+        </thead>
+        <tbody id="reg-team-table-body"></body>
+      </table>
 
       <!-- suspensions text area 
       <textarea id="reg-suspensions" class="form-control" rows="3" placeholder="Please indicate if you are presently under suspension from any sport organization or league."></textarea>
@@ -337,8 +349,14 @@
     // populate university team list on page and add appropriate buttons for form type
     cislib.managerRequest("team", "getList", undefined, populateTeamList);
 
+    // event listener for select box
+    $("#reg-team-list").change(teamSelectBoxChange);
+
     // button to add a team
-    $("#reg-team-add-button").click(addButtonClick);
+    $("#reg-team-add-button").click(addTeamButtonClick);
+
+    // hide team table
+    $("#reg-team-table").css("display", "none");
 
     switch (formType) {
 
@@ -352,7 +370,7 @@
         $("#reg-header").css("display", "none");
         $("#reg-buttons-2").html("<button id='reg-verify-button' type='button' class='btn btn-lg btn-primary'>Verify</button>");
         $("#reg-verify-button").click(verifyButtonClick);
-        cislib.managerRequest("athlete", "getAthlete", currentId, populateKnownFields);
+        cislib.managerRequest("form", "getAthlete", {id:currentId, queue:"no"}, populateKnownFields);
         break;
 
       case "upd":
@@ -360,7 +378,7 @@
         $("#reg-disclaimer").css("display", "none");
         $("#reg-buttons-2").html("<button id='reg-update-button' type='button' class='btn btn-lg btn-primary'>Update</button>");
         $("#reg-update-button").click(updateButtonClick);
-        cislib.managerRequest("athlete", "getAthlete", currentId, populateKnownFields);
+        cislib.managerRequest("form", "getAthlete", {id:currentId, queue:"no"}, populateKnownFields);
         break;
 
       case "app":
@@ -370,7 +388,7 @@
         $("#reg-buttons-2").html("<button id='reg-delete-button' type='button' class='btn btn-lg btn-danger'>Delete</button>");
         $("#reg-approve-button").click(approveButtonClick);
         $("#reg-delete-button").click(deleteButtonClick);
-        cislib.managerRequest("athlete", "getQueue", currentId, populateKnownFields);
+        cislib.managerRequest("form", "getAthlete", {id:currentId, queue:"yes"}, populateKnownFields);
         break;
     }
   }
@@ -404,22 +422,6 @@
     $("#reg-permanent-phone").val(result.pPhone);
 
     // add teams to js array
-    if (result.teams) { // only the queue table has the teams field
-
-      // parsing teams string from queue data
-      var teams = result.teams.split("|");
-      for (var i = 0; i < teams.length; i++) {
-        var team = teams[i].split(":");
-        addTeam(team[0], team[1], team[2], team[3], team[4], team[5], team[6]);
-      }
-      
-    } else { // the athletes table does not have the teams field
-
-
-
-    }
-    redrawTable();
-    
   }
 
   function populateTeamList(result) {
@@ -432,12 +434,50 @@
       htmlString += "<option>" + result[i].t_name + "</option>";
     }
     $("#reg-team-list").html(htmlString);
-    $("#reg-team-list").change(teamChange);
   }
 
   // == team history ==
 
-  function teamChange(event) {
+  function addTeam(year, teamId, teamName, position, jersey, charged) {
+
+    // add team to memory
+    teamHistory.push({
+      year     : year,
+      teamId   : teamId,
+      teamName : teamName,
+      position : position,
+      jersey   : jersey,
+      charged  : charged
+    });
+
+    // create a table entry
+    var tableString = "<tr id='reg-team-row-" + year + "'>";
+        tableString += "<td>" + year + "-" + (parseInt(year) + 1) + "</td>";
+        tableString += "<td>" + teamName + "</td>";
+        tableString += "<td>" + position + "</td>";
+        tableString += "<td>" + jersey + "</td>";
+        tableString += "<td>" + charged + "</td>";
+        tableString += "<td><button id='reg-team-remove-" + year + "' type='button' class='btn btn-xs btn-primary'>remove</button></td>";
+        tableString += "</tr>";
+    $("#reg-team-table-body").append(tableString);
+    $("#reg-team-remove-" + year).click(removeTeamButtonClick);
+    $("#reg-team-table").css("display", "block");
+  }
+
+  function removeTeam(year) {
+    for (var i = 0; i < teamHistory.length; i++)
+      if (teamHistory[i].year == year)
+        teamHistory.splice(i, 1);
+
+    // remove the table entry
+    $("#reg-team-row-" + year).remove();
+
+    // remove table if empty
+    if (teamHistory.length == 0)
+      $("#reg-team-table").css("display", "none");
+  }
+
+  function teamSelectBoxChange(event) {
     if (event.target.value == "Non-UofL Team") {
       $("#reg-team-name").val("");
       $("#reg-team-name").removeAttr("disabled");
@@ -455,20 +495,17 @@
     return 0;
   }
 
-  function addTeam(startYear, endYear, teamId, teamName, position, jersey, charged) {
-    teamHistory.push({
-      startYear : startYear,
-      endYear   : endYear,
-      teamId    : teamId,
-      teamName  : teamName,
-      position  : position,
-      jersey    : jersey,
-      charged   : charged
-    });
+  function getTeamByYear(year) {
+    for (var i = 0; i < teamHistory.length; i++)
+      if (teamHistory[i].year == year)
+        return teamHistory[i];
+    return undefined;
   }
 
-  function addButtonClick(event) {
-    // validate input
+  // == button event listeners ==
+
+   function addTeamButtonClick(event) {
+    // !!! validate input
     var years = $( "#reg-team-year" ).val().split("-"),
         startYear = years[0],
         endYear = years[1],
@@ -477,50 +514,37 @@
         position = $( "#reg-team-position" ).val(),
         jersey = $( "#reg-team-jersey" ).val(),
         charged = $( "#reg-team-charged" ).val();
-    addTeam(startYear, endYear, teamId, teamName, position, jersey, charged);
-    redrawTable();
+
+    // send team to server
+    var teamObject = {
+      queue     : (formType == "reg") ? "yes" : "no",
+      studentId : currentId,
+      year      : startYear,
+      teamId    : teamId,
+      teamName  : teamName,
+      position  : position,
+      jersey    : jersey,
+      charged   : charged
+    };
+    cislib.managerRequest("form", "addTeam", teamObject, function(result) {
+      addTeam(result['year'], result['teamId'], result['teamName'], result['position'], result['jersey'], result['charged']);
+    });
   }
 
-  function removeButtonClick( event ) {
-    // remove delete listeners
-    for (var j = 0; j < teamHistory.length; j++) {
-      var id = "#team-entry-" + j;
-      $(id).unbind();
-    }
+  function removeTeamButtonClick(event) {
+    $("#" + event.target.id).unbind();
 
-    // remove array entry
-    var index = event.target.id.substr(11);
-    teamHistory.splice(index, 1);
-
-    // redraw the table
-    redrawTable();
+    var year = event.target.id.substr(16);
+    console.log(year);
+    var teamObject = {
+      queue     : (formType == "reg") ? "yes" : "no",
+      studentId : currentId,
+      year      : year
+    };
+    cislib.managerRequest("form", "removeTeam", teamObject, function(result) {
+      removeTeam(result.year);
+    });
   }
-
-  function redrawTable() {
-    var tableString = "<thead><tr><td>Year</td><td>Team</td><td>Position</td><td>Jersey</td><td>Charged</td><td> </td></tr></thead><tbody>";
-    for (var i = 0; i < teamHistory.length; i++) {
-      tableString += "<tr>";
-      tableString += "<td>" + teamHistory[i].startYear + "-" + teamHistory[i].endYear + "</td>";
-      tableString += "<td>" + teamHistory[i].teamName + "</td>";
-      tableString += "<td>" + teamHistory[i].position + "</td>";
-      tableString += "<td>" + teamHistory[i].jersey + "</td>";
-      tableString += "<td>" + teamHistory[i].charged + "</td>";
-      tableString += "<td><button id='team-entry-" + i + "' type='button' class='btn btn-xs btn-primary'>remove</button></td>";
-      tableString += "</tr>";
-    }
-    tableString += "</tbody>";
-    $("#reg-team-table").html(tableString);
-
-    // set delete listeners
-    for (var j = 0; j < teamHistory.length; j++) {
-      var id = "#team-entry-" + j;
-      $(id).click(removeButtonClick);
-    }
-  }
-
-  // == approve button ==
-
-  // == button event listeners ==
 
   function registerButtonClick(event) {
     var athleteObject = getAthleteObject();
@@ -559,35 +583,6 @@
   }
 
   function getAthleteObject() {
-    /*
-    var studentId = $("#reg-student-number").val(),
-        email = $("#reg-email").val(),
-        lastName = $("#reg-last-name").val(),
-        firstName = $("#reg-first-name").val(),
-        initials = $("#reg-initials").val(),
-        gender = $("#reg-gender").val(),
-        dob = $("#reg-date-of-birth").val(),
-        height = $("#reg-height").val(),
-        weight = $("#reg-weight").val(),
-        highSchool = $("#reg-high-school").val(),
-        gradYear = $("#reg-year-of-graduation").val(),
-        program = $("#reg-program").val(),
-
-        cStreet = $("#reg-current-street").val(),
-        cCity = $("#reg-current-city").val(),
-        cProvince = $("#reg-current-province").val(),
-        cPostal = $("#reg-current-postal").val(),
-        cCountry = $("#reg-current-country").val(),
-        cPhone = $("#reg-current-phone").val(),
-
-        pStreet = $("#reg-permanent-street").val(),
-        pCity = $("#reg-permanent-city").val(),
-        pProvince = $("#reg-permanent-province").val(),
-        pPostal = $("#reg-permanent-postal").val(),
-        pCountry = $("#reg-permanent-country").val(),
-        pPhone = $("#reg-permanent-phone").val();
-    */
-
     // store the information as an object
     return {
       studentId  : $("#reg-student-number").val(),
@@ -615,12 +610,39 @@
       pProvince  : $("#reg-permanent-province").val(),
       pPostal    : $("#reg-permanent-postal").val(),
       pCountry   : $("#reg-permanent-country").val(),
-      pPhone     : $("#reg-permanent-phone").val(),
-
-      teamHist   : teamHistory
+      pPhone     : $("#reg-permanent-phone").val()
     };
   }
 
   init();
+
+  /*
+  var studentId = $("#reg-student-number").val(),
+      email = $("#reg-email").val(),
+      lastName = $("#reg-last-name").val(),
+      firstName = $("#reg-first-name").val(),
+      initials = $("#reg-initials").val(),
+      gender = $("#reg-gender").val(),
+      dob = $("#reg-date-of-birth").val(),
+      height = $("#reg-height").val(),
+      weight = $("#reg-weight").val(),
+      highSchool = $("#reg-high-school").val(),
+      gradYear = $("#reg-year-of-graduation").val(),
+      program = $("#reg-program").val(),
+
+      cStreet = $("#reg-current-street").val(),
+      cCity = $("#reg-current-city").val(),
+      cProvince = $("#reg-current-province").val(),
+      cPostal = $("#reg-current-postal").val(),
+      cCountry = $("#reg-current-country").val(),
+      cPhone = $("#reg-current-phone").val(),
+
+      pStreet = $("#reg-permanent-street").val(),
+      pCity = $("#reg-permanent-city").val(),
+      pProvince = $("#reg-permanent-province").val(),
+      pPostal = $("#reg-permanent-postal").val(),
+      pCountry = $("#reg-permanent-country").val(),
+      pPhone = $("#reg-permanent-phone").val();
+  */
 
 </script>
