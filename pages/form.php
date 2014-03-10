@@ -11,8 +11,9 @@
       break;
 
     // verification/admin
-    case "ver":
-    case "box":
+    case "ver": // verification
+    case "upd": // athlete update
+    case "app": // athlete approval
       include 'pages/formp2.php';
       break;
   }

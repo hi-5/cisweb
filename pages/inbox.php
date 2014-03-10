@@ -48,7 +48,7 @@
     var tableString = "";
     for (var i = 0; i < result.length; i++)
       tableString += "<tr><td>" + result[i]["id"] + "</td><td>" + result[i]["last"] + ", " + result[i]["first"] + "</td><td>" + result[i]["type"] + 
-                     "</td><td><a href='?p=form&t=box&i=" + result[i]["id"] + "'><button type='button' class='btn btn-xs btn-primary'>view</button></a></td></tr>";
+                     "</td><td><a href='?p=form&t=app&i=" + result[i]["id"] + "'><button type='button' class='btn btn-xs btn-primary'>view</button></a></td></tr>";
     $("#inbox-forms").html(tableString);
   }
 

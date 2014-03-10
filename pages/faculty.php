@@ -1,5 +1,4 @@
-<h1>Faculty</h1>
-
+<br />
 <!-- new row -->
 <div class="row">
   <div class="col-md-12">
@@ -8,31 +7,25 @@
     <div class="row">
       <div class="col-md-3">
         <div class="form-group">
-          <label for="studentNumber">Last Name</label>
+          <label>Last Name</label>
           <input class="form-control" id="faculty-last" placeholder="">
         </div>
       </div>
       <div class="col-md-3">
         <div class="form-group">
-          <label for="studentNumber">First Name</label>
+          <label>First Name</label>
           <input class="form-control" id="faculty-first" placeholder="">
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="form-group">
-          <label for="studentNumber">Role</label>
-          <input class="form-control" id="faculty-job" placeholder="">
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="form-group">
-          <label for="studentNumber">Phone</label>
+          <label>Phone</label>
           <input class="form-control" id="faculty-phone" placeholder="">
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="form-group">
-          <label for="studentNumber">Email</label>
+          <label>Email</label>
           <input class="form-control" id="faculty-email" placeholder="">
         </div>
       </div>
@@ -40,10 +33,27 @@
 
     <!-- new row -->
     <div class="row">
-      <div class="col-md-12" id="faculty-buttons">
-        <!-- dynamic buttons appear here -->
+      <div class="col-md-6"></div>
+      <div class="col-md-2">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Admin
+          </label>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Clerical
+          </label>
+        </div>
+      </div>
+      <div class="col-md-2">
+          <button type="button" class="btn btn-primary">Add</button>
       </div>
     </div>
+
+    <br />
 
     <!-- table of athletic faculty -->
     <table class="table table-condensed">
@@ -51,14 +61,12 @@
         <tr>
           <td>Last Name</td>
           <td>First Name</td>
-          <td>Role</td>
           <td>Phone</td>
           <td>Email</td>
         </tr>
       </thead>
       <tbody id="faculty-table">
         <tr>
-          <td> </td>
           <td> </td>
           <td> </td>
           <td> </td>

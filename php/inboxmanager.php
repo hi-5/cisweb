@@ -5,7 +5,7 @@
   switch ( $action ) {
 
     // get number of forms in queue
-    case 'amount':
+    case 'getAmount':
       getAmount();
       break;
 

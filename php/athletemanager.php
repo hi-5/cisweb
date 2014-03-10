@@ -7,6 +7,10 @@
     case 'getQueue':
       getQueue();
       break;
+    // get single athlete record from athletes
+    case 'getAthlete':
+      getAthlete();
+      break;
   }
 
   function getQueue() {
@@ -47,6 +51,10 @@
                   "teams"  => $row['aq_teams']);
 
     echo json_encode( $info );   
+  }
+
+  function getAthlete() {
+
   }
   
 ?>

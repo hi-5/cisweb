@@ -1,6 +1,6 @@
 
 
-<div class="row">
+<div id="reg-header" class="row">
   <div class="col-md-2">
     <img src="images/letterhead.png" />
   </div>
@@ -298,7 +298,7 @@
     </div>
   </div>
 
-  <div class="well">
+  <div id="reg-disclaimer" class="well">
     * The information collected in this form is used and disclosed by Canadian Interuniversity Sport("CIS") in accordance with the terms of CIS' Student Athlete Acknowledgement Form and CIS' Personal Information Protection Policy.<br />
     For further information about CIS' collection, use and disclosure of personal information, see our Personal Information Protection Policy at <a href="http://www.cis-sic.ca">www.cis-sic.ca</a>.
   </div>
@@ -327,25 +327,55 @@
     // get target studentId and form type from the URL
     currentId = cislib.getURLParameter("i");
     formType = cislib.getURLParameter("t");
+    initializeForm();
+  }
 
-    // populate known fields if verification or approval form
-    if (formType != "reg") {
-      var athleteAction = (formType == "ver") ? "getAthlete" : "getQueue";
-      cislib.managerRequest("athlete", athleteAction, currentId, populateKnownFormFields);
-    } else {
-      // populate studentId field
-      if (currentId)
-        $("#reg-student-number").val(currentId);
-    }
+  function initializeForm() {
     // disable ability to change studentId
     $("#reg-student-number").attr("disabled", "disabled");
 
     // populate university team list on page and add appropriate buttons for form type
     cislib.managerRequest("team", "getList", undefined, populateTeamList);
-    addButtonsAndEventListeners();
+
+    // button to add a team
+    $("#reg-team-add-button").click(addButtonClick);
+
+    switch (formType) {
+
+      case "reg":
+        $("#reg-student-number").val(currentId);
+        $("#reg-buttons-2").html("<button id='reg-register-button' type='button' class='btn btn-lg btn-primary'>Register</button>");
+        $("#reg-register-button").click(registerButtonClick);
+        break;
+
+      case "ver":
+        $("#reg-header").css("display", "none");
+        $("#reg-buttons-2").html("<button id='reg-verify-button' type='button' class='btn btn-lg btn-primary'>Verify</button>");
+        $("#reg-verify-button").click(verifyButtonClick);
+        cislib.managerRequest("athlete", "getAthlete", currentId, populateKnownFields);
+        break;
+
+      case "upd":
+        $("#reg-header").css("display", "none");
+        $("#reg-disclaimer").css("display", "none");
+        $("#reg-buttons-2").html("<button id='reg-update-button' type='button' class='btn btn-lg btn-primary'>Update</button>");
+        $("#reg-update-button").click(updateButtonClick);
+        cislib.managerRequest("athlete", "getAthlete", currentId, populateKnownFields);
+        break;
+
+      case "app":
+        $("#reg-header").css("display", "none");
+        $("#reg-disclaimer").css("display", "none");
+        $("#reg-buttons-1").html("<button id='reg-approve-button' type='button' class='btn btn-lg btn-warning'>Approve</button>");
+        $("#reg-buttons-2").html("<button id='reg-delete-button' type='button' class='btn btn-lg btn-danger'>Delete</button>");
+        $("#reg-approve-button").click(approveButtonClick);
+        $("#reg-delete-button").click(deleteButtonClick);
+        cislib.managerRequest("athlete", "getQueue", currentId, populateKnownFields);
+        break;
+    }
   }
 
-  function populateKnownFormFields(result) {
+  function populateKnownFields(result) {
     $("#reg-student-number").val(result.id);
     $("#reg-email").val(result.email);
     $("#reg-last-name").val(result.last);
@@ -373,13 +403,23 @@
     $("#reg-permanent-country").val(result.pCntr);
     $("#reg-permanent-phone").val(result.pPhone);
 
-    // team history
-    var teams = result.teams.split("|");
-    for (var i = 0; i < teams.length; i++) {
-      var team = teams[i].split(":");
-      addTeam(team[0], team[1], team[2], team[3], team[4], team[5], team[6]);
+    // add teams to js array
+    if (result.teams) { // only the queue table has the teams field
+
+      // parsing teams string from queue data
+      var teams = result.teams.split("|");
+      for (var i = 0; i < teams.length; i++) {
+        var team = teams[i].split(":");
+        addTeam(team[0], team[1], team[2], team[3], team[4], team[5], team[6]);
+      }
+      
+    } else { // the athletes table does not have the teams field
+
+
+
     }
     redrawTable();
+    
   }
 
   function populateTeamList(result) {
@@ -393,29 +433,6 @@
     }
     $("#reg-team-list").html(htmlString);
     $("#reg-team-list").change(teamChange);
-  }
-
-  function addButtonsAndEventListeners() {
-    $("#reg-team-add-button").click(addButtonClick);
-    var htmlString = "";
-    switch (formType) {
-      case "reg":
-        $("#reg-buttons-2").html("<button id='reg-register-button' type='button' class='btn btn-lg btn-primary'>Register</button>");
-        $("#reg-register-button").click(registerButtonClick);
-        break;
-
-      case "ver":
-        $("#reg-buttons-2").html("<button id='reg-verify-button' type='button' class='btn btn-lg btn-primary'>Verify</button>");
-        $("#reg-verify-button").click(verifyButtonClick);
-        break;
-
-      case "box":
-        $("#reg-buttons-1").html("<button id='reg-approve-button' type='button' class='btn btn-lg btn-warning'>Approve</button>");
-        $("#reg-buttons-2").html("<button id='reg-delete-button' type='button' class='btn btn-lg btn-danger'>Delete</button>");
-        $("#reg-approve-button").click(approveButtonClick);
-        $("#reg-delete-button").click(deleteButtonClick);
-        break;
-    }
   }
 
   // == team history ==
@@ -511,6 +528,10 @@
   }
 
   function verifyButtonClick(event) {
+
+  }
+
+  function updateButtonClick(event) {
 
   }
 
