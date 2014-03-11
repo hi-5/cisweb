@@ -13,6 +13,7 @@
     <a href="?p=inbx" class="list-group-item">
       Inbox<span id="menu-inbox-badge" class="badge pull-right"></span>
     </a>
+    <a href="?p=rprt" class="list-group-item">Reports</a>
     <a href="?p=sett" class="list-group-item">Settings</a>
   </div>
 

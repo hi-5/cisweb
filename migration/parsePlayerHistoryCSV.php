@@ -103,9 +103,9 @@ foreach(split($lineseparator,$csvcontent) as $line) {
 	$linemysql = implode("','",$linearray);
 	
 	if($addauto)
-		$query = "insert into $databasetable (ah_athleteId, ah_teamId, ah_year, ah_jersyNumber, ah_position, ah_teamName, ah_charged) values('','$linemysql');";
+		$query = "insert into $databasetable (ah_studentId, ah_teamId, ah_year, ah_jerseyNumber, ah_position, ah_teamName, ah_charged) values('','$linemysql');";
 	else
-		$query = "insert into $databasetable (ah_athleteId, ah_teamId, ah_year, ah_jersyNumber, ah_position, ah_teamName, ah_charged) values('$linemysql');";
+		$query = "insert into $databasetable (ah_studentId, ah_teamId, ah_year, ah_jerseyNumber, ah_position, ah_teamName, ah_charged) values('$linemysql');";
 	
 	$queries .= $query . "\n";
 
