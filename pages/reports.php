@@ -48,16 +48,25 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
+  <div class="col-md-12">
+    <div class="col-md-6">
       <label for="selected-attributes">Selected Attributes</label>
       <select multiple class="form-control" id="selected-attributes"></select>
+    </div>
+    <div class="col-md-2">
       <br />
-      <button type="button" class="btn btn-primary" id="excel-btn"><span class='glyphicon glyphicon-save'></span> Excel</button>
-      <button type="button" class="btn btn-primary" id="web-btn"><span class='glyphicon glyphicon-globe'></span> Web</button>
-      <button type="button" class="btn btn-primary" id="preview-btn"><span class='glyphicon glyphicon-eye-open'></span> Preview</button>
+      <br />
+      <button type="button" class="btn btn-primary" id="move-up-btn"><span class='glyphicon glyphicon-arrow-up'></span></button>
+      <br />
+      <button type="button" class="btn btn-primary" id="move-down-btn"><span class='glyphicon glyphicon-arrow-down'></span></button>
     </div>
   </div>
+</div>
+<br />
+<div class="row">
+  <button type="button" class="btn btn-primary" id="excel-btn"><span class='glyphicon glyphicon-save'></span> Excel</button>
+  <button type="button" class="btn btn-primary" id="web-btn"><span class='glyphicon glyphicon-globe'></span> Web</button>
+  <button type="button" class="btn btn-primary" id="preview-btn"><span class='glyphicon glyphicon-eye-open'></span> Preview</button>
 </div>
 
 <script type="text/javascript">
@@ -69,6 +78,8 @@
   function addEventListeners() {
     $("#add-attribute-btn").click(addAttribute);
     $("#remove-attribute-btn").click(removeAttribute);
+    $("#move-up-btn").click(moveAtriUp);
+    $("#move-down-btn").click(moveAtriDown);
     $("#preview-btn").click(createJSON);
   }
 
@@ -80,6 +91,16 @@
   //Removes an attribute from the bottom list
   function removeAttribute() {
     $('#selected-attributes option:selected').remove();
+  }
+
+  //Moves selected attribute up on the list
+  function moveAtriUp() {
+    $('#selected-attributes option:selected').prev().before($('#selected-attributes option:selected'));
+  }
+
+  //Moves selected attribute down on the list
+  function moveAtriDown() {
+    $('#selected-attributes option:selected').next().after($('#selected-attributes option:selected'));
   }
 
   //Populates the team selection list
