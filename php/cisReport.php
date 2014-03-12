@@ -49,6 +49,41 @@ ORDER BY athletehistory.ah_jerseyNumber";
 
 $athleteResult = mysqli_query($sql, $athleteQuery);
 
+//This part prints out the rows with the actual athlete information.
+while($row = mysqli_fetch_assoc($athleteResult)) {
+    $athleteRows .= "<Row ss:AutoFitHeight=\"0\" ss:Height=\"15.9375\" ss:StyleID=\"s80\">
+    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"Number\">" . $row['ah_jerseyNumber'] . "</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s84\"><Data ss:Type=\"String\">" . $row['a_firstName'] . "</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s84\"><Data ss:Type=\"String\">" . $row['a_lastName'] . "</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s85\"><Data ss:Type=\"String\">" . $row['ah_position'] . "</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">" . $row['a_height'] . "</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">" . $row['a_weight'] . "lbs</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"Number\">" . getEligibility($row['a_studentId'], $sql) . "</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s86\"><Data ss:Type=\"DateTime\">" . $row['a_dob'] . "</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">" . $row['a_program'] . "</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"Number\">0</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">Hometown</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s84\"><Data ss:Type=\"String\">" . $row['a_cProvince'] . "</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s84\"><Data ss:Type=\"String\">Last Team Played</Data><NamedCell
+      ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s87\"><NamedCell ss:Name=\"Print_Area\"/></Cell>
+    <Cell ss:StyleID=\"s87\"><NamedCell ss:Name=\"Print_Area\"/></Cell>
+   </Row>";
+}
+
+
 $workbook = "<?xml version=\"1.0\"?>
 <?mso-application progid=\"Excel.Sheet\"?>
 <Workbook xmlns=\"urn:schemas-microsoft-com:office:spreadsheet\"
@@ -169,8 +204,8 @@ $workbook = "<?xml version=\"1.0\"?>
    <Borders>
     <Border ss:Position=\"Bottom\" ss:LineStyle=\"Continuous\" ss:Weight=\"1\"/>
     <Border ss:Position=\"Left\" ss:LineStyle=\"Continuous\" ss:Weight=\"1\"/>
-    <Border ss:Position=\"Right\" ss:LineStyle=\"Continuous\" ss:Weight=\"1\"/
->    <Border ss:Position=\"Top\" ss:LineStyle=\"Continuous\" ss:Weight=\"1\"/>
+    <Border ss:Position=\"Right\" ss:LineStyle=\"Continuous\" ss:Weight=\"1\"/>
+    <Border ss:Position=\"Top\" ss:LineStyle=\"Continuous\" ss:Weight=\"1\"/>
    </Borders>
    <Font ss:FontName=\"Times New Roman\" x:Family=\"Roman\" ss:Size=\"9\" ss:Bold=\"1\"/>
    <Interior ss:Color=\"#D9D9D9\" ss:Pattern=\"Solid\"/>
@@ -562,43 +597,6 @@ $docFooter = "<Row ss:AutoFitHeight=\"0\" ss:Height=\"24.9375\" ss:StyleID=\"s71
   </WorksheetOptions>
  </Worksheet>
 </Workbook>";
-
-
-//This part prints out the rows with the actual athlete information.
-while($row = mysqli_fetch_assoc($athleteResult)) {
-    $athleteRows .= "<Row ss:AutoFitHeight=\"0\" ss:Height=\"15.9375\" ss:StyleID=\"s80\">
-    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"Number\">" . $row['ah_jerseyNumber'] . "</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s84\"><Data ss:Type=\"String\">" . $row['a_firstName'] . "</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s84\"><Data ss:Type=\"String\">" . $row['a_lastName'] . "</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s85\"><Data ss:Type=\"String\">" . $row['ah_position'] . "</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">" . $row['a_height'] . "</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">" . $row['a_weight'] . "lbs</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"Number\">" . getEligibility($row['a_studentId'], $sql) . "</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s86\"><Data ss:Type=\"DateTime\">" . $row['a_dob'] . "</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">" . $row['a_program'] . "</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"Number\">0</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">Hometown</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s84\"><Data ss:Type=\"String\">" . $row['a_cProvince'] . "</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s84\"><Data ss:Type=\"String\">Last Team Played</Data><NamedCell
-      ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s87\"><NamedCell ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s87\"><NamedCell ss:Name=\"Print_Area\"/></Cell>
-   </Row>";
-}
-
-
 
 header("Content-type: application/octet-stream");
 header("Content-Disposition: attachment; filename=$filename.xml");
