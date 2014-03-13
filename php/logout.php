@@ -13,6 +13,8 @@
   }
 
   session_destroy();
-  header( "Location: ../index.php" );
+
+  if ($_GET[''])
+    header( "Location: ../index.php?n=reg" );
 
 ?>

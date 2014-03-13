@@ -1,5 +1,3 @@
-
-
 <div id="reg-header" class="row">
   <div class="col-md-2">
     <img src="images/letterhead.png" />
@@ -343,11 +341,11 @@
   }
 
   function initializeForm() {
-    // disable ability to change studentId
-    $("#reg-student-number").attr("disabled", "disabled");
-
     // populate university team list on page and add appropriate buttons for form type
     cislib.managerRequest("team", "getList", undefined, populateTeamList);
+
+    // disable ability to change studentId
+    $("#reg-student-number").attr("disabled", "disabled");
 
     // event listener for select box
     $("#reg-team-list").change(teamSelectBoxChange);
@@ -356,16 +354,18 @@
     $("#reg-team-add-button").click(addTeamButtonClick);
 
     // hide team table
-    $("#reg-team-table").css("display", "none");
+    $("#reg-team-table").css("display", "none");  
 
     switch (formType) {
 
+      // registration form
       case "reg":
         $("#reg-student-number").val(currentId);
         $("#reg-buttons-2").html("<button id='reg-register-button' type='button' class='btn btn-lg btn-primary'>Register</button>");
         $("#reg-register-button").click(registerButtonClick);
         break;
 
+      // verification form
       case "ver":
         $("#reg-header").css("display", "none");
         $("#reg-buttons-2").html("<button id='reg-verify-button' type='button' class='btn btn-lg btn-primary'>Verify</button>");
@@ -373,6 +373,7 @@
         cislib.managerRequest("form", "getAthlete", {id:currentId, queue:"no"}, populateKnownFields);
         break;
 
+      // update form
       case "upd":
         $("#reg-header").css("display", "none");
         $("#reg-disclaimer").css("display", "none");
@@ -381,6 +382,7 @@
         cislib.managerRequest("form", "getAthlete", {id:currentId, queue:"no"}, populateKnownFields);
         break;
 
+      // approval form
       case "app":
         $("#reg-header").css("display", "none");
         $("#reg-disclaimer").css("display", "none");
@@ -394,34 +396,47 @@
   }
 
   function populateKnownFields(result) {
-    $("#reg-student-number").val(result.id);
-    $("#reg-email").val(result.email);
-    $("#reg-last-name").val(result.last);
-    $("#reg-first-name").val(result.first);
-    $("#reg-initials").val(result.init);
-    $("#reg-gender").val(result.gender);
-    $("#reg-date-of-birth").val(result.dob);
-    $("#reg-height").val(result.height);
-    $("#reg-weight").val(result.weight);
-    $("#reg-high-school").val(result.high);
-    $("#reg-year-of-graduation").val(result.grad);
-    $("#reg-program").val(result.prog);
+    var infoPrefix = result[0],
+        info = result[1];
+    $("#reg-student-number").val(info[infoPrefix + "studentId"]);
+    $("#reg-email").val(info[infoPrefix + "email"]);
+    $("#reg-last-name").val(info[infoPrefix + "lastName"]);
+    $("#reg-first-name").val(info[infoPrefix + "firstName"]);
+    $("#reg-initials").val(info[infoPrefix + "initials"]);
+    $("#reg-gender").val(info[infoPrefix + "gender"]);
+    $("#reg-date-of-birth").val(info[infoPrefix + "dob"]);
+    $("#reg-height").val(info[infoPrefix + "height"]);
+    $("#reg-weight").val(info[infoPrefix + "weight"]);
+    $("#reg-high-school").val(info[infoPrefix + "highSchool"]);
+    $("#reg-year-of-graduation").val(info[infoPrefix + "gradYear"]);
+    $("#reg-program").val(info[infoPrefix + "program"]);
 
-    $("#reg-current-street").val(result.cStrt);
-    $("#reg-current-city").val(result.cCity);
-    $("#reg-current-province").val(result.cProv);
-    $("#reg-current-postal").val(result.cPost);
-    $("#reg-current-country").val(result.cCntr);
-    $("#reg-current-phone").val(result.cPhone);
+    $("#reg-current-street").val(info[infoPrefix + "cStreet"]);
+    $("#reg-current-city").val(info[infoPrefix + "cCity"]);
+    $("#reg-current-province").val(info[infoPrefix + "cProvince"]);
+    $("#reg-current-postal").val(info[infoPrefix + "cPostalCode"]);
+    $("#reg-current-country").val(info[infoPrefix + "cCountry"]);
+    $("#reg-current-phone").val(info[infoPrefix + "cPhone"]);
 
-    $("#reg-permanent-street").val(result.pStrt);
-    $("#reg-permanent-city").val(result.pCity);
-    $("#reg-permanent-province").val(result.pProv);
-    $("#reg-permanent-postal").val(result.pPost);
-    $("#reg-permanent-country").val(result.pCntr);
-    $("#reg-permanent-phone").val(result.pPhone);
+    $("#reg-permanent-street").val(info[infoPrefix + "pStreet"]);
+    $("#reg-permanent-city").val(info[infoPrefix + "pCity"]);
+    $("#reg-permanent-province").val(info[infoPrefix + "pProvince"]);
+    $("#reg-permanent-postal").val(info[infoPrefix + "pPostalCode"]);
+    $("#reg-permanent-country").val(info[infoPrefix + "pCountry"]);
+    $("#reg-permanent-phone").val(info[infoPrefix + "pPhone"]);
 
     // add teams to js array
+    var histPrefix = result[2];
+    for (var i = 3; i < result.length; i++) {
+      addTeam(
+        result[i][histPrefix + "year"],
+        result[i][histPrefix + "teamId"],
+        result[i][histPrefix + "teamName"],
+        result[i][histPrefix + "position"],
+        result[i][histPrefix + "jerseyNumber"],
+        result[i][histPrefix + "charged"]
+      );
+    }
   }
 
   function populateTeamList(result) {
@@ -439,6 +454,12 @@
   // == team history ==
 
   function addTeam(year, teamId, teamName, position, jersey, charged) {
+
+    // format charged
+    if (charged == "1")
+      charged = "yes";
+    else if (charged == "0")
+      charged = "no";
 
     // add team to memory
     teamHistory.push({
@@ -461,6 +482,8 @@
         tableString += "</tr>";
     $("#reg-team-table-body").append(tableString);
     $("#reg-team-remove-" + year).click(removeTeamButtonClick);
+
+    // make the team table visible
     $("#reg-team-table").css("display", "block");
   }
 
@@ -517,7 +540,7 @@
 
     // send team to server
     var teamObject = {
-      queue     : (formType == "reg") ? "yes" : "no",
+      queue     : (formType == "reg" || formType == "app") ? "yes" : "no",
       studentId : currentId,
       year      : startYear,
       teamId    : teamId,
@@ -535,9 +558,8 @@
     $("#" + event.target.id).unbind();
 
     var year = event.target.id.substr(16);
-    console.log(year);
     var teamObject = {
-      queue     : (formType == "reg") ? "yes" : "no",
+      queue     : (formType == "reg" || formType == "app") ? "yes" : "no",
       studentId : currentId,
       year      : year
     };
@@ -548,7 +570,12 @@
 
   function registerButtonClick(event) {
     var athleteObject = getAthleteObject();
-    cislib.managerRequest("form", "register", athleteObject, undefined);
+    cislib.managerRequest("form", "register", athleteObject, function(result) {
+      if (result)
+        window.location.href = "?n=regs";
+      else
+        window.location.href = "?n=regf";
+    });
   }
 
   function verifyButtonClick(event) {
@@ -556,7 +583,13 @@
   }
 
   function updateButtonClick(event) {
-
+    var athleteObject = getAthleteObject();
+    cislib.managerRequest("form", "update", athleteObject, function(result) {
+      if (result)
+        window.location.href = "?p=srch&r=upds";
+      else
+        window.location.href = "?p=srch&r=updf";
+    });
   }
 
   function approveButtonClick(event) {

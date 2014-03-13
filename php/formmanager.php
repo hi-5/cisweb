@@ -33,6 +33,11 @@
       delete();
       break;
 
+    // update athlete
+    case "update":
+      update();
+      break;
+
     // get single athlete record
     case "getAthlete":
       getAthlete();
@@ -153,27 +158,22 @@
     // create athlete record
     $query = "INSERT INTO athletes VALUES ($studentId, '$lastName', '$firstName', '$initials', '$gender', '$dob', '$height', 
               '$weight', '$email', '$highSchool', $gradYear, '$program', '$cStreet', '$cCity', '$cProvince', '$cPostal', '$cCountry', 
-              '$cPhone', '$pStreet', '$pCity', '$pProvince', '$pPostal', '$pCountry', '$pPhone')";
+              '$cPhone', '$pStreet', '$pCity', '$pProvince', '$pPostal', '$pCountry', '$pPhone');";
     $result = mysqli_query($sql, $query);
 
     // create athlete history records
-    for ($i = 0; $i < count($_POST['args']['teamHist']); $i++) {
-      $year = mysqli_real_escape_string($sql, $_POST['args']['teamHist'][$i]['startYear']);
-      $teamId = mysqli_real_escape_string($sql, $_POST['args']['teamHist'][$i]['teamId']);
-      $teamName = mysqli_real_escape_string($sql, $_POST['args']['teamHist'][$i]['teamName']);
-      $position = mysqli_real_escape_string($sql, $_POST['args']['teamHist'][$i]['position']);
-      $jersey = mysqli_real_escape_string($sql, $_POST['args']['teamHist'][$i]['jersey']);
-      $charged = ($_POST['args']['teamHist'][$i]['charged'] == "yes") ? 1 : 0;
-      $query = "INSERT INTO athletehistory (ah_studentId, ah_teamId, ah_teamName, ah_year, ah_position, ah_jerseyNumber, ah_charged) 
-                VALUES ($studentId, $teamId, '$teamName', $year, '$position', $jersey, $charged)";
-      $result = mysqli_query($sql, $query);
-    }
+    $query = "INSERT INTO athletehistory (ah_studentId, ah_teamId, ah_teamName, ah_year, ah_position, ah_jerseyNumber, ah_charged) SELECT aqh_studentId, aqh_teamId, aqh_teamName, aqh_year, aqh_position, aqh_jerseyNumber, aqh_charged FROM athletequeuehistory WHERE aqh_studentId = $studentId";
+    $result = mysqli_query($sql, $query);
 
-    // delete record from queue
+    // delete athlete record from queue
     $query = "DELETE FROM athletequeue WHERE aq_studentId = $studentId";
     $result = mysqli_query($sql, $query);
+
+    // delete athlete record history from queue
+    $query = "DELETE FROM athletequeuehistory WHERE aqh_studentId = $studentId";
+    $result = mysqli_query($sql, $query);
     
-    echo 1;
+    echo $result;
   }
 
   function delete() {
@@ -181,6 +181,48 @@
 
     $studentId = mysqli_real_escape_string($sql, $_POST['args']);
     $query = "DELETE FROM athletequeue WHERE aq_studentId = $studentId";
+    $result = mysqli_query($sql, $query);
+
+    echo $result;
+  }
+
+  function update() {
+    global $sql;
+
+    // get form information from post
+    $studentId = mysqli_real_escape_string($sql, $_POST['args']['studentId']);
+    $lastName = mysqli_real_escape_string($sql, $_POST['args']['lastName']);
+    $firstName = mysqli_real_escape_string($sql, $_POST['args']['firstName']);
+    $initials = mysqli_real_escape_string($sql, $_POST['args']['initials']);
+    $gender = mysqli_real_escape_string($sql, $_POST['args']['gender']);
+    $dob = mysqli_real_escape_string($sql, $_POST['args']['dob']);
+    $height = mysqli_real_escape_string($sql, $_POST['args']['height']);
+    $weight = mysqli_real_escape_string($sql, $_POST['args']['weight']);
+    $email = mysqli_real_escape_string($sql, $_POST['args']['email']);
+    $highSchool = mysqli_real_escape_string($sql, $_POST['args']['highSchool']);
+    $gradYear = mysqli_real_escape_string($sql, $_POST['args']['gradYear']);
+    $program = mysqli_real_escape_string($sql, $_POST['args']['program']);
+
+    $cStreet = mysqli_real_escape_string($sql, $_POST['args']['cStreet']);
+    $cCity = mysqli_real_escape_string($sql, $_POST['args']['cCity']);
+    $cProvince = mysqli_real_escape_string($sql, $_POST['args']['cProvince']);
+    $cPostal = mysqli_real_escape_string($sql, $_POST['args']['cPostal']);
+    $cCountry = mysqli_real_escape_string($sql, $_POST['args']['cCountry']);
+    $cPhone = mysqli_real_escape_string($sql, $_POST['args']['cPhone']);
+
+    $pStreet = mysqli_real_escape_string($sql, $_POST['args']['pStreet']);
+    $pCity = mysqli_real_escape_string($sql, $_POST['args']['pCity']);
+    $pProvince = mysqli_real_escape_string($sql, $_POST['args']['pProvince']);
+    $pPostal = mysqli_real_escape_string($sql, $_POST['args']['pPostal']);
+    $pCountry = mysqli_real_escape_string($sql, $_POST['args']['pCountry']);
+    $pPhone = mysqli_real_escape_string($sql, $_POST['args']['pPhone']);
+
+    $query = "UPDATE athletes SET a_lastName = '$lastName', a_firstName = '$firstName', a_initials = '$initials', 
+              a_gender = '$gender', a_dob = '$dob', a_height = '$height', a_weight = '$weight', a_email = '$email', 
+              a_highSchool = '$highSchool', a_gradYear = '$gradYear', a_program = '$program', a_cStreet = '$cStreet',
+              a_cCity = '$cCity', a_cProvince = '$cProvince', a_cPostalCode = '$cPostal', a_cCountry = '$cCountry',
+              a_cPhone = '$cPhone', a_pStreet = '$pStreet', a_pCity = '$pCity', a_pProvince = '$pProvince', 
+              a_pPostalCode = '$pPostal', a_pCountry = '$pCountry', a_pPhone = '$pPhone' WHERE a_studentId = $studentId";
     $result = mysqli_query($sql, $query);
 
     echo $result;
@@ -194,7 +236,7 @@
     $queue = ($_POST['args']['queue'] == "yes") ? true : false;
 
     // get athlete information
-    $info = array();
+    $info = array(($queue) ? "aq_" : "a_");
     if ($queue)
       $query = "SELECT * FROM athletequeue WHERE aq_studentId = '$studentId'";
     else
@@ -204,7 +246,7 @@
     $info[] = $row;
     
     // get athlete history
-    $history = array();
+    $history = array(($queue) ? "aqh_" : "ah_");
     if ($queue)
       $query = "SELECT * FROM athletequeuehistory WHERE aqh_studentId = '$studentId'";
     else
