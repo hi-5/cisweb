@@ -2,7 +2,7 @@
 
 
 
-//Function queries the database to determine the athletes current years charged and returns answer. Expects the athletes studentId.
+//Function queries the database to determine the athletes current years charged and returns answer. Expects the athletes studentId and the sql.
 function getEligibility($studentId, $sql) {
 
 	$eligQuery;
