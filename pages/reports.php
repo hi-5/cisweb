@@ -128,6 +128,7 @@
     $("#new-report-btn").click(toggleBuilder);
     $("#cancel-report-btn").click(toggleBuilder);
     $("#save-report-btn").click(saveReport);
+     $("#del-report-btn").click(deleteReport);
     $("#report-select").change(getReportString);
 
   }
@@ -224,12 +225,12 @@
 
     //start JSON string
     var js = "{";
-    js += "\"order\": " + "\"" + order + "\","
-    js += "\"team\": " + "\"" + team + "\","
-    js += "\"length\": " + "\"" + length + "\","
-    js += "\"year\": " + "\"" + year + "\","
-    js += "\"format\": " + "\"" + format + "\","
-    js += "\"attributes\": {"
+    js += "\"order\": " + "\"" + order + "\",";
+    js += "\"team\": " + "\"" + team + "\",";
+    js += "\"length\": " + "\"" + length + "\",";
+    js += "\"year\": " + "\"" + year + "\",";
+    js += "\"format\": " + "\"" + format + "\",";
+    js += "\"attributes\": {";
 
     for (var i = 0; i < length; i++) {
 
@@ -256,6 +257,7 @@
   //then places the JSON query string into the holder.
   function getReportString() {
     var reportId = $("#report-select option:selected").val();
+    // console.log("report ID: " + reportId);
     $.ajax({
         type     : 'POST',
         url      : 'php/reportsLib.php',
@@ -264,6 +266,7 @@
                     id: reportId},
         cache    : false,
         success  : function(result) {
+          // console.log("Result: " + result);
           $("#json-holder").val(result.r_string);
         },
         error    : function(a, b, c) {
@@ -279,6 +282,7 @@
   //This is required because the database stores the entire JSON query 
   // string including the year and team when it was created
   function adjustString(json) {
+    console.log(json);
     var obj = JSON.parse(json);
     obj.team = 1;
     obj.year = $('#year-select option:selected').val();
@@ -310,6 +314,27 @@
     }); 
   }
 
+  function deleteReport() {
+    var reportId = $("#report-select option:selected").val();
+    $.ajax({
+        type     : 'POST',
+        url      : 'php/reportsLib.php',
+        dataType : 'json',
+        data     : {action: "getString",
+                    id: reportId},
+        cache    : false,
+        success  : function(result) {
+          
+        },
+        error    : function(a, b, c) {
+          console.log('Error:');
+          console.log(a);
+          console.log(b);
+          console.log(c);
+        }
+    }); 
+  }
+
   //Does AJAX request to generate a sample table of the report on same page
   function previewReport() {
     var mode = $("#mode-holder").val();
@@ -323,7 +348,7 @@
     }
     
     var json = $("#json-holder").val();
-    console.log(json);
+    // console.log(json);
 
     $.ajax({
       type     : 'POST',
@@ -331,6 +356,7 @@
       data     : {"js": json},
       cache    : false,
       success  : function(result) {
+        console.log(result);
         $("#preview-holder").html(result)
       },
       error    : function(a, b, c) {

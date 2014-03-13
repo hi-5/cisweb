@@ -6,6 +6,8 @@ include "eligibility.php";
 global $sql;
 
 $js = $_POST['js'];
+
+$js = stripslashes($js);
 $js = json_decode($js, true);
 
 $order; //Sort Order
@@ -62,7 +64,7 @@ ORDER BY $order";
 
 //start table
 $table .= "<table class='table table-striped'>\n";
-$table .= $header;
+$table .= "<thead>" . $header . "</thead>";
 
 $result = mysqli_query($sql, $query);
 
