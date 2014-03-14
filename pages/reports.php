@@ -39,12 +39,12 @@
     <option value="athletehistory.ah_jerseyNumber">Jersey Number</option>
     <option value="athletehistory.ah_charged">Eligibility Charged</option>
     <option value="YOE">Year of Eligibility</option>
-    <option value="athletes.a_cStreet">Current Street</option>
-    <option value="athletes.a_cCity">Current City</option>
-    <option value="athletes.a_cProvince">Current Province</option>
-    <option value="athletes.a_cPostalCode">Current Postal Code</option>
-    <option value="athletes.a_cCountry">Current Country</option>
-    <option value="athletes.a_cPhone">Current Phone Number</option>
+    <option value="athletes.a_cStreet">Street</option>
+    <option value="athletes.a_cCity">City</option>
+    <option value="athletes.a_cProvince">Province</option>
+    <option value="athletes.a_cPostalCode">Postal Code</option>
+    <option value="athletes.a_cCountry">Country</option>
+    <option value="athletes.a_cPhone">Phone Number</option>
     <option value="athletes.a_pStreet">Permanent Street</option>
     <option value="athletes.a_pCity">Permanent City</option>
     <option value="athletes.a_pProvince">Permanent Province</option>
@@ -81,7 +81,7 @@
 </div>
 <br />
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
     <button type="button" class="btn btn-primary" id="excel-btn"><span class='glyphicon glyphicon-save'></span> Excel</button>
     <button type="button" class="btn btn-primary" id="web-btn"><span class='glyphicon glyphicon-globe'></span> Web</button>
     <button type="button" class="btn btn-primary" id="preview-btn"><span class='glyphicon glyphicon-eye-open'></span> Preview</button>
@@ -97,13 +97,13 @@
 </div>
 
 <!-- Hidden info used in JS goes here -->
-<form id="web-form" method="post" action="/php/report.php" class="hidden">
+<form id="web-form" method="post" action="/php/generateReport.php" target class="hidden">
 <!-- Holds JSON string for POST -->
 <input type="text" name="js" id="json-holder">
 <!-- Holds format type -->
 <input type="text" name="format" id="format-holder">
 <!-- Holds mode (custom or saved) -->
-<input type="text" name="format" id="mode-holder" value="saved">
+<input type="text" name="mode" id="mode-holder" value="saved">
 </form>
 
 <script type="text/javascript">
@@ -111,6 +111,7 @@
   function init() {
     addEventListeners();
     populateReportList();
+    cislib.managerRequest("team", "getList", undefined, populateTeamList);
 
     for (i = new Date().getFullYear(); i > 1900; i--) {
       $('#year-select').append($('<option />').val(i).html(i + "-" + (i+1)));
@@ -128,9 +129,8 @@
     $("#new-report-btn").click(toggleBuilder);
     $("#cancel-report-btn").click(toggleBuilder);
     $("#save-report-btn").click(saveReport);
-     $("#del-report-btn").click(deleteReport);
+    $("#del-report-btn").click(deleteReport);
     $("#report-select").change(getReportString);
-
   }
 
   //Adds and attribute to the bottom list and order select
@@ -160,7 +160,11 @@
 
   //Populates the team selection list
   function populateTeamList(result) {
-
+    var htmlString = "";
+    for (var i = 0; i < result.length; i++) {
+      htmlString += "<option value='" + result[i].t_id + "'>" + result[i].t_name + "</option>";
+    }
+    $("#team-list").html(htmlString);
   }
 
   //Populates the report selection list with all reports in the DB
@@ -211,7 +215,7 @@
   //creates a JSON object from all attributes in the selected box
   //as well as the year, order and team selected.
   function createJSON() {
-    
+    var mode = $("#mode-holder").val();
     var colName;
     var colHeader;
     var order;
@@ -219,9 +223,12 @@
     var length = $('#selected-attributes option').size();
     var year = $('#year-select option:selected').val();
     var format = $("#format-holder").val();
+    var teamName = $("#team-list option:selected").html();
+    if (mode == "saved") var report = $("#report-select option:selected").html();
+    else if (mode == "new") var report = $("#new-report-name").val();
 
     order = $('#order-select option:selected').val();
-    team = 1;
+    team = $("#team-list option:selected").val();
 
     //start JSON string
     var js = "{";
@@ -230,6 +237,8 @@
     js += "\"length\": " + "\"" + length + "\",";
     js += "\"year\": " + "\"" + year + "\",";
     js += "\"format\": " + "\"" + format + "\",";
+    js += "\"teamName\": " + "\"" + teamName + "\",";
+    js += "\"report\": " + "\"" + report + "\",";
     js += "\"attributes\": {";
 
     for (var i = 0; i < length; i++) {
@@ -257,7 +266,6 @@
   //then places the JSON query string into the holder.
   function getReportString() {
     var reportId = $("#report-select option:selected").val();
-    // console.log("report ID: " + reportId);
     $.ajax({
         type     : 'POST',
         url      : 'php/reportsLib.php',
@@ -266,7 +274,6 @@
                     id: reportId},
         cache    : false,
         success  : function(result) {
-          // console.log("Result: " + result);
           $("#json-holder").val(result.r_string);
         },
         error    : function(a, b, c) {
@@ -282,19 +289,27 @@
   //This is required because the database stores the entire JSON query 
   // string including the year and team when it was created
   function adjustString(json) {
-    console.log(json);
     var obj = JSON.parse(json);
-    obj.team = 1;
+    var mode = $("#mode-holder").val();
+    obj.team = $("#team-list option:selected").val();
     obj.year = $('#year-select option:selected').val();
+    obj.teamName = $("#team-list option:selected").html();
+    if (mode == "saved") obj.report = $("#report-select option:selected").html();
+    else if (mode == "new") obj.report = $("#new-report-name").val();
     obj.format = $("#format-holder").val();
     var string = JSON.stringify(obj);
     return string;
 
   }
 
+  //Saves the current report in the builder to the DB
   function saveReport() {
     var json = createJSON();
     var reportName = $("#new-report-name").val();
+    if (reportName == "") {
+      $("#preview-holder").html("Please enter a name for the report.");
+      return;
+    }
     $.ajax({
       type     : 'POST',
       url      : 'php/reportsLib.php',
@@ -303,7 +318,9 @@
                   string: json},
       cache    : false,
       success  : function(result) {
-        $("#preview-holder").html(result);
+        toggleBuilder();
+        populateReportList();
+        $("#preview-holder").html("Report saved");
       },
       error    : function(a, b, c) {
         console.log('Error:');
@@ -335,7 +352,7 @@
     }); 
   }
 
-  //Does AJAX request to generate a sample table of the report on same page
+  //Does AJAX request to generate a sample table of the selected report
   function previewReport() {
     var mode = $("#mode-holder").val();
     $("#format-holder").val("web");
@@ -348,7 +365,6 @@
     }
     
     var json = $("#json-holder").val();
-    // console.log(json);
 
     $.ajax({
       type     : 'POST',
@@ -356,7 +372,6 @@
       data     : {"js": json},
       cache    : false,
       success  : function(result) {
-        console.log(result);
         $("#preview-holder").html(result)
       },
       error    : function(a, b, c) {
@@ -370,7 +385,17 @@
 
   //generates and saves a xls file`
   function excelReport() {
+    var mode = $("#mode-holder").val();
     $("#format-holder").val("excel");
+
+    if (mode == "saved") {
+      getReportString();
+      $("#json-holder").val(adjustString($("#json-holder").val()));
+    } else if (mode == "new") {
+      $("#json-holder").val(createJSON);
+    }
+
+    $("#web-form").submit();
   }
 
   //generates the report in a printable format on next page

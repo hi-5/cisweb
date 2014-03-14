@@ -13,6 +13,8 @@ $js = json_decode($js, true);
 $order; //Sort Order
 $year; //Year for report
 $team; //Team ID num
+$teamName; //Team Name
+$report; //Report Name
 $name; //table attribute name
 $head; //table attribute description
 $length; //number of attributes
@@ -23,12 +25,25 @@ $query; //sql query
 $table = ""; //holds the table string for web output
 $result; //holds the main SQL query result
 $attribute; //holds the current attribute name
+$reportHeader = ""; //Holds the report header string for web
+$csv = ""; //holds the csv string
+$filename; //csv filename
 
 $order = $js["order"];
 $year = $js["year"];
 $team = $js["team"];
 $length = $js["length"];
 $format = $js["format"];
+$teamName = $js["teamName"];
+$report = $js["report"];
+
+if ($report != "") $report .= ",";
+
+$filename = $year . preg_replace("([^\w\s\d\-_~,;:\[\]\(\]]|[\.]{2,})", '', $teamName);
+
+//Builder report header
+$reportHeader = "<h1>University of Lethbridge $teamName</h1>\n<h2>$report $year - " . ($year+1) . "</h2>\n";
+$csv .= "University of Lethbridge\n" .  $teamName . "\n" . $year . "-" . ($year+1) . "\n";
 
 
 //Builder table header info and SQL select statement
@@ -40,17 +55,19 @@ for ($i = 0; $i < $length; $i++) {
 	if ($name == "YOE") {
 
 	} elseif ($name == "athletes.a_studentId") {
-		//we always want to select studentId for getting YOE so we dont add it to the query
+	//we always want to select studentId for getting YOE so we dont add it to the query
 	} else $select .= $name .= ", ";
 
-	//Build table header for web output
-	if ($format == "web") {
-		$header .= "<th>" . $head . "</th>";
-	}
+	//Build column headers
+	$header .= "<th>" . $head . "</th>";
+	$csv .= $head . ",";
+
 }
 
 //remove trailing comma
 $select = rtrim($select, ", ");
+
+$csv .= "\n";
 
 $query = "SELECT athletes.a_studentId, $select
 FROM athletehistory
@@ -63,11 +80,13 @@ ORDER BY $order";
 
 
 //start table
-$table .= "<table class='table table-striped'>\n";
+$table .= "<table class='table table-striped table-condensed'>\n";
 $table .= "<thead>" . $header . "</thead>";
 
 $result = mysqli_query($sql, $query);
 
+//Holds athlete Year of Eligibility
+$yoe;
 while($row = mysqli_fetch_assoc($result)) {
 
 	$table .= "<tr>";
@@ -79,21 +98,57 @@ while($row = mysqli_fetch_assoc($result)) {
 			$temp = explode(".", $temp);
 			$attribute = $temp[1];
 			$table .= "<td>" . $row["$attribute"] . "</td>";
+			$csv .= $row["$attribute"] . ",";
 		} else {
 			$attribute = $temp;
-			$table .= "<td>" . getEligibility($row['a_studentId'], $sql) . "</td>";
+			$yoe = getEligibility($row['a_studentId'], $sql);
+			$table .= "<td>" . $yoe . "</td>";
+			$csv .= $yoe . ",";
 		}
 
 		
 	}
 
 	$table .= "</tr>\n";
+	$csv .= "\n";
 }
 
 
 //close table
 $table .= "</table>"; 
 
-echo $table;
+$html = "<html>
+  <head>
+    <title>$filename</title>
+    <!-- style -->
+    <link href='css/main.css' rel='stylesheet' />
+    <!-- bootstrap framework -->
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <link href='//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css' rel='stylesheet' />
+  </head>
+
+  <body>
+
+  $reportHeader
+  $table
+
+  </body>
+</html>";
+
+//Print HTML or File
+if ($format == "web") {
+	// echo $reportHeader;
+	// echo $table;
+	echo $html;
+} elseif ($format == "excel") {
+	header("Content-type: text/csv");
+	header("Content-Disposition: attachment; filename=$filename.csv");
+	header("Pragma: no-cache");
+	header("Expires: 0");
+	print "$csv";
+}
+
+
+
 
 ?>
