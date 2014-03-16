@@ -288,19 +288,24 @@
         </div>
       </div>
 
-      <table id="reg-team-table" class="table table-condensed">
-        <thead>
-          <tr>
-            <td>Year</td>
-            <td>Team</td>
-            <td>Position</td>
-            <td>Jersey</td>
-            <td>Charged</td>
-            <td> </td>
-          </tr>
-        </thead>
-        <tbody id="reg-team-table-body"></body>
-      </table>
+      <!-- new row -->
+      <div class="row">
+        <div class="col-md-12">
+          <table id="reg-team-table" class="table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Team</th>
+                <th>Position</th>
+                <th>Jersey</th>
+                <th>Charged</th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody id="reg-team-table-body"></tbody>
+          </table>
+        </div>
+      </div>
 
       <!-- suspensions text area 
       <textarea id="reg-suspensions" class="form-control" rows="3" placeholder="Please indicate if you are presently under suspension from any sport organization or league."></textarea>
@@ -325,6 +330,8 @@
   </div>
 
 </form>
+
+<br /><br />
 
 <script>
 
@@ -478,7 +485,7 @@
         tableString += "<td>" + position + "</td>";
         tableString += "<td>" + jersey + "</td>";
         tableString += "<td>" + charged + "</td>";
-        tableString += "<td><button id='reg-team-remove-" + year + "' type='button' class='btn btn-xs btn-primary'>remove</button></td>";
+        tableString += "<td><button id='reg-team-remove-" + year + "' type='button' class='btn btn-xs btn-danger'>remove</button></td>";
         tableString += "</tr>";
     $("#reg-team-table-body").append(tableString);
     $("#reg-team-remove-" + year).click(removeTeamButtonClick);
@@ -555,17 +562,21 @@
   }
 
   function removeTeamButtonClick(event) {
-    $("#" + event.target.id).unbind();
+    if (event.target.innerHTML == "remove") {
+      event.target.innerHTML = "confirm";
+    } else {
+      $("#" + event.target.id).unbind();
 
-    var year = event.target.id.substr(16);
-    var teamObject = {
-      queue     : (formType == "reg" || formType == "app") ? "yes" : "no",
-      studentId : currentId,
-      year      : year
-    };
-    cislib.managerRequest("form", "removeTeam", teamObject, function(result) {
-      removeTeam(result.year);
-    });
+      var year = event.target.id.substr(16);
+      var teamObject = {
+        queue     : (formType == "reg" || formType == "app") ? "yes" : "no",
+        studentId : currentId,
+        year      : year
+      };
+      cislib.managerRequest("form", "removeTeam", teamObject, function(result) {
+        removeTeam(result.year);
+      });
+    }
   }
 
   function registerButtonClick(event) {

@@ -5,10 +5,10 @@
   <?php
 
     // DEBUG - next 4 lines
-    $_SESSION['studentId'] = "123456789";
-    $_SESSION['loggedIn'] = true;
-    $_SESSION['isAthlete'] = true;
-    $_SESSION['isFaculty'] = true;
+    //$_SESSION['studentId'] = "123456789";
+    //$_SESSION['loggedIn'] = true;
+    //$_SESSION['isAthlete'] = true;
+    //$_SESSION['isFaculty'] = true;
 
     if ($_SESSION['loggedIn']) {
   ?>
@@ -37,7 +37,7 @@
               case 'sett' : $file = 'settings.php'; break;  
             }
           } else {
-            $file = 'home.php';
+            $file = 'form.php';
           }
           include 'pages/' . $file;
         ?>
@@ -47,7 +47,7 @@
 
   <?php
     } else {
-      include 'pages/home.php';
+      include 'pages/welcome.php';
     }
   ?>
   
