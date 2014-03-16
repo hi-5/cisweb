@@ -1,8 +1,7 @@
 <br />
 
-<div class="alert alert-danger">Faculty records are connected to team records. Deleting a faculty record will directly affect team history!</div>
-
 <button id="faculty-add-button" type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#faculty-modal">Add New Faculty +</button>
+
 <ul class="pagination pagination-sm">
   <li><a href="?p=sett&t=facl&l=a">A</a></li>
   <li><a href="?p=sett&t=facl&l=b">B</a></li>

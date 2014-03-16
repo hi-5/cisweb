@@ -12,3 +12,6 @@
   }
 
 ?>
+
+Welcome to the CIS Athlete Registrar Portal.<br /><br />
+To get started, select an option from the left-side menu.

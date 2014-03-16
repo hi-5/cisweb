@@ -1,7 +1,7 @@
 <?php
 
+include "cislib.php";
 include "connect.php";
-include "eligibility.php";
 
 global $sql;
 

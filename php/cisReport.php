@@ -4,8 +4,9 @@
 This file will generate a excel formatted xml file for the CIS standard report. It expects a teamId number as well as the year for which to generate the report.
 */
 
+include "cislib.php";
 include "connect.php";
-include "eligibility.php";
+
 
 $filename = "default";
 $year = "";

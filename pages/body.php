@@ -37,7 +37,7 @@
               case 'sett' : $file = 'settings.php'; break;  
             }
           } else {
-            $file = 'form.php';
+            $file = 'home.php';
           }
           include 'pages/' . $file;
         ?>

@@ -1,12 +1,9 @@
 <!-- new row -->
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-3">
     <label for="team-list">Team</label>
     <select class="form-control" id="team-list"></select>
   </div>
-</div>
-<br />
-<div class="row">
   <div class="col-md-3">
     <label for="order-select">Year</label>
     <select class="form-control" id="year-select"></select>
@@ -17,7 +14,6 @@
     <input class="form-control hidden" id="new-report-name" placeholder="Enter Report Name">
   </div>
 </div>
-<br />
 <div class="row">
 <div id="report-builder" class="hidden">
   <div class="col-md-6">
