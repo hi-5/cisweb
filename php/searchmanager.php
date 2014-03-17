@@ -19,7 +19,7 @@
     global $sql;
 
     $searchText = mysqli_real_escape_string($sql, $_POST['args']);
-    $query = "SELECT a_studentId, a_lastName, a_firstName FROM athletes WHERE a_studentId LIKE '%$searchText%' OR a_lastName LIKE '%$searchText%' OR a_firstName LIKE '%$searchText%'";
+    $query = "SELECT a_studentId, a_lastName, a_firstName FROM athletes WHERE a_studentId LIKE '%$searchText%' OR a_lastName LIKE '%$searchText%' OR a_firstName LIKE '%$searchText%' ORDER BY a_lastName ASC LIMIT 20";
     $result = mysqli_query($sql, $query);
 
     $athletes = array("athletes");

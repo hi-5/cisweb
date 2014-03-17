@@ -1,8 +1,8 @@
 <div id="inbox-notice"></div>
 <div class="panel panel-default">
   <div class="panel-heading">Inbox</div>
-  <div class="panel-body">
-    <table class="table table-condensed">
+  <div id="inbox-body" class="panel-body">
+    <table id="inbox-table" class="table table-condensed">
       <thead>
         <tr>
           <td>Student #</td>
@@ -11,7 +11,7 @@
           <td>&nbsp</td>
         </tr>
       </thead>
-      <tbody id="inbox-forms">
+      <tbody id="inbox-table-body">
       </tbody>
     </table>
   </div>
@@ -21,6 +21,7 @@
 
   function init() {
     displayNotice();
+    $("#reg-team-table").css("display", "none");  
     cislib.managerRequest("inbox", "retrieve", undefined, redrawTable);
   }
 
@@ -45,11 +46,16 @@
   }
 
   function redrawTable(result) {
-    var tableString = "";
-    for (var i = 0; i < result.length; i++)
-      tableString += "<tr><td>" + result[i]["id"] + "</td><td>" + result[i]["last"] + ", " + result[i]["first"] + "</td><td>" + result[i]["type"] + 
-                     "</td><td><a href='?p=form&t=app&i=" + result[i]["id"] + "'><button type='button' class='btn btn-xs btn-primary'>view</button></a></td></tr>";
-    $("#inbox-forms").html(tableString);
+    if (result.length == 0) {
+      $("#inbox-body").html("There is nothing waiting in the inbox...");
+    } else {
+      var tableString = "";
+      for (var i = 0; i < result.length; i++)
+        tableString += "<tr><td>" + result[i]["id"] + "</td><td>" + result[i]["last"] + ", " + result[i]["first"] + "</td><td>" + result[i]["type"] + 
+                       "</td><td><a href='?p=form&t=app&i=" + result[i]["id"] + "'><button type='button' class='btn btn-xs btn-primary'>view</button></a></td></tr>";
+      $("#inbox-table-body").html(tableString);
+    }
+    
   }
 
   init();

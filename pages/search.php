@@ -64,10 +64,10 @@
     // create table headers
     switch (resultType) {
       case "athletes":
-        tableString += "<thead><tr><td>Student #</td><td>Last Name</td><td>First Name</td><td>Current Team</td></tr></thead><tbody>";
+        tableString += "<thead><tr><th>Student #</th><th>Last Name</th><th>First Name</th><th>Current Team</th></tr></thead><tbody>";
         break;
       case "teams":
-        tableString += "<thead><tr><td>Year</td><td>Team Name</td><td>Head Coach</td><td>Asst. Coach</td></tr></thead><tbody>";
+        tableString += "<thead><tr><th>Year</th><th>Team Name</th><th>Head Coach</th><th>Asst. Coach</th></tr></thead><tbody>";
         break;
     }
 

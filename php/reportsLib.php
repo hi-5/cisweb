@@ -12,7 +12,7 @@ $action = $_POST['action'];
 
     // delete a report
     case 'delete':
-      deleteTeam( $_POST['args'] );
+      deleteReports( $_POST['id'] );
       break;
 
     // get list of report names
@@ -29,13 +29,28 @@ $action = $_POST['action'];
   function addReport($name, $string) {
     global $sql;
 
-    $name = mysql_real_escape_string($name);
-    $string = mysql_real_escape_string($string);
+    $string = stripslashes($string);
+
+    $name = mysqli_real_escape_string($sql, $name);
+    $string = mysqli_real_escape_string($sql, $string);
+
+    echo $name;
+    echo $string;
 
     $query = "INSERT INTO reports (r_name, r_string) VALUES ('$name', '$string')";
 
     mysqli_query($sql, $query);
 
+  }
+
+  function deleteReport($id) {
+    global $sql;
+
+    $id = mysql_real_escape_string($sql, $id);
+
+    $query = "DELETE FROM reports WHERE r_id = $id";;
+
+    mysqli_query($sql, $query);
   }
 
   function getReports() {
@@ -55,7 +70,9 @@ $action = $_POST['action'];
   function getReportString($id) {
     global $sql;
 
-    $id = mysql_real_escape_string($id);
+    // echo $id;
+
+    $id = mysqli_real_escape_string($sql, $id);
 
     $query = "SELECT r_string FROM reports WHERE r_id = $id";
     $result = mysqli_query($sql, $query);

@@ -5,6 +5,7 @@
   }
 ?>
 
+<!DOCTYPE HTML>
 <html>
   <head>
     <title>UofL Athlete Portal</title>
