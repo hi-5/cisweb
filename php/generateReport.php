@@ -37,6 +37,12 @@ $format = $js["format"];
 $teamName = $js["teamName"];
 $report = $js["report"];
 
+//Do to limitations of the database we can not order based on YOE
+if ($order == "YOE") {
+	echo "Can not sort by year of eligibiltiy.";
+	exit();	
+} 
+
 if ($report != "") $report .= ",";
 
 $filename = $year . preg_replace("([^\w\s\d\-_~,;:\[\]\(\]]|[\.]{2,})", '', $teamName);

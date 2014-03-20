@@ -16,6 +16,7 @@
       if ($_SESSION['isAdmin']) {
     ?>
 
+      <a href="?p=team" class="list-group-item">Team</a>
       <a href="?p=inbx" class="list-group-item">
         Inbox<span id="menu-inbox-badge" class="badge pull-right"></span>
       </a>

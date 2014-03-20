@@ -31,7 +31,8 @@
           if (isset($_GET['p'])) {
             switch ($_GET['p']) {
               case 'form' : $file = 'form.php'; break;
-              case 'inbx' : $file = 'inbox.php'; break; 
+              case 'inbx' : $file = 'inbox.php'; break;
+              case 'team' : $file = 'team.php'; break;
               case 'srch' : $file = 'search.php'; break;
               case 'rprt' : $file = 'reports.php'; break;     
               case 'sett' : $file = 'settings.php'; break;  
