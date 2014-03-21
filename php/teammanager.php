@@ -156,7 +156,7 @@ function updateTeam($args, $name) {
 
     }
 
-    print json_encode("done");
+    print json_encode("success");
 
   }
 

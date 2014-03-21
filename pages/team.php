@@ -20,6 +20,8 @@
 			<form role="form" id="roster-form">
 				<div class="form-group" id="roster"></div>
 				<button type="button" class="btn btn-primary pull-right" id="submit-elig-btn">Save Changes</button>
+				<br><br>
+				<div class="alert alert-success hidden">Success, eligibility info updated!</div>
 			</form>
 	  </div>
 </div>
@@ -70,7 +72,7 @@
 
   	var string = JSON.stringify(obj);
 
-
+  	//Get the team roster and build the table.
   	cislib.managerRequest("team", "getRosterTable", string, function(result){
   		var table = "";
 
@@ -95,10 +97,12 @@
 
     	var header = "<h2>" + $("#team-list option:selected").html() + ", " + $("#year-select option:selected").html() + "</h2>\n";
 
+    	//Print header and table
     	$("#header-holder").html(header);
   		$("#roster").html(table);
   	});
 
+		toggleSuccessAlert("hide");
   }
 
   //Checks all eligibility charged check boxes.
@@ -118,6 +122,8 @@
   	var i = 0;
   	var id
   	var val;
+
+  	//get values and id for each check box.
   	$(".elig-check").each(function(index){
   		id = $(this).val();
   		
@@ -132,10 +138,16 @@
 
   	var string = JSON.stringify(array);
 
-  	console.log(string);
   	cislib.managerRequest("team", "updateEligibility", string, function(result){
-  		// console.log(result);
+  		if (result == "success") toggleSuccessAlert("show");
   	});
+  }
+
+  //expects show or hide to toggle set display of alert message
+  function toggleSuccessAlert(arg) {
+  	if (arg == "hide") $(".alert-success").addClass("hidden");
+  	else if (arg == "show")
+  	$(".alert-success").toggleClass("hidden");
   }
 
 	init();
