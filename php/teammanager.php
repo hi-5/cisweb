@@ -34,6 +34,11 @@ switch ( $action ) {
   case 'getRosterTable' :
     getRosterTable( $_POST['args'] );
     break;
+
+  // Update roster eligibility
+  case 'updateEligibility' :
+    updateEligibility( $_POST['args'] );
+    break;
 }
 
 
@@ -103,8 +108,11 @@ function updateTeam($args, $name) {
   function getRosterTable($args) {
     global $sql;
 
-    $year = $args;;
-    $team;
+    $obj = json_decode($args);
+
+    $year = $obj->year;
+    $team = $obj->team;
+
     $table = "";
 
     $query = "SELECT athletes.a_studentId, athletes.a_lastName, athletes.a_firstName, athletehistory.ah_position, athletehistory.ah_jerseyNumber, athletehistory.ah_charged
@@ -112,7 +120,7 @@ function updateTeam($args, $name) {
       INNER JOIN athletes
       ON athletehistory.ah_studentId=athletes.a_studentId
       AND athletehistory.ah_year = $year
-      AND athletehistory.ah_teamId = 1
+      AND athletehistory.ah_teamId = $team
       ORDER BY athletes.a_lastName";
 
     $result = mysqli_query($sql, $query);
@@ -124,26 +132,31 @@ function updateTeam($args, $name) {
 
     print json_encode($roster);
 
-    // $table .= "<table class='table table-striped table-condensed'>\n";
-    // $table .= "<theader><th>ID</th><th>Last Name</th><th>First Name</th><th>Position</th><th>Jersey No.</th><th>Charged</th></theader>";
+  }
 
-    // while($row = mysqli_fetch_assoc($result)) {
+  //Takes an array of student IDs, a charged value (1 or 0) and a year. Updates all students with given IDs and years
+  function updateEligibility($args) {
+    global $sql;
 
-    //   $table .= "<tr>";
+    $array = json_decode($args, true);
+    $length = count($array);
+    $id;
+    $val;
+    $year;
+    $query;
 
-    //   $table .= "<td>" . $row["a_studentId"] . "</td>";
-    //   $table .= "<td>" . $row["a_lastName"] . "</td>";
-    //   $table .= "<td>" . $row["a_firstName"] . "</td>";
-    //   $table .= "<td>" . $row["ah_position"] . "</td>";
-    //   $table .= "<td>" . $row["ah_jerseyNumber"] . "</td>";
-    //   $table .= "<td>" . $row["ah_charged"] . "</td>";
+    for ($i=0; $i < $length; $i++) { 
+      $id = $array[$i][0];
+      $val = $array[$i][1];
+      $year = $array[$i][2];
 
-    //   $table .= "</tr>\n";
-    // }
+      $query = "UPDATE athletehistory SET ah_charged=$val WHERE ah_studentId=$id AND ah_year=$year";
 
-    // $table .= "</table>\n";
+      mysqli_query($sql, $query);
 
-    // print $table;
+    }
+
+    print json_encode("done");
 
   }
 
