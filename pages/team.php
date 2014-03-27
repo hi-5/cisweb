@@ -21,7 +21,7 @@
 				<div class="form-group" id="roster"></div>
 				<button type="button" class="btn btn-primary pull-right" id="submit-elig-btn">Save Changes</button>
 				<br><br>
-				<div class="alert alert-success hidden">Success, eligibility info updated!</div>
+				<div class="alert alert-success hidden" id="elig-success">Success, eligibility info updated!</div>
 			</form>
 	  </div>
 </div>
@@ -30,7 +30,35 @@
 			<h3 class="panel-title">Faculty</h3>
 	  </div>
 	  <div class="panel-body">
-			Panel content
+			<form class="form-inline">
+				<label for="coach-select">Coach</label>
+				<select name="coach-select" id="coach-select" class="form-control faculty-select">
+				<option value="0">None</option>
+				</select>
+				<label for="asscoach-select">Assistant Coach</label>
+				<select name="asscoach-select" id="asscoach-select" class="form-control faculty-select">
+				<option value="0">None</option>
+				</select>
+			</form>
+			<br>
+			<form class="form-inline">
+				<label for="trainer-select">Trainer</label>
+				<select name="trainer-select" id="trainer-select" class="form-control faculty-select">
+				<option value="0">None</option>
+				</select>
+				<label for="doctor-select">Doctor</label>
+				<select name="doctor-select" id="doctor-select" class="form-control faculty-select">
+				<option value="0">None</option>
+				</select>
+				<label for="therapist-select">Therapist</label>
+				<select name="therapist-select" id="therapist-select" class="form-control faculty-select">
+				<option value="0">None</option>
+				</select>
+			</form>
+			<br>
+			<button type="button" class="btn btn-primary" id="save-staff-btn">Save Changes</button>
+			<br><br>
+			<div class="alert alert-success hidden" id="fac-success">Success, faculty info updated!</div>
 	  </div>
 </div>
 
@@ -40,6 +68,7 @@
     addEventListeners();
 
     cislib.managerRequest("team", "getList", undefined, populateTeamList);
+    cislib.managerRequest("faculty", "getAll", undefined, populateFacultySelects);
 
     for (i = new Date().getFullYear(); i > 1900; i--) {
       $('#year-select').append($('<option />').val(i).html(i + "-" + (i+1)));
@@ -50,6 +79,7 @@
   	$("#view-team-btn").click(viewTeam);
   	$("#submit-elig-btn").click(submitEligibility);
   	$("#check-all-btn").click(checkAll);
+  	$("#save-staff-btn").click(saveFaculty);
   }
 
   //Populates the team selection list
@@ -102,7 +132,41 @@
   		$("#roster").html(table);
   	});
 
-		toggleSuccessAlert("hide");
+		//Set team faculty
+		cislib.managerRequest("team", "getFaculty", string, function(result){
+			var coach;
+			var assCoach;
+			var trainer;
+			var doctor;
+			var therapist;
+
+			// console.log(result);
+
+			if (result.t_headCoachId) coach = result.t_headCoachId;
+			else coach = 0;
+			if (result.t_asstCoachId != undefined) assCoach = result.t_asstCoachId;
+			else assCoach = 0;
+			if (result.t_trainerId != undefined) trainer = result.t_trainerId;
+			else trainer = 0;
+			if (result.t_doctorId != undefined) doctor = result.t_doctorId;
+			else doctor = 0;
+			if (result.t_therapistId != undefined) therapist = result.t_therapistId;
+			else therapist = 0;
+
+			$("#coach-select").val(coach);
+			$("#asscoach-select").val(assCoach);
+			$("#trainer-select").val(trainer);
+			$("#doctor-select").val(doctor);
+			$("#therapist-select").val(therapist);
+
+			// console.log(coach);
+
+
+		});
+
+		//Hides the success alert if active
+		toggleEligSuccessAlert("hide");
+		toggleFacSuccessAlert("hide");
   }
 
   //Checks all eligibility charged check boxes.
@@ -139,15 +203,64 @@
   	var string = JSON.stringify(array);
 
   	cislib.managerRequest("team", "updateEligibility", string, function(result){
-  		if (result == "success") toggleSuccessAlert("show");
+  		if (result == "success") toggleEligSuccessAlert("show");
   	});
   }
 
   //expects show or hide to toggle set display of alert message
-  function toggleSuccessAlert(arg) {
-  	if (arg == "hide") $(".alert-success").addClass("hidden");
+  function toggleEligSuccessAlert(arg) {
+  	if (arg == "hide") $("#elig-success").addClass("hidden");
   	else if (arg == "show")
-  	$(".alert-success").toggleClass("hidden");
+  	$("#elig-success").toggleClass("hidden");
+  }
+
+    //expects show or hide to toggle set display of alert message
+  function toggleFacSuccessAlert(arg) {
+  	if (arg == "hide") $("#fac-success").addClass("hidden");
+  	else if (arg == "show")
+  	$("#fac-success").toggleClass("hidden");
+  }
+
+  //Sets the current name to the default on each faculty position
+  function populateFaculty() {
+
+  }
+
+  //Populates the select boxes with all faculty
+  function populateFacultySelects(result) {
+		var htmlString = "";
+		for (var i = 0; i < result.length; i++) {
+			htmlString += "<option value='" + result[i].f_studentId + "'>" + result[i].f_lastName + ", " + result[i].f_firstName + "</option>";
+		}
+		$(".faculty-select").append(htmlString);
+  }
+
+  //Updates all faculty in the selected team/year with selected values.
+  function saveFaculty() {
+  	var tid = $("#team-list option:selected").val();
+  	var year = $("#year-select option:selected").val();
+  	var coach = $("#coach-select").val();
+  	var assCoach = $("#asscoach-select").val();
+  	var trainer = $("#trainer-select").val();
+  	var doctor = $("#doctor-select").val();
+  	var therapist =$("#therapist-select").val();
+
+  	var obj = new Object();
+  	obj.team = tid;
+  	obj.year = year;
+  	obj.coach = coach;
+  	obj.assCoach = assCoach;
+  	obj.trainer = trainer;
+  	obj.doctor = doctor;
+  	obj.therapist = therapist;
+
+  	var string = JSON.stringify(obj);
+
+  	console.log(coach);
+
+  	cislib.managerRequest("team", "saveFaculty", string, function(result){
+  		if (result == "success") toggleFacSuccessAlert("show");
+  	})
   }
 
 	init();

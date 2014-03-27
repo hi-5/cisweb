@@ -28,6 +28,16 @@
     case 'update':
       update();
       break;
+
+    // get team faculty for given year
+    case 'getTeam':
+      getTeam();
+      break;
+
+    // Get name and id for all faculty
+    case 'getAll' :
+      getAll();
+      break;
   }
 
   function getList() {
@@ -86,6 +96,20 @@
     $result = mysqli_query($sql, $query);
 
     echo $result; 
+  }
+
+  function getAll() {
+    global $sql;
+
+    $query = "SELECT f_studentId, f_lastName, f_firstName FROM faculty ORDER BY f_lastName";
+    $result = mysqli_query($sql, $query);
+
+    $faculty = array();
+    while($row = mysqli_fetch_assoc($result)) {
+      $faculty[] = $row;
+    }
+
+    print json_encode($faculty);
   }
 
 ?>

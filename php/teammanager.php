@@ -39,6 +39,16 @@ switch ( $action ) {
   case 'updateEligibility' :
     updateEligibility( $_POST['args'] );
     break;
+
+  //Get faculty IDs for team
+  case 'getFaculty' :
+    getFaculty( $_POST['args'] );
+    break;
+
+  //Update all faculty on team
+  case 'saveFaculty' :
+    saveFaculty( $_POST['args'] );
+    break; 
 }
 
 
@@ -150,7 +160,10 @@ function updateTeam($args, $name) {
       $val = $array[$i][1];
       $year = $array[$i][2];
 
-      $query = "UPDATE athletehistory SET ah_charged=$val WHERE ah_studentId=$id AND ah_year=$year";
+      $query = "UPDATE athletehistory 
+      SET ah_charged=$val 
+      WHERE ah_studentId=$id 
+      AND ah_year=$year";
 
       mysqli_query($sql, $query);
 
@@ -158,6 +171,45 @@ function updateTeam($args, $name) {
 
     print json_encode("success");
 
+  }
+
+  //Returns the IDs for all faculty on a team in the given year and team id.
+  function getFaculty($args) {
+    global $sql;
+
+    $obj = json_decode($args);
+
+    $year = $obj->year;
+    $team = $obj->team;
+
+    $query = "SELECT t_headCoachId, t_asstCoachId, t_trainerId, t_doctorId, t_therapistId 
+    FROM teams 
+    WHERE t_year = $year 
+    AND t_id = $team";
+
+    $result = mysqli_query($sql, $query);
+
+    $row = mysqli_fetch_assoc($result);
+
+    print json_encode($row);
+
+  }
+
+  function saveFaculty($args) {
+    global $sql;
+
+    $obj = json_decode($args);
+
+    $query = "UPDATE teams
+    SET t_headCoachId=$obj->coach, t_asstCoachId=$obj->assCoach, t_trainerId=$obj->trainer, t_doctorId=$obj->doctor, t_therapistId=$obj->therapist 
+    WHERE t_year = $obj->year 
+    AND t_id = $obj->team";
+
+    // echo $query;
+
+    mysqli_query($sql, $query);
+
+    print json_encode("success");
   }
 
 ?>
