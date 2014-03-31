@@ -2,6 +2,7 @@
 
 /*
 This file will generate a excel formatted xml file for the CIS standard report. It expects a teamId number as well as the year for which to generate the report.
+If you have come here looking to change the output format... good luck. This was done in a hurry by simply conversting an existing xls file to xml and spitting it out.
 */
 
 include "cislib.php";

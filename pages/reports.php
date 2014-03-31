@@ -200,7 +200,7 @@
   function populateReportList () {
     $.ajax({
       type     : 'POST',
-      url      : 'php/reportsLib.php',
+      url      : 'php/reportsmanager.php',
       dataType : 'json',
       data     : {action: "getList"},
       cache    : false,
@@ -209,7 +209,7 @@
         for (var i = 0; i < result.length; i++) {
           reportString += "<option value='" + result[i].r_id + "'>" + result[i].r_name + "</option>\n";
         }
-        $("#report-select").append(reportString);
+        $("#report-select").html(reportString);
           //Puts the inital report string into the holder before the user makes a selection
           getReportString();
         },
@@ -222,6 +222,7 @@
       }); 
   }
 
+  //Toggles the display of the custom report builder
   function toggleBuilder() {
     $("#report-builder").toggleClass("hidden");
     $("#report-select").toggleClass("hidden");
@@ -297,7 +298,7 @@
     var reportId = $("#report-select option:selected").val();
     $.ajax({
       type     : 'POST',
-      url      : 'php/reportsLib.php',
+      url      : 'php/reportsmanager.php',
       dataType : 'json',
       data     : {action: "getString",
       id: reportId},
@@ -341,7 +342,7 @@
     }
     $.ajax({
       type     : 'POST',
-      url      : 'php/reportsLib.php',
+      url      : 'php/reportsmanager.php',
       data     : {action: "add",
       name: reportName,
       string: json},
@@ -361,24 +362,12 @@
   }
 
   function deleteReport() {
-    var reportId = $("#report-select option:selected").val();
-    $.ajax({
-      type     : 'POST',
-      url      : 'php/reportsLib.php',
-      dataType : 'json',
-      data     : {action: "getString",
-      id: reportId},
-      cache    : false,
-      success  : function(result) {
 
-      },
-      error    : function(a, b, c) {
-        console.log('Error:');
-        console.log(a);
-        console.log(b);
-        console.log(c);
-      }
-    }); 
+    var obj = new Object();
+    obj.id = $("#report-select option:selected").val();
+    var string = JSON.stringify(obj);
+
+    cislib.managerRequest("reports", "delete", string, populateReportList);
   }
 
   //Does AJAX request to generate a sample table of the selected report

@@ -12,7 +12,7 @@ $action = $_POST['action'];
 
     // delete a report
     case 'delete':
-      deleteReports( $_POST['id'] );
+      deleteReport( $_POST['args'] );
       break;
 
     // get list of report names
@@ -43,14 +43,17 @@ $action = $_POST['action'];
 
   }
 
-  function deleteReport($id) {
+  function deleteReport($args) {
     global $sql;
 
-    $id = mysql_real_escape_string($sql, $id);
+    $obj = json_decode($args);
+    $id = $obj->id;
 
-    $query = "DELETE FROM reports WHERE r_id = $id";;
+    $query = "DELETE FROM reports WHERE r_id = $id";
 
     mysqli_query($sql, $query);
+    
+    print json_encode("success");
   }
 
   function getReports() {
@@ -69,8 +72,6 @@ $action = $_POST['action'];
 
   function getReportString($id) {
     global $sql;
-
-    // echo $id;
 
     $id = mysqli_real_escape_string($sql, $id);
 

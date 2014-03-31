@@ -182,7 +182,7 @@ function updateTeam($args, $name) {
     $year = $obj->year;
     $team = $obj->team;
 
-    $query = "SELECT t_headCoachId, t_asstCoachId, t_trainerId, t_doctorId, t_therapistId 
+    $query = "SELECT t_headCoachId, t_asstCoachId, t_managerId, t_trainerId, t_doctorId, t_therapistId 
     FROM teams 
     WHERE t_year = $year 
     AND t_id = $team";
@@ -201,7 +201,7 @@ function updateTeam($args, $name) {
     $obj = json_decode($args);
 
     $query = "UPDATE teams
-    SET t_headCoachId=$obj->coach, t_asstCoachId=$obj->assCoach, t_trainerId=$obj->trainer, t_doctorId=$obj->doctor, t_therapistId=$obj->therapist 
+    SET t_headCoachId=$obj->coach, t_asstCoachId=$obj->assCoach, t_managerId=$obj->manager, t_trainerId=$obj->trainer, t_doctorId=$obj->doctor, t_therapistId=$obj->therapist 
     WHERE t_year = $obj->year 
     AND t_id = $obj->team";
 

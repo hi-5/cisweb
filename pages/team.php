@@ -39,6 +39,10 @@
 				<select name="asscoach-select" id="asscoach-select" class="form-control faculty-select">
 				<option value="0">None</option>
 				</select>
+				<label for="manager-select">Manager</label>
+				<select name="manager-select" id="manager-select" class="form-control faculty-select">
+				<option value="0">None</option>
+				</select>
 			</form>
 			<br>
 			<form class="form-inline">
@@ -136,16 +140,17 @@
 		cislib.managerRequest("team", "getFaculty", string, function(result){
 			var coach;
 			var assCoach;
+			var manager;
 			var trainer;
 			var doctor;
 			var therapist;
-
-			// console.log(result);
 
 			if (result.t_headCoachId) coach = result.t_headCoachId;
 			else coach = 0;
 			if (result.t_asstCoachId != undefined) assCoach = result.t_asstCoachId;
 			else assCoach = 0;
+			if (result.t_managerId != undefined) manager = result.t_managerId;
+			else manager = 0;
 			if (result.t_trainerId != undefined) trainer = result.t_trainerId;
 			else trainer = 0;
 			if (result.t_doctorId != undefined) doctor = result.t_doctorId;
@@ -155,13 +160,10 @@
 
 			$("#coach-select").val(coach);
 			$("#asscoach-select").val(assCoach);
+			$("#manager-select").val(manager);
 			$("#trainer-select").val(trainer);
 			$("#doctor-select").val(doctor);
 			$("#therapist-select").val(therapist);
-
-			// console.log(coach);
-
-
 		});
 
 		//Hides the success alert if active
@@ -221,11 +223,6 @@
   	$("#fac-success").toggleClass("hidden");
   }
 
-  //Sets the current name to the default on each faculty position
-  function populateFaculty() {
-
-  }
-
   //Populates the select boxes with all faculty
   function populateFacultySelects(result) {
 		var htmlString = "";
@@ -241,6 +238,7 @@
   	var year = $("#year-select option:selected").val();
   	var coach = $("#coach-select").val();
   	var assCoach = $("#asscoach-select").val();
+  	var manager = $("#manager-select").val();
   	var trainer = $("#trainer-select").val();
   	var doctor = $("#doctor-select").val();
   	var therapist =$("#therapist-select").val();
@@ -250,13 +248,12 @@
   	obj.year = year;
   	obj.coach = coach;
   	obj.assCoach = assCoach;
+  	obj.manager = manager;
   	obj.trainer = trainer;
   	obj.doctor = doctor;
   	obj.therapist = therapist;
 
   	var string = JSON.stringify(obj);
-
-  	console.log(coach);
 
   	cislib.managerRequest("team", "saveFaculty", string, function(result){
   		if (result == "success") toggleFacSuccessAlert("show");
