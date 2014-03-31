@@ -17,15 +17,15 @@
       
       <!-- new row -->
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-5">
          <div class="form-group">
-            <label for="studentNumber">Student #</label>
+            <label>Student #</label>
             <input id="reg-student-number" type="input" class="form-control" placeholder="">
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-7">
          <div class="form-group">
-            <label for="studentNumber">Email</label>
+            <label>Email</label>
             <input id="reg-email" type="email" class="form-control" placeholder="">
           </div>
         </div>
@@ -35,19 +35,19 @@
       <div class="row">
         <div class="col-md-5">
           <div class="form-group">
-            <label for="studentNumber">First Name</label>
+            <label>First Name</label>
             <input id="reg-first-name" type="input" class="form-control" placeholder="">
           </div>
         </div>
         <div class="col-md-5">
           <div class="form-group">
-            <label for="studentNumber">Last Name</label>
+            <label>Last Name</label>
             <input id="reg-last-name" type="input" class="form-control" placeholder="">
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
-            <label for="studentNumber">Initial(s)</label>
+            <label>Initial(s)</label>
             <input id="reg-initials" type="input" class="form-control" placeholder="">
           </div>
         </div>
@@ -58,7 +58,7 @@
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Gender</label>
+            <label>Gender</label>
             <select id="reg-gender" class="form-control">
               <option></option>
               <option>Male</option>
@@ -69,21 +69,23 @@
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="monthOfBirth">Date of Birth</label>
-            <input id="reg-date-of-birth" type="input" class="form-control" placeholder="YYYY-MM-DD">
+            <label>Date of Birth</label>
+            <input id="reg-date-of-birth" type="text" data-date-format="yyyy-mm-dd" class="form-control datepicker">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Height</label>
-            <input id="reg-height" type="input" class="form-control" placeholder="ex. 5&#39;8&#34;">
+            <label>Height</label>
+            <select id="reg-height" class="form-control">
+              <!-- heights will be populated here from initializeForm() -->
+            </select>
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Weight (lbs.)</label>
+            <label>Weight (lbs.)</label>
             <input id="reg-weight" type="input" class="form-control" placeholder="ex. 160">
           </div>
         </div>
@@ -91,21 +93,27 @@
 
       <!-- new row -->
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">High School</label>
+            <label>High School</label>
             <input id="reg-high-school" type="input" class="form-control" placeholder="">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Year of Graduation</label>
+            <label>Year of Graduation</label>
             <input id="reg-year-of-graduation" type="input" class="form-control" placeholder="YYYY">
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">University Program</label>
+            <label>Hometown</label>
+            <input id="reg-hometown" type="input" class="form-control" placeholder="">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>University Program</label>
             <input id="reg-program" type="input" class="form-control" placeholder="">
           </div>
         </div>
@@ -122,21 +130,21 @@
       <div class="row">
         <div class="col-md-6">
          <div class="form-group">
-            <label for="studentNumber">Street</label>
+            <label>Street</label>
             <input id="reg-current-street" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">City</label>
+            <label>City</label>
             <input id="reg-current-city" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Province</label>
+            <label>Province</label>
             <input id="reg-current-province" type="input" class="form-control" placeholder="">
           </div>
         </div>
@@ -146,21 +154,21 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="studentNumber">Phone</label>
+            <label>Phone</label>
             <input id="reg-current-phone" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Postal Code</label>
+            <label>Postal Code</label>
             <input id="reg-current-postal" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Country</label>
+            <label>Country</label>
             <input id="reg-current-country" type="input" class="form-control" placeholder="">
           </div>
         </div>
@@ -177,21 +185,21 @@
       <div class="row">
         <div class="col-md-6">
          <div class="form-group">
-            <label for="studentNumber">Street</label>
+            <label>Street</label>
             <input id="reg-permanent-street" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">City</label>
+            <label>City</label>
             <input id="reg-permanent-city" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Province</label>
+            <label>Province</label>
             <input id="reg-permanent-province" type="input" class="form-control" placeholder="">
           </div>
         </div>
@@ -201,21 +209,21 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label for="studentNumber">Phone</label>
+            <label>Phone</label>
             <input id="reg-permanent-phone" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Postal Code</label>
+            <label>Postal Code</label>
             <input id="reg-permanent-postal" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
-            <label for="studentNumber">Country</label>
+            <label>Country</label>
             <input id="reg-permanent-country" type="input" class="form-control" placeholder="">
           </div>
         </div>
@@ -232,7 +240,7 @@
       <div class="row">
         <div class="col-md-6">
          <div class="form-group">
-            <label for="studentNumber">UofL Team</label>
+            <label>UofL Team</label>
             <select id="reg-team-list" class="form-control">
               <!-- teams will be populated here from getTeams() -->
             </select>
@@ -241,7 +249,7 @@
 
         <div class="col-md-6">
           <div class="form-group">
-            <label for="studentNumber">Team Name</label>
+            <label>Team Name</label>
             <input id="reg-team-name" type="input" class="form-control" placeholder="">
           </div>
         </div>
@@ -251,28 +259,30 @@
       <div class="row">
         <div class="col-md-3">
          <div class="form-group">
-            <label for="studentNumber">Position</label>
+            <label>Position</label>
             <input id="reg-team-position" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-3">
          <div class="form-group">
-            <label for="studentNumber">Year</label>
-            <input id="reg-team-year" type="input" class="form-control" placeholder="YYYY-YYYY">
+            <label>Year</label>
+            <select id="reg-team-year" class="form-control">
+              <!-- years will be populated here from initializeForm() -->
+            </select>
           </div>
         </div>
 
         <div class="col-md-2">
           <div class="form-group">
-            <label for="studentNumber">Jersey #</label>
+            <label>Jersey #</label>
             <input id="reg-team-jersey" type="input" class="form-control" placeholder="">
           </div>
         </div>
 
         <div class="col-md-2">
           <div class="form-group">
-            <label for="studentNumber">Charged</label>
+            <label>Year Charged</label>
             <select id="reg-team-charged" class="form-control">
               <option>yes</option>
               <option>no</option>
@@ -282,7 +292,7 @@
 
         <div class="col-md-1">
           <div class="form-group">
-            <label for="studentNumber">&nbsp</label>
+            <label>&nbsp</label>
             <button id="reg-team-add-button" type="button" class="btn btn-primary">Add</button>
           </div>
         </div>
@@ -361,7 +371,29 @@
     $("#reg-team-add-button").click(addTeamButtonClick);
 
     // hide team table
-    $("#reg-team-table").css("display", "none");  
+    $("#reg-team-table").css("display", "none");
+
+    // initialize date picker
+    $("#reg-date-of-birth").datepicker({
+      startView: "decade"
+    });
+
+    // populate height select box
+    var feet = 8,
+        inches = 0,
+        heightBox = $("#reg-height");
+    for (var i = 0; i < 49; i++) {
+      heightBox.append("<option>" + feet + "'" + inches +  "\"</option>");
+      inches--;
+      if (inches < 0) {
+        feet--;
+        inches = 11;
+      }
+    }
+
+    // populate the year select box
+    for (var i = new Date().getFullYear(); i > 1970; i--)
+      $("#reg-team-year").append("<option>" + i + "-" + (i + 1) + "</option>");
 
     switch (formType) {
 

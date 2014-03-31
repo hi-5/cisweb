@@ -77,11 +77,7 @@
       </div>
       <br />
       As part of its developmental and promotional pathnerships with professional and national sport organizations, CIS will also disclose from time to time, telephone numbers and addresses only of current CIS student-athletes to such other organizations involved in the recruitment and drafting of athletes.<br /><br />
-      Subject to the following paragraph, I understand that by providing the personal information requested in the Student-Athlete Registration Form and the Eligibility Certificate (hereinafter "my Personal Information") I am consenting to such information being used and disclosed in the manner provided for above. I also understand that CIS is responsible only for information that is in its custody or control and that any information collected, used or disclosed by or under the control of a member of CIS or any other organization is subject to the privacy practices and procedures of that member or organization, as the case may be.<br /><br />
-      <label>
-        <input type="checkbox" value="">
-        By checking this box, I do not wish my Personal Information to be disclosed for the purposes listed above or for the purposes described in CIS' Personal Information Protection Policy, except for the purpose of administering the Canadian Interuniversity Sport Doping Control Program. By doing so however, I recognize that CIS may not be able to provide me or continue to provide me with some products, services or information which may be of value to me.
-      </label>
+      Subject to the following paragraph, I understand that by providing the personal information requested in the Student-Athlete Registration Form and the Eligibility Certificate (hereinafter "my Personal Information") I am consenting to such information being used and disclosed in the manner provided for above. I also understand that CIS is responsible only for information that is in its custody or control and that any information collected, used or disclosed by or under the control of a member of CIS or any other organization is subject to the privacy practices and procedures of that member or organization, as the case may be.
     </div>
   </div>
 
