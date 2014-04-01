@@ -119,7 +119,7 @@ if (!is_null($trainerId) && $trainerId != 0) {
 
 
 $faculty = "<Row>
-    <Cell ss:StyleID=\"s88\"><Data ss:Type=\"String\">Head Coach: " . $coachName . "</Data></Cell>
+    <Cell ss:StyleID=\"s88\"><Data ss:Type=\"String\">Head Coach: " . $coachName . " " . "(" . getYearsCoach($coachId, $teamId, $year, $sql) . " years as coach)" . "</Data></Cell>
    </Row>
    <Row>
     <Cell ss:StyleID=\"s88\"><Data ss:Type=\"String\">Assistant Coach: " . $assCoachName . "</Data></Cell>
