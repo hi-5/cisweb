@@ -44,7 +44,7 @@
       break;
   }
 
-  function addTeam() {
+  function addTeam() { 
     global $sql;
 
     // !!! Need to add security measure to make sure students can only add teams to
