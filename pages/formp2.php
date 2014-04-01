@@ -679,7 +679,7 @@
         charged = $("#team-charged").val();
 
     // get team name
-    var teamName = "",
+    var teamName = "", 
         teamId = 0;
     if ($("#team-list-container").is(":visible")) {
       teamName = $("#team-list").val();
