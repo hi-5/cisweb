@@ -37,15 +37,22 @@
 
       // check if there is a permanent student record
       $studentId = $row['aq_studentId'];
+
       $typeQuery = "SELECT COUNT(*) AS NumberOfRows FROM athletes WHERE a_studentId = $studentId";
       $typeResult = mysqli_query($sql, $typeQuery);
       $typeRow = mysqli_fetch_row($typeResult);
       $type = ($typeRow[0] == 1) ? "Verification" : "Registration";
 
+      $teamQuery = "SELECT aqh_teamName FROM athletequeuehistory WHERE aqh_studentId = $studentId ORDER BY aqh_year DESC LIMIT 1";
+      $teamResult = mysqli_query($sql, $teamQuery);
+      $teamRow = mysqli_fetch_row($teamResult);
+      $team = $teamRow[0];
+
       $inbox[]  = array("id"    => $row['aq_studentId'],
                         "last"  => $row['aq_lastName'],
                         "first" => $row['aq_firstName'],
-                        "type"  => $type);
+                        "type"  => $type,
+                        "team"  => $team);
     }
     echo json_encode( $inbox );
   }

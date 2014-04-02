@@ -5,10 +5,11 @@
     <table id="inbox-table" class="table table-condensed">
       <thead>
         <tr>
-          <td>Student #</td>
-          <td>Athlete Name</td>
-          <td>Type</td>
-          <td>&nbsp</td>
+          <th>Student #</th>
+          <th>Athlete Name</th>
+          <th>Type</th>
+          <th>Sport</th>
+          <th>&nbsp</th>
         </tr>
       </thead>
       <tbody id="inbox-table-body">
@@ -50,9 +51,14 @@
       $("#inbox-body").html("There is nothing waiting in the inbox...");
     } else {
       var tableString = "";
-      for (var i = 0; i < result.length; i++)
-        tableString += "<tr><td>" + result[i]["id"] + "</td><td>" + result[i]["last"] + ", " + result[i]["first"] + "</td><td>" + result[i]["type"] + 
-                       "</td><td><a href='?p=form&t=app&i=" + result[i]["id"] + "'><button type='button' class='btn btn-xs btn-primary'>view</button></a></td></tr>";
+      for (var i = 0; i < result.length; i++) {
+        tableString += "<tr>";
+        tableString += "<td>" + result[i]["id"] + "</td>";
+        tableString += "<td>" + result[i]["last"] + ", " + result[i]["first"] + "</td>";
+        tableString += "<td>" + result[i]["type"] + "</td>";
+        tableString += "<td>" + result[i]["team"] + "</td>";
+        tableString += "<td><a href='?p=form&t=app&i=" + result[i]["id"] + "'><button type='button' class='btn btn-xs btn-primary'>view</button></a></td></tr>";
+      }
       $("#inbox-table-body").html(tableString);
     }
     

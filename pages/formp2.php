@@ -1,4 +1,4 @@
-<div id="reg-header" class="row">
+<div id="header" class="row">
   <div class="col-md-2">
     <img src="images/letterhead.png" />
   </div>
@@ -12,21 +12,30 @@
 <form role="form" method="post">
 
   <div class="panel panel-default">
-    <div class="panel-heading">Student Information</div>
+    <div class="panel-heading">Athlete Information</div>
     <div class="panel-body">
       
       <!-- new row -->
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-3">
          <div class="form-group">
             <label>Student #</label>
-            <input id="reg-student-number" type="input" class="form-control" placeholder="">
+            <input id="student-number" type="input" class="form-control">
           </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-6">
          <div class="form-group">
             <label>Email</label>
-            <input id="reg-email" type="email" class="form-control" placeholder="">
+            <input id="email" type="email" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-3">
+         <div class="form-group">
+            <label>Canadian Resident</label>
+            <select id="resident-select" class="form-control">
+              <option>no</option>
+              <option>yes</option>
+            </select>
           </div>
         </div>
       </div>
@@ -36,19 +45,19 @@
         <div class="col-md-5">
           <div class="form-group">
             <label>First Name</label>
-            <input id="reg-first-name" type="input" class="form-control" placeholder="">
+            <input id="first-name" type="input" class="form-control">
           </div>
         </div>
         <div class="col-md-5">
           <div class="form-group">
             <label>Last Name</label>
-            <input id="reg-last-name" type="input" class="form-control" placeholder="">
+            <input id="last-name" type="input" class="form-control">
           </div>
         </div>
         <div class="col-md-2">
           <div class="form-group">
             <label>Initial(s)</label>
-            <input id="reg-initials" type="input" class="form-control" placeholder="">
+            <input id="initials" type="input" class="form-control">
           </div>
         </div>
       </div>
@@ -59,8 +68,7 @@
         <div class="col-md-3">
           <div class="form-group">
             <label>Gender</label>
-            <select id="reg-gender" class="form-control">
-              <option></option>
+            <select id="gender" class="form-control">
               <option>Male</option>
               <option>Female</option>
             </select>
@@ -70,14 +78,14 @@
         <div class="col-md-3">
           <div class="form-group">
             <label>Date of Birth</label>
-            <input id="reg-date-of-birth" type="text" data-date-format="yyyy-mm-dd" class="form-control datepicker">
+            <input id="date-of-birth" type="text" data-date-format="yyyy-mm-dd" class="form-control datepicker">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label>Height</label>
-            <select id="reg-height" class="form-control">
+            <select id="height" class="form-control">
               <!-- heights will be populated here from initializeForm() -->
             </select>
           </div>
@@ -86,7 +94,7 @@
         <div class="col-md-3">
           <div class="form-group">
             <label>Weight (lbs.)</label>
-            <input id="reg-weight" type="input" class="form-control" placeholder="ex. 160">
+            <input id="weight" type="input" class="form-control" placeholder="ex. 160">
           </div>
         </div>
       </div>
@@ -96,25 +104,25 @@
         <div class="col-md-3">
           <div class="form-group">
             <label>High School</label>
-            <input id="reg-high-school" type="input" class="form-control" placeholder="">
+            <input id="high-school" type="input" class="form-control">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label>Year of Graduation</label>
-            <input id="reg-year-of-graduation" type="input" class="form-control" placeholder="YYYY">
+            <input id="year-of-graduation" type="input" class="form-control" placeholder="YYYY">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label>Hometown</label>
-            <input id="reg-hometown" type="input" class="form-control" placeholder="">
+            <input id="hometown" type="input" class="form-control">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label>University Program</label>
-            <input id="reg-program" type="input" class="form-control" placeholder="">
+            <input id="program" type="input" class="form-control">
           </div>
         </div>
       </div>
@@ -131,21 +139,21 @@
         <div class="col-md-6">
          <div class="form-group">
             <label>Street</label>
-            <input id="reg-current-street" type="input" class="form-control" placeholder="">
+            <input id="current-street" type="input" class="form-control">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label>City</label>
-            <input id="reg-current-city" type="input" class="form-control" placeholder="">
+            <input id="current-city" type="input" class="form-control">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label>Province</label>
-            <input id="reg-current-province" type="input" class="form-control" placeholder="">
+            <input id="current-province" type="input" class="form-control">
           </div>
         </div>
       </div>
@@ -155,21 +163,21 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Phone</label>
-            <input id="reg-current-phone" type="input" class="form-control" placeholder="">
+            <input id="current-phone" type="input" class="form-control">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label>Postal Code</label>
-            <input id="reg-current-postal" type="input" class="form-control" placeholder="">
+            <input id="current-postal" type="input" class="form-control">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label>Country</label>
-            <input id="reg-current-country" type="input" class="form-control" placeholder="">
+            <input id="current-country" type="input" class="form-control">
           </div>
         </div>
       </div>
@@ -178,7 +186,10 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">Permanent Address</div>
+    <div class="panel-heading">
+      Permanent Address
+      <button id="copy-address-button" type="button" class="btn btn-primary btn-xs pull-right">Same as Current Address</button>
+    </div>
     <div class="panel-body">
 
       <!-- new row -->
@@ -186,21 +197,21 @@
         <div class="col-md-6">
          <div class="form-group">
             <label>Street</label>
-            <input id="reg-permanent-street" type="input" class="form-control" placeholder="">
+            <input id="permanent-street" type="input" class="form-control">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label>City</label>
-            <input id="reg-permanent-city" type="input" class="form-control" placeholder="">
+            <input id="permanent-city" type="input" class="form-control">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label>Province</label>
-            <input id="reg-permanent-province" type="input" class="form-control" placeholder="">
+            <input id="permanent-province" type="input" class="form-control">
           </div>
         </div>
       </div>
@@ -210,21 +221,21 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Phone</label>
-            <input id="reg-permanent-phone" type="input" class="form-control" placeholder="">
+            <input id="permanent-phone" type="input" class="form-control">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label>Postal Code</label>
-            <input id="reg-permanent-postal" type="input" class="form-control" placeholder="">
+            <input id="permanent-postal" type="input" class="form-control">
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label>Country</label>
-            <input id="reg-permanent-country" type="input" class="form-control" placeholder="">
+            <input id="permanent-country" type="input" class="form-control">
           </div>
         </div>
       </div>
@@ -233,97 +244,39 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading">Athlete History</div>
+    <div class="panel-heading">
+      Athlete History
+      <button id="non-uofl-team-button" type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#modal">Add Non-UofL Team</button>
+      <button id="uofl-team-button" type="button" class="btn btn-primary btn-xs pull-right right-space" data-toggle="modal" data-target="#modal">Add UofL Team</button>
+    </div>
     <div class="panel-body">
 
       <!-- new row -->
       <div class="row">
-        <div class="col-md-6">
-         <div class="form-group">
-            <label>UofL Team</label>
-            <select id="reg-team-list" class="form-control">
-              <!-- teams will be populated here from getTeams() -->
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Team Name</label>
-            <input id="reg-team-name" type="input" class="form-control" placeholder="">
-          </div>
-        </div>
-      </div>
-
-      <!-- new row -->
-      <div class="row">
-        <div class="col-md-3">
-         <div class="form-group">
-            <label>Position</label>
-            <input id="reg-team-position" type="input" class="form-control" placeholder="">
-          </div>
-        </div>
-
-        <div class="col-md-3">
-         <div class="form-group">
-            <label>Year</label>
-            <select id="reg-team-year" class="form-control">
-              <!-- years will be populated here from initializeForm() -->
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <div class="form-group">
-            <label>Jersey #</label>
-            <input id="reg-team-jersey" type="input" class="form-control" placeholder="">
-          </div>
-        </div>
-
-        <div class="col-md-2">
-          <div class="form-group">
-            <label>Year Charged</label>
-            <select id="reg-team-charged" class="form-control">
-              <option>yes</option>
-              <option>no</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-1">
-          <div class="form-group">
-            <label>&nbsp</label>
-            <button id="reg-team-add-button" type="button" class="btn btn-primary">Add</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- new row -->
-      <div class="row">
-        <div class="col-md-12">
-          <table id="reg-team-table" class="table">
-            <thead>
-              <tr>
-                <th>Year</th>
-                <th>Team</th>
-                <th>Position</th>
-                <th>Jersey</th>
-                <th>Charged</th>
-                <th> </th>
-              </tr>
-            </thead>
-            <tbody id="reg-team-table-body"></tbody>
-          </table>
-        </div>
+        <table id="team-table" class="table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Institute</th>
+              <th>Team</th>
+              <th>Position</th>
+              <th>Jersey</th>
+              <th>Charged</th>
+              <th> </th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody id="team-table-body"></tbody>
+        </table>
       </div>
 
       <!-- suspensions text area 
-      <textarea id="reg-suspensions" class="form-control" rows="3" placeholder="Please indicate if you are presently under suspension from any sport organization or league."></textarea>
+      <textarea id="suspensions" class="form-control" rows="3" placeholder="Please indicate if you are presently under suspension from any sport organization or league."></textarea>
       -->
     </div>
   </div>
 
-  <div id="reg-disclaimer" class="well">
+  <div id="disclaimer" class="well">
     * The information collected in this form is used and disclosed by Canadian Interuniversity Sport("CIS") in accordance with the terms of CIS' Student Athlete Acknowledgement Form and CIS' Personal Information Protection Policy.<br />
     For further information about CIS' collection, use and disclosure of personal information, see our Personal Information Protection Policy at <a href="http://www.cis-sic.ca">www.cis-sic.ca</a>.
   </div>
@@ -331,10 +284,10 @@
   <!-- new row -->
   <div class='row'>
     <div class="col-md-8"></div>
-    <div id="reg-buttons-1" class="col-md-2">
+    <div id="buttons-1" class="col-md-2">
       <!-- populates with buttons depending on form type (register, verify, approve/delete) -->
     </div>
-    <div id="reg-buttons-2" class="col-md-2">
+    <div id="buttons-2" class="col-md-2">
       <!-- populates with buttons depending on form type (register, verify, approve/delete) -->
     </div>
   </div>
@@ -343,10 +296,88 @@
 
 <br /><br />
 
+<!-- add team modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 id="modal-label" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        
+        <!-- new row -->
+        <div class="row">
+          <div class="col-md-6">
+            <div id="team-list-container" class="form-group">
+              <label>Team</label>
+              <select id="team-list" class="form-control">
+                <!-- teams will be populated here from getTeams() -->
+              </select>
+            </div>
+            <div id="team-name-container" class="form-group">
+              <label>Team Name</label>
+              <input id="team-name" type="input" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div id="school-name-container" class="form-group">
+              <label>School Name</label>
+              <input id="school-name" type="input" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <!-- new row -->
+        <div class="row">
+          <div class="col-md-3">
+           <div class="form-group">
+              <label>Position</label>
+              <input id="team-position" type="input" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+           <div class="form-group">
+              <label>Year</label>
+              <select id="team-year" class="form-control">
+                <!-- years will be populated here from initializeForm() -->
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Jersey #</label>
+              <input id="team-jersey" type="input" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Year Charged</label>
+              <select id="team-charged" class="form-control">
+                <option>yes</option>
+                <option>no</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button id="modal-close-button" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="modal-button" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 
   var teamHistory = new Array(), // athletes team history
       teamList = new Array(), // uofl team list
+      numOfEventListeners = 0,
       currentId = "000000000",
       formType = "reg";
       
@@ -355,33 +386,56 @@
     currentId = cislib.getURLParameter("i");
     formType = cislib.getURLParameter("t");
     initializeForm();
+
+    //$("#hometown").tooltip({
+    //  title: "Testing",
+    //}).tooltip('show');
   }
 
   function initializeForm() {
     // populate university team list on page and add appropriate buttons for form type
-    cislib.managerRequest("team", "getList", undefined, populateTeamList);
-
-    // disable ability to change studentId
-    $("#reg-student-number").attr("disabled", "disabled");
-
-    // event listener for select box
-    $("#reg-team-list").change(teamSelectBoxChange);
-
-    // button to add a team
-    $("#reg-team-add-button").click(addTeamButtonClick);
-
-    // hide team table
-    $("#reg-team-table").css("display", "none");
+    cislib.managerRequest("team", "getList", undefined, function(result) {
+      var htmlString = "";
+      for (var i = 0; i < result.length; i++) {
+        teamList.push({
+          id   : result[i].t_id,
+          name : result[i].t_name
+        });
+        htmlString += "<option>" + result[i].t_name + "</option>";
+      }
+      $("#team-list").html(htmlString);
+    });
 
     // initialize date picker
-    $("#reg-date-of-birth").datepicker({
+    $("#date-of-birth").datepicker({
       startView: "decade"
     });
+
+    // initialize address copy button
+    $("#copy-address-button").click(function(event) {
+      $("#permanent-street").val($("#current-street").val());
+      $("#permanent-city").val($("#current-city").val());
+      $("#permanent-province").val($("#current-province").val());
+      $("#permanent-phone").val($("#current-phone").val());
+      $("#permanent-postal").val($("#current-postal").val());
+      $("#permanent-country").val($("#current-country").val());
+    });
+
+    // disable ability to change studentId
+    $("#student-number").attr("disabled", "disabled");
+
+    // buttons to add teams
+    $("#non-uofl-team-button").click(addNonUofLTeamClick);
+    $("#uofl-team-button").click(addUofLTeamClick);
+    $("#modal-button").click(addUpdateTeamClick);
+
+    // hide team table
+    $("#team-table").css("display", "none");
 
     // populate height select box
     var feet = 8,
         inches = 0,
-        heightBox = $("#reg-height");
+        heightBox = $("#height");
     for (var i = 0; i < 49; i++) {
       heightBox.append("<option>" + feet + "'" + inches +  "\"</option>");
       inches--;
@@ -392,43 +446,45 @@
     }
 
     // populate the year select box
-    for (var i = new Date().getFullYear(); i > 1970; i--)
-      $("#reg-team-year").append("<option>" + i + "-" + (i + 1) + "</option>");
+    for (var i = new Date().getFullYear() + 1; i > 1970; i--)
+      $("#team-year").append("<option>" + i + "-" + (i + 1) + "</option>");
 
+    // add buttons and event listeners
+    // also request known information if available
     switch (formType) {
 
       // registration form
       case "reg":
-        $("#reg-student-number").val(currentId);
-        $("#reg-buttons-2").html("<button id='reg-register-button' type='button' class='btn btn-lg btn-primary'>Register</button>");
-        $("#reg-register-button").click(registerButtonClick);
+        $("#student-number").val(currentId);
+        $("#buttons-2").html("<button id='register-button' type='button' class='btn btn-lg btn-primary'>Register</button>");
+        $("#register-button").click(registerButtonClick);
         break;
 
       // verification form
       case "ver":
-        $("#reg-header").css("display", "none");
-        $("#reg-buttons-2").html("<button id='reg-verify-button' type='button' class='btn btn-lg btn-primary'>Verify</button>");
-        $("#reg-verify-button").click(verifyButtonClick);
+        $("#header").css("display", "none");
+        $("#buttons-2").html("<button id='verify-button' type='button' class='btn btn-lg btn-primary'>Verify</button>");
+        $("#verify-button").click(verifyButtonClick);
         cislib.managerRequest("form", "getAthlete", {id:currentId, queue:"no"}, populateKnownFields);
         break;
 
       // update form
       case "upd":
-        $("#reg-header").css("display", "none");
-        $("#reg-disclaimer").css("display", "none");
-        $("#reg-buttons-2").html("<button id='reg-update-button' type='button' class='btn btn-lg btn-primary'>Update</button>");
-        $("#reg-update-button").click(updateButtonClick);
+        $("#header").css("display", "none");
+        $("#disclaimer").css("display", "none");
+        $("#buttons-2").html("<button id='update-button' type='button' class='btn btn-lg btn-primary'>Update</button>");
+        $("#update-button").click(updateButtonClick);
         cislib.managerRequest("form", "getAthlete", {id:currentId, queue:"no"}, populateKnownFields);
         break;
 
       // approval form
       case "app":
-        $("#reg-header").css("display", "none");
-        $("#reg-disclaimer").css("display", "none");
-        $("#reg-buttons-1").html("<button id='reg-approve-button' type='button' class='btn btn-lg btn-warning'>Approve</button>");
-        $("#reg-buttons-2").html("<button id='reg-delete-button' type='button' class='btn btn-lg btn-danger'>Delete</button>");
-        $("#reg-approve-button").click(approveButtonClick);
-        $("#reg-delete-button").click(deleteButtonClick);
+        $("#header").css("display", "none");
+        $("#disclaimer").css("display", "none");
+        $("#buttons-1").html("<button id='approve-button' type='button' class='btn btn-lg btn-warning'>Approve</button>");
+        $("#buttons-2").html("<button id='delete-button' type='button' class='btn btn-lg btn-danger'>Delete</button>");
+        $("#approve-button").click(approveButtonClick);
+        $("#delete-button").click(deleteButtonClick);
         cislib.managerRequest("form", "getAthlete", {id:currentId, queue:"yes"}, populateKnownFields);
         break;
     }
@@ -437,38 +493,41 @@
   function populateKnownFields(result) {
     var infoPrefix = result[0],
         info = result[1];
-    $("#reg-student-number").val(info[infoPrefix + "studentId"]);
-    $("#reg-email").val(info[infoPrefix + "email"]);
-    $("#reg-last-name").val(info[infoPrefix + "lastName"]);
-    $("#reg-first-name").val(info[infoPrefix + "firstName"]);
-    $("#reg-initials").val(info[infoPrefix + "initials"]);
-    $("#reg-gender").val(info[infoPrefix + "gender"]);
-    $("#reg-date-of-birth").val(info[infoPrefix + "dob"]);
-    $("#reg-height").val(info[infoPrefix + "height"]);
-    $("#reg-weight").val(info[infoPrefix + "weight"]);
-    $("#reg-high-school").val(info[infoPrefix + "highSchool"]);
-    $("#reg-year-of-graduation").val(info[infoPrefix + "gradYear"]);
-    $("#reg-program").val(info[infoPrefix + "program"]);
+    $("#student-number").val(info[infoPrefix + "studentId"]);
+    $("#resident-select").prop("selectedIndex", info[infoPrefix + "resident"]);
+    $("#email").val(info[infoPrefix + "email"]);
+    $("#last-name").val(info[infoPrefix + "lastName"]);
+    $("#first-name").val(info[infoPrefix + "firstName"]);
+    $("#initials").val(info[infoPrefix + "initials"]);
+    $("#gender").val(info[infoPrefix + "gender"]);
+    $("#date-of-birth").val(info[infoPrefix + "dob"]);
+    $("#height").val(info[infoPrefix + "height"]);
+    $("#weight").val(info[infoPrefix + "weight"]);
+    $("#hometown").val(info[infoPrefix + "hometown"]);
+    $("#high-school").val(info[infoPrefix + "highSchool"]);
+    $("#year-of-graduation").val(info[infoPrefix + "gradYear"]);
+    $("#program").val(info[infoPrefix + "program"]);
 
-    $("#reg-current-street").val(info[infoPrefix + "cStreet"]);
-    $("#reg-current-city").val(info[infoPrefix + "cCity"]);
-    $("#reg-current-province").val(info[infoPrefix + "cProvince"]);
-    $("#reg-current-postal").val(info[infoPrefix + "cPostalCode"]);
-    $("#reg-current-country").val(info[infoPrefix + "cCountry"]);
-    $("#reg-current-phone").val(info[infoPrefix + "cPhone"]);
+    $("#current-street").val(info[infoPrefix + "cStreet"]);
+    $("#current-city").val(info[infoPrefix + "cCity"]);
+    $("#current-province").val(info[infoPrefix + "cProvince"]);
+    $("#current-postal").val(info[infoPrefix + "cPostalCode"]);
+    $("#current-country").val(info[infoPrefix + "cCountry"]);
+    $("#current-phone").val(info[infoPrefix + "cPhone"]);
 
-    $("#reg-permanent-street").val(info[infoPrefix + "pStreet"]);
-    $("#reg-permanent-city").val(info[infoPrefix + "pCity"]);
-    $("#reg-permanent-province").val(info[infoPrefix + "pProvince"]);
-    $("#reg-permanent-postal").val(info[infoPrefix + "pPostalCode"]);
-    $("#reg-permanent-country").val(info[infoPrefix + "pCountry"]);
-    $("#reg-permanent-phone").val(info[infoPrefix + "pPhone"]);
+    $("#permanent-street").val(info[infoPrefix + "pStreet"]);
+    $("#permanent-city").val(info[infoPrefix + "pCity"]);
+    $("#permanent-province").val(info[infoPrefix + "pProvince"]);
+    $("#permanent-postal").val(info[infoPrefix + "pPostalCode"]);
+    $("#permanent-country").val(info[infoPrefix + "pCountry"]);
+    $("#permanent-phone").val(info[infoPrefix + "pPhone"]);
 
     // add teams to js array
     var histPrefix = result[2];
     for (var i = 3; i < result.length; i++) {
       addTeam(
         result[i][histPrefix + "year"],
+        result[i][histPrefix + "institute"],
         result[i][histPrefix + "teamId"],
         result[i][histPrefix + "teamName"],
         result[i][histPrefix + "position"],
@@ -478,21 +537,41 @@
     }
   }
 
-  function populateTeamList(result) {
-    var htmlString = "<option>Non-UofL Team</option>";
-    for (var i = 0; i < result.length; i++) {
-      teamList.push({
-        id   : result[i].t_id,
-        name : result[i].t_name
-      });
-      htmlString += "<option>" + result[i].t_name + "</option>";
-    }
-    $("#reg-team-list").html(htmlString);
-  }
-
   // == team history ==
 
-  function addTeam(year, teamId, teamName, position, jersey, charged) {
+  function redrawTeamTable() {
+    for (var i = 0; i < numOfEventListeners; i++) {
+      $("#team-edit-" + i).unbind();
+      $("#team-remove-" + i).unbind();
+    }
+    numOfEventListeners = 0;
+
+    // create table
+    var tableString = "";
+    for (var j = 0; j < teamHistory.length; j++) {
+      tableString += "<tr>";
+      tableString += "<td>" + teamHistory[j].year + "-" + (parseInt(teamHistory[j].year) + 1) + "</td>";
+      tableString += "<td>" + teamHistory[j].institute + "</td>";
+      tableString += "<td>" + teamHistory[j].teamName + "</td>";
+      tableString += "<td>" + teamHistory[j].position + "</td>";
+      tableString += "<td>" + teamHistory[j].jersey + "</td>";
+      tableString += "<td>" + teamHistory[j].charged + "</td>";
+      tableString += "<td><button id='team-edit-" + j + "' type='button' class='btn btn-xs btn-warning' data-toggle='modal' data-target='#modal'>edit</button></td>";
+      tableString += "<td><button id='team-remove-" + j + "' type='button' class='btn btn-xs btn-danger'>remove</button></td>";
+      tableString += "</tr>";
+      numOfEventListeners++;
+    }
+    $("#team-table-body").html(tableString);
+    $("#team-table").css("display", "block");
+
+    // add event listeners
+    for (var k = 0; k < numOfEventListeners; k++) {
+      $("#team-edit-" + k).click(editTeamClick);
+      $("#team-remove-" + k).click(removeTeamClick);
+    }
+  }
+
+  function addTeam(year, institute, teamId, teamName, position, jersey, charged) {
 
     // format charged
     if (charged == "1")
@@ -500,82 +579,114 @@
     else if (charged == "0")
       charged = "no";
 
-    // add team to memory
+    // add team to memory and redraw the table
     teamHistory.push({
-      year     : year,
-      teamId   : teamId,
-      teamName : teamName,
-      position : position,
-      jersey   : jersey,
-      charged  : charged
+      year      : year,
+      institute : institute,
+      teamId    : teamId,
+      teamName  : teamName,
+      position  : position,
+      jersey    : jersey,
+      charged   : charged
     });
-
-    // create a table entry
-    var tableString = "<tr id='reg-team-row-" + year + "'>";
-        tableString += "<td>" + year + "-" + (parseInt(year) + 1) + "</td>";
-        tableString += "<td>" + teamName + "</td>";
-        tableString += "<td>" + position + "</td>";
-        tableString += "<td>" + jersey + "</td>";
-        tableString += "<td>" + charged + "</td>";
-        tableString += "<td><button id='reg-team-remove-" + year + "' type='button' class='btn btn-xs btn-danger'>remove</button></td>";
-        tableString += "</tr>";
-    $("#reg-team-table-body").append(tableString);
-    $("#reg-team-remove-" + year).click(removeTeamButtonClick);
-
-    // make the team table visible
-    $("#reg-team-table").css("display", "block");
+    redrawTeamTable();
   }
 
-  function removeTeam(year) {
-    for (var i = 0; i < teamHistory.length; i++)
-      if (teamHistory[i].year == year)
-        teamHistory.splice(i, 1);
-
-    // remove the table entry
-    $("#reg-team-row-" + year).remove();
-
-    // remove table if empty
+  function removeTeam(index) {
+    teamHistory.splice(index, 1);
     if (teamHistory.length == 0)
-      $("#reg-team-table").css("display", "none");
-  }
-
-  function teamSelectBoxChange(event) {
-    if (event.target.value == "Non-UofL Team") {
-      $("#reg-team-name").val("");
-      $("#reg-team-name").removeAttr("disabled");
-    } else {
-      $("#reg-team-name").val(event.target.value);
-      $("#reg-team-name").attr("disabled", "disabled");
-    }
+      $("#team-table").hide();
+    redrawTeamTable();
   }
 
   function getSelectedTeamId() {
-    var selectedTeam = $("#reg-team-name").val();
+    var selectedTeam = $("#team-list").val();
     for (var i = 0; i < teamList.length; i++)
       if (teamList[i].name == selectedTeam)
         return teamList[i].id;
     return 0;
   }
 
-  function getTeamByYear(year) {
-    for (var i = 0; i < teamHistory.length; i++)
-      if (teamHistory[i].year == year)
-        return teamHistory[i];
-    return undefined;
+  // == team history event listeners ==
+
+  function addUofLTeamClick(event) {
+    $("#modal-label").html("Add UofL Team");
+    $("#modal-button").html("Add");
+    $("#team-list-container").show();
+    $("#team-name-container").hide();
+    $("#school-name-container").hide();
+    $("#school-name").val("University of Lethbridge");
+    $("#team-position").val("");
+    $("#team-jersey").val("");
   }
 
-  // == button event listeners ==
+  function addNonUofLTeamClick(event) {
+    $("#modal-label").html("Add Non-UofL Team");
+    $("#modal-button").html("Add");
+    $("#team-list-container").hide();
+    $("#team-name-container").show();
+    $("#school-name-container").show();
+    $("#school-name").val("");
+    $("#team-name").val("");
+    $("#team-position").val("");
+    $("#team-jersey").val("");
+  }
 
-   function addTeamButtonClick(event) {
+  function editTeamClick(event) {
+    $("#modal-label").html("Edit Team History");
+    $("#modal-button").html("Update");
+    $("#team-list-container").hide();
+    $("#team-name-container").show();
+    $("#school-name-container").show();
+
+    var index = event.target.id.substr(10);
+    var team = teamHistory[index];
+    $("#school-name").val(team.institute);
+    $("#team-year").val(parseInt(team.year) + "-" + parseInt(Number(team.year) + 1));
+    $("#team-name").val(team.teamName);
+    $("#team-position").val(team.position);
+    $("#team-jersey").val(team.jersey);
+  }
+
+  function removeTeamClick(event) {
+    if (event.target.innerHTML == "remove") {
+      event.target.innerHTML = "confirm";
+    } else {
+      $("#" + event.target.id).unbind();
+
+      var index = event.target.id.substr(12);
+      var teamObject = {
+        queue     : (formType == "reg" || formType == "app") ? "yes" : "no",
+        studentId : currentId,
+        year      : teamHistory[index].year
+      };
+      cislib.managerRequest("form", "removeTeam", teamObject, function(result) {
+        removeTeam(index);
+      });
+    }
+  }
+
+  // == modal event listeners ==
+
+  function addUpdateTeamClick(event) {
     // !!! validate input
-    var years = $( "#reg-team-year" ).val().split("-"),
+    var years = $("#team-year").val().split("-"),
         startYear = years[0],
         endYear = years[1],
-        teamId = getSelectedTeamId(),
-        teamName = $( "#reg-team-name" ).val(),
-        position = $( "#reg-team-position" ).val(),
-        jersey = $( "#reg-team-jersey" ).val(),
-        charged = $( "#reg-team-charged" ).val();
+        schoolName = $("#school-name").val(),
+        position = $("#team-position").val(),
+        jersey = $("#team-jersey").val(),
+        charged = $("#team-charged").val();
+
+    // get team name
+    var teamName = "", 
+        teamId = 0;
+    if ($("#team-list-container").is(":visible")) {
+      teamName = $("#team-list").val();
+      teamId = getSelectedTeamId();
+    } else {
+      teamName = $("#team-name").val();
+    }
 
     // send team to server
     var teamObject = {
@@ -584,32 +695,17 @@
       year      : startYear,
       teamId    : teamId,
       teamName  : teamName,
+      institute : schoolName,
       position  : position,
       jersey    : jersey,
       charged   : charged
     };
     cislib.managerRequest("form", "addTeam", teamObject, function(result) {
-      addTeam(result['year'], result['teamId'], result['teamName'], result['position'], result['jersey'], result['charged']);
+      addTeam(result['year'], result['institute'], result['teamId'], result['teamName'], result['position'], result['jersey'], result['charged']);
     });
   }
 
-  function removeTeamButtonClick(event) {
-    if (event.target.innerHTML == "remove") {
-      event.target.innerHTML = "confirm";
-    } else {
-      $("#" + event.target.id).unbind();
-
-      var year = event.target.id.substr(16);
-      var teamObject = {
-        queue     : (formType == "reg" || formType == "app") ? "yes" : "no",
-        studentId : currentId,
-        year      : year
-      };
-      cislib.managerRequest("form", "removeTeam", teamObject, function(result) {
-        removeTeam(result.year);
-      });
-    }
-  }
+  // == form submit event listeners ==
 
   function registerButtonClick(event) {
     var athleteObject = getAthleteObject();
@@ -661,64 +757,66 @@
   function getAthleteObject() {
     // store the information as an object
     return {
-      studentId  : $("#reg-student-number").val(),
-      lastName   : $("#reg-last-name").val(),
-      firstName  : $("#reg-first-name").val(),
-      initials   : $("#reg-initials").val(),
-      gender     : $("#reg-gender").val(),
-      dob        : $("#reg-date-of-birth").val(),
-      height     : $("#reg-height").val(),
-      weight     : $("#reg-weight").val(),
-      email      : $("#reg-email").val(),
-      highSchool : $("#reg-high-school").val(),
-      gradYear   : $("#reg-year-of-graduation").val(),
-      program    : $("#reg-program").val(),
+      studentId  : $("#student-number").val(),
+      resident   : $("#resident-select").prop("selectedIndex"),
+      lastName   : $("#last-name").val(),
+      firstName  : $("#first-name").val(),
+      initials   : $("#initials").val(),
+      gender     : $("#gender").val(),
+      dob        : $("#date-of-birth").val(),
+      height     : $("#height").val(),
+      weight     : $("#weight").val(),
+      email      : $("#email").val(),
+      hometown   : $("#hometown").val(),
+      highSchool : $("#high-school").val(),
+      gradYear   : $("#year-of-graduation").val(),
+      program    : $("#program").val(),
 
-      cStreet    : $("#reg-current-street").val(),
-      cCity      : $("#reg-current-city").val(),
-      cProvince  : $("#reg-current-province").val(),
-      cPostal    : $("#reg-current-postal").val(),
-      cCountry   : $("#reg-current-country").val(),
-      cPhone     : $("#reg-current-phone").val(),
+      cStreet    : $("#current-street").val(),
+      cCity      : $("#current-city").val(),
+      cProvince  : $("#current-province").val(),
+      cPostal    : $("#current-postal").val(),
+      cCountry   : $("#current-country").val(),
+      cPhone     : $("#current-phone").val(),
 
-      pStreet    : $("#reg-permanent-street").val(),
-      pCity      : $("#reg-permanent-city").val(),
-      pProvince  : $("#reg-permanent-province").val(),
-      pPostal    : $("#reg-permanent-postal").val(),
-      pCountry   : $("#reg-permanent-country").val(),
-      pPhone     : $("#reg-permanent-phone").val()
+      pStreet    : $("#permanent-street").val(),
+      pCity      : $("#permanent-city").val(),
+      pProvince  : $("#permanent-province").val(),
+      pPostal    : $("#permanent-postal").val(),
+      pCountry   : $("#permanent-country").val(),
+      pPhone     : $("#permanent-phone").val()
     };
   }
 
   init();
 
   /*
-  var studentId = $("#reg-student-number").val(),
-      email = $("#reg-email").val(),
-      lastName = $("#reg-last-name").val(),
-      firstName = $("#reg-first-name").val(),
-      initials = $("#reg-initials").val(),
-      gender = $("#reg-gender").val(),
-      dob = $("#reg-date-of-birth").val(),
-      height = $("#reg-height").val(),
-      weight = $("#reg-weight").val(),
-      highSchool = $("#reg-high-school").val(),
-      gradYear = $("#reg-year-of-graduation").val(),
-      program = $("#reg-program").val(),
+  var studentId = $("#student-number").val(),
+      email = $("#email").val(),
+      lastName = $("#last-name").val(),
+      firstName = $("#first-name").val(),
+      initials = $("#initials").val(),
+      gender = $("#gender").val(),
+      dob = $("#date-of-birth").val(),
+      height = $("#height").val(),
+      weight = $("#weight").val(),
+      highSchool = $("#high-school").val(),
+      gradYear = $("#year-of-graduation").val(),
+      program = $("#program").val(),
 
-      cStreet = $("#reg-current-street").val(),
-      cCity = $("#reg-current-city").val(),
-      cProvince = $("#reg-current-province").val(),
-      cPostal = $("#reg-current-postal").val(),
-      cCountry = $("#reg-current-country").val(),
-      cPhone = $("#reg-current-phone").val(),
+      cStreet = $("#current-street").val(),
+      cCity = $("#current-city").val(),
+      cProvince = $("#current-province").val(),
+      cPostal = $("#current-postal").val(),
+      cCountry = $("#current-country").val(),
+      cPhone = $("#current-phone").val(),
 
-      pStreet = $("#reg-permanent-street").val(),
-      pCity = $("#reg-permanent-city").val(),
-      pProvince = $("#reg-permanent-province").val(),
-      pPostal = $("#reg-permanent-postal").val(),
-      pCountry = $("#reg-permanent-country").val(),
-      pPhone = $("#reg-permanent-phone").val();
+      pStreet = $("#permanent-street").val(),
+      pCity = $("#permanent-city").val(),
+      pProvince = $("#permanent-province").val(),
+      pPostal = $("#permanent-postal").val(),
+      pCountry = $("#permanent-country").val(),
+      pPhone = $("#permanent-phone").val();
   */
 
 </script>

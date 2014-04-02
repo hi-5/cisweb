@@ -11,3 +11,7 @@ body {
 .menu-list {
   height: 500px;
 }
+
+.right-space {
+  margin-right: 5px;
+}
