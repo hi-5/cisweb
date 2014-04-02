@@ -19,4 +19,15 @@
     return $result->num_rows;
   }
 
+  // expects a student id and the sql connection. Returns true if the id is an admin.
+  function isAdmin($id, $sql) {
+    $query = "SELECT f_studentId FROM faculty WHERE f_studentId = $id AND f_isAdmin = 1";
+    $result = mysqli_query($sql, $query);
+
+    if($result->num_rows != 0) {
+      return true;
+    }
+    else return false;
+  }
+
 ?>
