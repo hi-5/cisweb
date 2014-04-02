@@ -1,3 +1,10 @@
+<?php
+
+  include "./php/cislib.php";
+  loggedAdmin();
+
+?>
+
 
 <form class="form-inline">
 	<label for="inputTeam">Team </label>

@@ -1,3 +1,10 @@
+<?php
+
+  include "./php/cislib.php";
+  loggedAdmin();
+
+?>
+
 <div id="inbox-notice"></div>
 <div class="panel panel-default">
   <div class="panel-heading">Inbox</div>

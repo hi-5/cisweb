@@ -1,3 +1,10 @@
+<?php
+
+  include "./php/cislib.php";
+  loggedAdmin();
+
+?>
+
 <!-- new row -->
 <div class="row">
   <div class="col-md-2">

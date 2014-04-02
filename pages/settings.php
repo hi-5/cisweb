@@ -1,5 +1,9 @@
 <!-- get setting type and tab class information -->
 <?php
+
+  include "./php/cislib.php";
+  loggedAdmin();
+
   if ( isset($_GET['t']) )
     $type = $_GET['t'];
   else

@@ -1,3 +1,10 @@
+<?php
+
+  include "./php/cislib.php";
+  loggedStudent($_REQUEST['i']);
+
+?>
+
 <div id="header" class="row">
   <div class="col-md-2">
     <img src="images/letterhead.png" />

@@ -6,7 +6,7 @@
 /********************************/
 $databasehost = "localhost";
 $databasename = "cis";
-$databasetable = "athletes";
+$databasetable = "teams";
 $databaseusername ="mike";
 $databasepassword = "onetwo";
 $fieldseparator = ",";

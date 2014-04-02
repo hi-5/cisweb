@@ -30,4 +30,20 @@
     else return false;
   }
 
+  //Ensures the user is an admin, if not redirect to error page.
+  function loggedAdmin() {
+    if (!$_SESSION['isAdmin']) {
+      header( 'Location: /pages/error.php' );
+    }
+  }
+
+  //if user is a student and the regestration page is not their own, redirect to error page. Expects the ID of the student record being accessed
+  function loggedStudent($id) {
+    if (!$_SESSION['isAdmin']) {
+      if ($id != $_SESSION['studentId']) {
+        header( 'Location: /pages/error.php' );
+      }
+    }
+  }
+
 ?>
