@@ -131,6 +131,7 @@ function updateTeam($args, $name) {
       ON athletehistory.ah_studentId=athletes.a_studentId
       AND athletehistory.ah_year = $year
       AND athletehistory.ah_teamId = $team
+      AND athletehistory.ah_institute = 'University of Lethbridge'
       ORDER BY athletes.a_lastName";
 
     $result = mysqli_query($sql, $query);

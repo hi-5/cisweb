@@ -81,6 +81,7 @@ INNER JOIN athletes
 ON athletehistory.ah_studentId=athletes.a_studentId
 AND athletehistory.ah_year = $year
 AND athletehistory.ah_teamId = $team
+AND athletehistory.ah_institute = 'University of Lethbridge'
 ORDER BY $order";
 
 
