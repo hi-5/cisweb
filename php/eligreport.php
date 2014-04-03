@@ -49,6 +49,7 @@ INNER JOIN athletes
 ON athletehistory.ah_studentId=athletes.a_studentId
 AND athletehistory.ah_year = $year
 AND athletehistory.ah_teamId = $teamId
+AND athletehistory.ah_institute = 'University of Lethbridge'
 ORDER BY athletehistory.ah_jerseyNumber";
 
 $athleteResult = mysqli_query($sql, $athleteQuery);
