@@ -42,7 +42,7 @@ $teamName = $temp['t_name'];
 $yearTeamName = $year . "-" . ($year+1) . " " . $teamName . " Sports Information Roster";
 
 //Get athlete info
-$athleteQuery = "SELECT athletes.a_studentId, athletehistory.ah_jerseyNumber, athletes.a_firstName, athletes.a_lastName, athletehistory.ah_position, athletes.a_height, athletes.a_weight, athletes.a_dob, athletes.a_program
+$athleteQuery = "SELECT athletes.a_studentId, athletehistory.ah_jerseyNumber, athletes.a_firstName, athletes.a_lastName, athletehistory.ah_position, athletes.a_height, athletes.a_weight, athletes.a_dob, athletes.a_program, athletes.a_hometown
 FROM athletehistory
 INNER JOIN athletes
 ON athletehistory.ah_studentId=athletes.a_studentId
@@ -64,8 +64,8 @@ while($row = mysqli_fetch_assoc($athleteResult)) {
     <Cell ss:StyleID=\"s119\"><Data ss:Type=\"DateTime\">" . $row['a_dob'] . "</Data></Cell>
     <Cell ss:StyleID=\"s116\"><Data ss:Type=\"String\">" . $row['a_program'] . "</Data></Cell>
     <Cell ss:StyleID=\"s116\"><Data ss:Type=\"Number\">1</Data></Cell>
-    <Cell ss:StyleID=\"s116\"><Data ss:Type=\"String\">Hometown</Data></Cell>
-    <Cell ss:StyleID=\"s117\"><Data ss:Type=\"String\">Last Team</Data></Cell>
+    <Cell ss:StyleID=\"s116\"><Data ss:Type=\"String\">" . $row['a_hometown'] . "</Data></Cell>
+    <Cell ss:StyleID=\"s117\"><Data ss:Type=\"String\">" . getLastTeamPlayed($row['a_studentId'], $sql) . "</Data></Cell>
     </Row>";
 }
 

@@ -11,7 +11,7 @@ $databaseusername ="mike";
 $databasepassword = "onetwo";
 $fieldseparator = ",";
 $lineseparator = "\n";
-$csvfile = "playerHistory.csv";
+$csvfile = "lastTeamPlayed.csv";
 /********************************/
 /* Would you like to add an ampty field at the beginning of these records?
 /* This is useful if you have a table with the first field being an auto_increment integer
@@ -26,7 +26,7 @@ $addauto = 0;
 /* change the permissions, or execute at the prompt: touch output.sql && chmod 777 output.sql
 /********************************/
 $save = 1;
-$outputfile = "athletehistory.sql";
+$outputfile = "lastteam.sql";
 /********************************/
 
 
@@ -80,20 +80,6 @@ foreach(split($lineseparator,$csvcontent) as $line) {
 	/***********************************
 	Custom data formating code by Mike Paulson
 	/********************************/
-	$year = 0;
-	$yearstr = "";
-	if (isset($linearray[2]) && $linearray[2] != "") {
-		$yearstr = $linearray[2];
-		$yearstr = substr($yearstr, 0, 4);
-		$linearray[2] = $yearstr;
-	}
-
-	$charged = 0;
-	if (isset($linearray[7]) && $linearray[7] != "") {
-		if ($linearray[7] == "TRUE") $charged = 1;
-		else $charged = 0;
-		$linearray[7] = $charged;
-	}
 
 
 	/***********************************
@@ -103,9 +89,9 @@ foreach(split($lineseparator,$csvcontent) as $line) {
 	$linemysql = implode("','",$linearray);
 	
 	if($addauto)
-		$query = "insert into $databasetable (ah_studentId, ah_teamId, ah_year, ah_jerseyNumber, ah_position, ah_institute, ah_teamName, ah_charged) values('','$linemysql');";
+		$query = "insert into $databasetable (ah_studentId ah_institute, ah_teamName) values('','$linemysql');";
 	else
-		$query = "insert into $databasetable (ah_studentId, ah_teamId, ah_year, ah_jerseyNumber, ah_position, ah_institute, ah_teamName, ah_charged) values('$linemysql');";
+		$query = "insert into $databasetable (ah_studentId, ah_institute, ah_teamName) values('$linemysql');";
 	
 	$queries .= $query . "\n";
 
