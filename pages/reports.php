@@ -57,6 +57,7 @@
             <option value="athletehistory.ah_jerseyNumber">Jersey Number</option>
             <option value="athletehistory.ah_charged">Eligibility Charged</option>
             <option value="YOE">Year of Eligibility</option>
+            <option value="lastTeam">Last Team Played</option>
             <option value="athletes.a_cStreet">Street</option>
             <option value="athletes.a_cCity">City</option>
             <option value="athletes.a_cProvince">Province</option>

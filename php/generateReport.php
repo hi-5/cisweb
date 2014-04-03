@@ -38,8 +38,8 @@ $teamName = $js["teamName"];
 $report = $js["report"];
 
 //Do to limitations of the database we can not order based on YOE
-if ($order == "YOE") {
-	echo "Can not sort by year of eligibiltiy.";
+if ($order == "YOE" || $order == "lastTeam") {
+	echo "Sorry, but you can not order by that attribute";
 	exit();	
 } 
 
@@ -58,7 +58,7 @@ for ($i = 0; $i < $length; $i++) {
 	$head = $js["attributes"]["$i"]["header"];
 
 	//Build select statement
-	if ($name == "YOE") {
+	if ($name == "YOE" || $name == "lastTeam") {
 
 	} elseif ($name == "athletes.a_studentId") {
 	//we always want to select studentId for getting YOE so we dont add it to the query
@@ -100,16 +100,21 @@ while($row = mysqli_fetch_assoc($result)) {
 	for ($i = 0; $i < $length; $i++) {
 		//get attribute name
 		$temp = $js["attributes"]["$i"]["name"];
-		if ($temp != "YOE") {
-			$temp = explode(".", $temp);
-			$attribute = $temp[1];
-			$table .= "<td>" . $row["$attribute"] . "</td>";
-			$csv .= $row["$attribute"] . ",";
-		} else {
+		if ($temp == "lastTeam") {
+			$attribute = $temp;
+			$lastTeam = getLastTeamPlayed($row['a_studentId'], $sql);
+			$table .= "<td>" . $lastTeam . "</td>";
+			$csv .= $lastTeam . ",";
+		} else if ($temp == "YOE") {
 			$attribute = $temp;
 			$yoe = getEligibility($row['a_studentId'], $sql);
 			$table .= "<td>" . $yoe . "</td>";
 			$csv .= $yoe . ",";
+		} else {
+			$temp = explode(".", $temp);
+			$attribute = $temp[1];
+			$table .= "<td>" . $row["$attribute"] . "</td>";
+			$csv .= $row["$attribute"] . ",";	
 		}
 
 		
