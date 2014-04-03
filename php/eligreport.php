@@ -8,6 +8,8 @@ If you have come here looking to change the output format... good luck. This was
 include "cislib.php";
 include "connect.php";
 
+include "./php/cislib.php";
+loggedAdmin();
 
 $filename = "default";
 $year = "";
