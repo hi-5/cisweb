@@ -2,7 +2,7 @@
 <?php
 
   include "./php/cislib.php";
-  //loggedStudent($_REQUEST['i']);
+  loggedStudent($_REQUEST['i']);
 
 ?>
 
