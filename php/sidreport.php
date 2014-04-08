@@ -8,7 +8,8 @@ If you have come here looking to change the output format... good luck. This was
 include "cislib.php";
 include "connect.php";
 
-include "./php/cislib.php";
+session_start();
+
 loggedAdmin();
 
 $filename = "default";
@@ -64,7 +65,7 @@ while($row = mysqli_fetch_assoc($athleteResult)) {
     <Cell ss:StyleID=\"s117\"><Data ss:Type=\"String\">" . $row['ah_position'] . "</Data></Cell>
     <Cell ss:StyleID=\"s113\"><Data ss:Type=\"String\">" . $row['a_height'] . "</Data></Cell>
     <Cell ss:StyleID=\"s116\"><Data ss:Type=\"Number\">" . $row['a_weight'] . "</Data></Cell>
-    <Cell ss:StyleID=\"s116\"><Data ss:Type=\"Number\">1</Data></Cell>
+    <Cell ss:StyleID=\"s116\"><Data ss:Type=\"Number\">" . getEligibility($row['a_studentId'], $sql) . "</Data></Cell>
     <Cell ss:StyleID=\"s119\"><Data ss:Type=\"DateTime\">" . $row['a_dob'] . "</Data></Cell>
     <Cell ss:StyleID=\"s116\"><Data ss:Type=\"String\">" . $row['a_program'] . "</Data></Cell>
     <Cell ss:StyleID=\"s116\"><Data ss:Type=\"Number\">1</Data></Cell>

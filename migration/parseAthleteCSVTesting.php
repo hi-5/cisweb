@@ -26,7 +26,7 @@ $addauto = 0;
 /* change the permissions, or execute at the prompt: touch output.sql && chmod 777 output.sql
 /********************************/
 $save = 1;
-$outputfile = "athletesTesting.sql";
+$outputfile = "athletes.sql";
 /********************************/
 
 
@@ -136,6 +136,7 @@ foreach(split($lineseparator,$csvcontent) as $line) {
 		$linearray[14] = preg_replace("/[^A-Za-z0-9 ]/", '', $linearray[14]);
 	}
 
+
 	//Make first name = last name
 	if (isset($linearray[2])) {
 		$linearray[2] = $linearray[1];
@@ -151,9 +152,9 @@ foreach(split($lineseparator,$csvcontent) as $line) {
 	$linemysql = implode("','",$linearray);
 	
 	if($addauto)
-		$query = "insert into $databasetable (a_studentId, a_lastName, a_firstName, a_gender, a_dob, a_height, a_weight, a_cStreet, a_cCity, a_cProvince, a_cPostalCode, a_cPhone, a_pStreet, a_pCity, a_pProvince, a_pPostalCode, a_pPhone, a_program) values('','$linemysql');";
+		$query = "insert into $databasetable (a_studentId, a_lastName, a_firstName, a_gender, a_dob, a_height, a_weight, a_cStreet, a_cCity, a_cProvince, a_cPostalCode, a_cPhone, a_pStreet, a_pCity, a_pProvince, a_pPostalCode, a_pPhone, a_program, a_hometown) values('','$linemysql');";
 	else
-		$query = "insert into $databasetable (a_studentId, a_lastName, a_firstName, a_gender, a_dob, a_height, a_weight, a_cStreet, a_cCity, a_cProvince, a_cPostalCode, a_cPhone, a_pStreet, a_pCity, a_pProvince, a_pPostalCode, a_pPhone, a_program) values('$linemysql');";
+		$query = "insert into $databasetable (a_studentId, a_lastName, a_firstName, a_gender, a_dob, a_height, a_weight, a_cStreet, a_cCity, a_cProvince, a_cPostalCode, a_cPhone, a_pStreet, a_pCity, a_pProvince, a_pPostalCode, a_pPhone, a_program, a_hometown) values('$linemysql');";
 	
 	$queries .= $query . "\n";
 
