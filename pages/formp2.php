@@ -1,7 +1,8 @@
+
 <?php
 
   include "./php/cislib.php";
-  loggedStudent($_REQUEST['i']);
+  //loggedStudent($_REQUEST['i']);
 
 ?>
 
@@ -397,7 +398,7 @@
 
   function initializeForm() {
     // populate university team list on page and add appropriate buttons for form type
-    cislib.managerRequest("team", "getList", undefined, function(result) {
+    cislib.managerRequest("teams", "getDistinctTeamList", undefined, function(result) {
       var htmlString = "";
       for (var i = 0; i < result.length; i++) {
         teamList.push({

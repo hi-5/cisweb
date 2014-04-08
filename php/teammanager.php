@@ -3,170 +3,33 @@
   include "connect.php";
 
   $action = $_POST['action'];
-  switch ( $action ) {
-
-    // add an account
-    case 'add':
-      addTeam( $_POST['args'] );
-      break;
-
-    // delete an account
-    case 'delete':
-      deleteTeam( $_POST['args'] );
-      break;
-
-    // update an account
-    case 'update':
-      updateTeam( $_POST['args'], $_POST['name'] );
-      break;
-
-    // get year list
-    case 'getYears':
-      getTeamYearList();
-      break;
-
-    // get current year teams
-    case 'getCurrent':
-      getCurrentTeamList();
-      break;
-
-    // get list of teams
-    case 'getList':
-      getDistinctTeamList();
-      break;
-
-    // get list of teams from specific year
-    case 'getYear':
-      getYear();
-      break;
+  switch ($action) {
 
     // get team roster information
     case 'getRosterTable' :
-      getRosterTable( $_POST['args'] );
+      getRosterTable();
       break;
 
-    // Update roster eligibility
+    // update roster eligibility
     case 'updateEligibility' :
-      updateEligibility( $_POST['args'] );
+      updateEligibility();
       break;
 
-    //Get faculty IDs for team
+    // get faculty IDs for team
     case 'getFaculty' :
-      getFaculty( $_POST['args'] );
+      getFaculty();
       break;
 
-    //Update all faculty on team
+    // update all faculty on team
     case 'saveFaculty' :
-      saveFaculty( $_POST['args'] );
+      saveFaculty();
       break; 
   }
 
-
-  /*
-  //Adds a team with the name $arg into the database
-  function addTeam($args) {
-
-  	global $sql;
-
-  	$query = "INSERT INTO teams (t_name) VALUES ('$args')";
-
-  	mysqli_query($sql, $query);
-
-  	mysqli_close($sql);
-
-  }
-
-  //Deletes a team with the id $arg from the database
-  function deleteTeam($args) {
+  function getRosterTable() {
     global $sql;
 
-    $query = "DELETE FROM teams WHERE t_id = ('$args')";
-
-    mysqli_query($sql, $query);
-
-  }
-
-  //Updates team name with id $arg in the database
-  function updateTeam($args, $name) {
-    global $sql;
-
-    $query = "UPDATE teams SET t_name = ('$name') WHERE t_id = ('$args')";
-
-    mysqli_query($sql, $query);
-
-  }
-  */
-
-  // Returns a list of years associated with team data
-  function getTeamYearList() {
-    global $sql;
-
-    $query = "SELECT DISTINCT t_year FROM teams";
-    $result = mysqli_query($sql, $query);
-
-    $yearData = array();
-    while($row = mysqli_fetch_row($result))
-      array_push($yearData, $row[0]);
-
-    echo json_encode($yearData);
-  }
-
-  // Returns teams for year from date("Y")
-  function getCurrentTeamList() {
-    global $sql;
-
-    $currentYear = date("Y");
-    $query = "SELECT t_name, t_year FROM teams WHERE t_year = $currentYear";
-    $result = mysqli_query($sql, $query);
-
-    $teamData = array();
-    $numOfRows = mysqli_num_rows($result);
-    if ($numOfRows > 0) {
-      while($row = mysqli_fetch_assoc($result))
-        $teamData[] = $row;
-    } else {
-      $currentYear--;
-      $query = "SELECT t_id, t_name, t_year FROM teams WHERE t_year = $currentYear";
-      $result = mysqli_query($sql, $query);
-      while($row = mysqli_fetch_assoc($result))
-        $teamData[] = $row;
-    }
-
-    print json_encode($teamData);
-  }
-
-  //Sends back an array of JSON objects for each team in the database
-  function getDistinctTeamList() {
-    global $sql;
-
-    $query = "SELECT DISTINCT t_id, t_name FROM teams";
-    $result = mysqli_query($sql, $query);
-    
-    $teams = array();
-    while($row = mysqli_fetch_assoc($result)) {
-      $teams[] = $row;
-    }
-
-    print json_encode($teams);
-  }
-
-  function getYear() {
-    global $sql;
-
-    $year = mysqli_real_escape_string($sql, $_POST['args']);
-    $query = "SELECT t_id, t_name FROM teams WHERE t_year = $year";
-    $result = mysqli_query($sql, $query);
-    
-    $teams = array();
-    while ($row = mysqli_fetch_assoc($result))
-      $teams[] = $row;
-
-    print json_encode($teams);
-  }
-
-  function getRosterTable($args) {
-    global $sql;
-
+    $args = $_POST['args'];
     $obj = json_decode($args);
 
     $year = $obj->year;
@@ -195,9 +58,10 @@
   }
 
   //Takes an array of student IDs, a charged value (1 or 0) and a year. Updates all students with given IDs and years
-  function updateEligibility($args) {
+  function updateEligibility() {
     global $sql;
 
+    $args = $_POST['args'];
     $array = json_decode($args, true);
     $length = count($array);
     $id;
@@ -223,9 +87,10 @@
   }
 
   //Returns the IDs for all faculty on a team in the given year and team id.
-  function getFaculty($args) {
+  function getFaculty() {
     global $sql;
 
+    $args = $_POST['args'];
     $obj = json_decode($args);
 
     $year = $obj->year;
@@ -244,9 +109,10 @@
 
   }
 
-  function saveFaculty($args) {
+  function saveFaculty() {
     global $sql;
 
+    $args = $_POST['args'];
     $obj = json_decode($args);
 
     $query = "UPDATE teams
