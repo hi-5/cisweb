@@ -393,10 +393,6 @@
     currentId = cislib.getURLParameter("i");
     formType = cislib.getURLParameter("t");
     initializeForm();
-
-    //$("#hometown").tooltip({
-    //  title: "Testing",
-    //}).tooltip('show');
   }
 
   function initializeForm() {
@@ -715,6 +711,8 @@
   // == form submit event listeners ==
 
   function registerButtonClick(event) {
+    if (validateForm()) return;
+
     var athleteObject = getAthleteObject();
     cislib.managerRequest("form", "register", athleteObject, function(result) {
       if (result)
@@ -729,6 +727,8 @@
   }
 
   function updateButtonClick(event) {
+    if (validateForm()) return;
+
     var athleteObject = getAthleteObject();
     cislib.managerRequest("form", "update", athleteObject, function(result) {
       if (result)
@@ -739,6 +739,8 @@
   }
 
   function approveButtonClick(event) {
+    if (validateForm()) return;
+
     var athleteObject = getAthleteObject();
     cislib.managerRequest("form", "approve", athleteObject, function(result) {
       if (result)
@@ -759,6 +761,99 @@
           window.location.href = "?p=inbx&r=delf";
       });
     }
+  }
+
+  // == data functions ==
+
+  function validateForm() {
+    var email = $("#email").val(),
+        lastName = $("#last-name").val(),
+        firstName = $("#first-name").val(),
+        dob = $("#date-of-birth").val(),
+        weight = $("#weight").val(),
+        hometown = $("#hometown").val(),
+        highSchool = $("#high-school").val(),
+        gradYear = $("#year-of-graduation").val(),
+        program = $("#program").val(),
+
+        cStreet = $("#current-street").val(),
+        cCity = $("#current-city").val(),
+        cProvince = $("#current-province").val(),
+        cPostal = $("#current-postal").val(),
+        cCountry = $("#current-country").val(),
+        cPhone = $("#current-phone").val(),
+
+        pStreet = $("#permanent-street").val(),
+        pCity = $("#permanent-city").val(),
+        pProvince = $("#permanent-province").val(),
+        pPostal = $("#permanent-postal").val(),
+        pCountry = $("#permanent-country").val(),
+        pPhone = $("#permanent-phone").val();
+
+    var foundError = false,
+        element = undefined,
+        error = "";
+    if (email.trim() == "" || email.indexOf("@") == -1 || email.indexOf(".") == -1) {
+      foundError = true;
+      element = $("#email");
+      error = "Please enter a valid email address.";
+    } else if (lastName.trim() == "") {
+      foundError = true;
+      element = $("#last-name");
+      error = "Please enter your last name.";
+    } else if (firstName.trim() == "") {
+      foundError = true;
+      element = $("#first-name");
+      error = "Please enter your first name.";
+    } else if (dob.trim() == "") {
+      foundError = true;
+      element = $("#date-of-birth");
+      error = "Please enter your date of birth";
+    } else if (weight.trim() == "") {
+      foundError = true;
+      element = $("#weight");
+      error = "Please enter your weight.";
+    } else if (hometown.trim() == "") {
+      foundError = true;
+      element = $("#hometown");
+      error = "Please enter your hometown.";
+    } else if (highSchool.trim() == "") {
+      foundError = true;
+      element = $("#high-school");
+      error = "Please enter your high school.";
+    } else if (gradYear.trim() == "") {
+      foundError = true;
+      element = $("#year-of-graduation");
+      error = "Please enter your year of high school graduation.";
+    } else if (program.trim() == "") {
+      foundError = true;
+      element = $("#program");
+      error = "Please enter your university program.";
+    } else if (cStreet.trim() == ""   || cCity.trim() == "" ||
+               cProvince.trim() == "" || cPostal.trim() == "" ||
+               cCountry.trim() == ""  || cPhone.trim() == "") {
+      foundError = true;
+      element = $("#current-street");
+      error = "Please enter your full address.";
+    } else if (pStreet.trim() == ""   || pCity.trim() == "" ||
+               pProvince.trim() == "" || pPostal.trim() == "" ||
+               pCountry.trim() == ""  || pPhone.trim() == "") {
+      foundError = true;
+      element = $("#permanent-street");
+      error = "Please enter your full address.";
+    }
+
+    // scroll page to error and display it
+    if (foundError) {
+      $("html,body").animate({ scrollTop: element.offset().top - 100 }, "slow");
+      element.tooltip({ 
+        placement: "bottom",
+        title: error 
+      }).tooltip("show");
+    }
+
+    // return error result
+    return foundError;
   }
 
   function getAthleteObject() {
@@ -796,34 +891,5 @@
   }
 
   init();
-
-  /*
-  var studentId = $("#student-number").val(),
-      email = $("#email").val(),
-      lastName = $("#last-name").val(),
-      firstName = $("#first-name").val(),
-      initials = $("#initials").val(),
-      gender = $("#gender").val(),
-      dob = $("#date-of-birth").val(),
-      height = $("#height").val(),
-      weight = $("#weight").val(),
-      highSchool = $("#high-school").val(),
-      gradYear = $("#year-of-graduation").val(),
-      program = $("#program").val(),
-
-      cStreet = $("#current-street").val(),
-      cCity = $("#current-city").val(),
-      cProvince = $("#current-province").val(),
-      cPostal = $("#current-postal").val(),
-      cCountry = $("#current-country").val(),
-      cPhone = $("#current-phone").val(),
-
-      pStreet = $("#permanent-street").val(),
-      pCity = $("#permanent-city").val(),
-      pProvince = $("#permanent-province").val(),
-      pPostal = $("#permanent-postal").val(),
-      pCountry = $("#permanent-country").val(),
-      pPhone = $("#permanent-phone").val();
-  */
 
 </script>

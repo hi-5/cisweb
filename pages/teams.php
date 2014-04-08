@@ -15,7 +15,18 @@
 
   function init() {
     $("#teams-table").css("display", "none");  
-    cislib.managerRequest("team", "getYear", "2013", redrawTable);
+    
+    cislib.managerRequest("team", "getYears", undefined, populateYears);
+  }
+
+
+  function getCurrentTeams() {
+    cislib.managerRequest("team", "getCurrent", undefined, redrawTable);
+  }
+
+  function populateYears(result) {
+    var htmlString = "";
+    console.log(result);
   }
 
   function redrawTable(result) {
