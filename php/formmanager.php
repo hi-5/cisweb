@@ -188,6 +188,9 @@
     $query = "DELETE FROM athletequeue WHERE aq_studentId = $studentId";
     $result = mysqli_query($sql, $query);
 
+    $query = "DELETE FROM athletequeuehistory WHERE aqh_studentId = $studentId";
+    $result = mysqli_query($sql, $query);
+
     echo $result;
   }
 
