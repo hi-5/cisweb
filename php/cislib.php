@@ -47,6 +47,7 @@
   function loggedAdmin() {
     if (!$_SESSION['isAdmin']) {
       header( 'Location: /pages/error.php' );
+      die();
     }
   }
 
@@ -55,6 +56,7 @@
     if (!$_SESSION['isAdmin']) {
       if ($id != $_SESSION['studentId']) {
         header( 'Location: /pages/error.php' );
+        die();
       }
     }
   }

@@ -1,3 +1,9 @@
+<?php
+
+  loggedAdmin();
+
+?>
+
 <br />
 
 <button id="faculty-add-button" type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#faculty-modal">Add New Faculty +</button>

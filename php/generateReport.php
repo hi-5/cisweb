@@ -3,6 +3,9 @@
 include "cislib.php";
 include "connect.php";
 
+session_start();
+loggedAdmin();
+
 global $sql;
 
 $js = $_POST['js'];

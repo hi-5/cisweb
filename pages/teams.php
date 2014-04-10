@@ -1,3 +1,9 @@
+<?php
+
+  loggedAdmin();
+
+?>
+
 <br />
 
 <!-- new row -->

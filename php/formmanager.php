@@ -1,6 +1,8 @@
 <?PHP
   include "connect.php";
 
+  session_start();
+
   $action = $_POST['action'];
   switch ($action) {
 
@@ -47,22 +49,21 @@
   function addTeam() { 
     global $sql;
 
-    // !!! Need to add security measure to make sure students can only add teams to
-    // !!! queue history table, and not the athletes table
-    $queue = (mysqli_real_escape_string($sql, $_POST['args']['queue']) == "yes") ? true : false;
-    $studentId = mysqli_real_escape_string($sql, $_POST['args']['studentId']);
-    $institute = mysqli_real_escape_string($sql, $_POST['args']['institute']);
-    $year = mysqli_real_escape_string($sql, $_POST['args']['year']);
-    $teamId = mysqli_real_escape_string($sql, $_POST['args']['teamId']);
-    $teamName = mysqli_real_escape_string($sql, $_POST['args']['teamName']);
-    $position = mysqli_real_escape_string($sql, $_POST['args']['position']);
-    $jersey = mysqli_real_escape_string($sql, $_POST['args']['jersey']);
-    $charged = (mysqli_real_escape_string($sql, $_POST['args']['charged']) == "yes") ? 1 : 0;
+    $queue = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['queue']) == "yes") ? true : false;
+    $studentId = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['studentId']));
+    $institute = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['institute']));
+    $year = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['year']));
+    $teamId = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['teamId']));
+    $teamName = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['teamName']));
+    $position = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['position']));
+    $jersey = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['jersey']));
+    $charged = (mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['charged'])) == "yes") ? 1 : 0;
 
     if ($queue)
       $query = "INSERT INTO athletequeuehistory (aqh_studentId, aqh_institute, aqh_teamId, aqh_teamName, aqh_year, aqh_position, aqh_jerseyNumber, aqh_charged) VALUES ($studentId, '$institute', $teamId, '$teamName', $year, '$position', $jersey, $charged)";
-    else
+    else if ($_SESSION['isAdmin'])
       $query = "INSERT INTO athletehistory (ah_studentId, ah_institute, ah_teamId, ah_teamName, ah_year, ah_position, ah_jerseyNumber, ah_charged) VALUES ($studentId, '$institute', $teamId, '$teamName', $year, '$position', $jersey, $charged)";
+    else die();
     $result = mysqli_query($sql, $query);
 
     echo json_encode($_POST['args']);
@@ -71,15 +72,13 @@
   function removeTeam() {
     global $sql;
 
-    // !!! Need to add security measure to make sure students can only add/remove 
-    // !!! teams to/from queue history table, and not the athletes table
-    $queue = (mysqli_real_escape_string($sql, $_POST['args']['queue']) == "yes") ? true : false;
-    $studentId = mysqli_real_escape_string($sql, $_POST['args']['studentId']);
-    $year = mysqli_real_escape_string($sql, $_POST['args']['year']);
+    $queue = (mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['queue'])) == "yes") ? true : false;
+    $studentId = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['studentId']));
+    $year = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['year']));
 
     if ($queue)
       $query = "DELETE FROM athletequeuehistory WHERE aqh_studentId = $studentId AND aqh_year = $year";
-    else
+    else if ($_SESSION['isAdmin'])
       $query = "DELETE FROM athletehistory WHERE ah_studentId = $studentId AND ah_year = $year";
     $result = mysqli_query($sql, $query);
 
@@ -90,34 +89,34 @@
     global $sql;
 
     // get form information from post
-    $studentId = mysqli_real_escape_string($sql, $_POST['args']['studentId']);
-    $resident = mysqli_real_escape_string($sql, $_POST['args']['resident']);
-    $lastName = mysqli_real_escape_string($sql, $_POST['args']['lastName']);
-    $firstName = mysqli_real_escape_string($sql, $_POST['args']['firstName']);
-    $initials = mysqli_real_escape_string($sql, $_POST['args']['initials']);
-    $gender = mysqli_real_escape_string($sql, $_POST['args']['gender']);
-    $dob = mysqli_real_escape_string($sql, $_POST['args']['dob']);
-    $height = mysqli_real_escape_string($sql, $_POST['args']['height']);
-    $weight = mysqli_real_escape_string($sql, $_POST['args']['weight']);
-    $email = mysqli_real_escape_string($sql, $_POST['args']['email']);
-    $hometown = mysqli_real_escape_string($sql, $_POST['args']['hometown']);
-    $highSchool = mysqli_real_escape_string($sql, $_POST['args']['highSchool']);
-    $gradYear = mysqli_real_escape_string($sql, $_POST['args']['gradYear']);
-    $program = mysqli_real_escape_string($sql, $_POST['args']['program']);
+    $studentId = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['studentId']));
+    $resident = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['resident']));
+    $lastName = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['lastName']));
+    $firstName = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['firstName']));
+    $initials = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['initials']));
+    $gender = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gender']));
+    $dob = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['dob']));
+    $height = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['height']));
+    $weight = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['weight']));
+    $email = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['email']));
+    $hometown = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['hometown']));
+    $highSchool = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['highSchool']));
+    $gradYear = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gradYear']));
+    $program = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['program']));
 
-    $cStreet = mysqli_real_escape_string($sql, $_POST['args']['cStreet']);
-    $cCity = mysqli_real_escape_string($sql, $_POST['args']['cCity']);
-    $cProvince = mysqli_real_escape_string($sql, $_POST['args']['cProvince']);
-    $cPostal = mysqli_real_escape_string($sql, $_POST['args']['cPostal']);
-    $cCountry = mysqli_real_escape_string($sql, $_POST['args']['cCountry']);
-    $cPhone = mysqli_real_escape_string($sql, $_POST['args']['cPhone']);
+    $cStreet = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cStreet']));
+    $cCity = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cCity']));
+    $cProvince = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cProvince']));
+    $cPostal = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cPostal']));
+    $cCountry = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cCountry']));
+    $cPhone = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cPhone']));
 
-    $pStreet = mysqli_real_escape_string($sql, $_POST['args']['pStreet']);
-    $pCity = mysqli_real_escape_string($sql, $_POST['args']['pCity']);
-    $pProvince = mysqli_real_escape_string($sql, $_POST['args']['pProvince']);
-    $pPostal = mysqli_real_escape_string($sql, $_POST['args']['pPostal']);
-    $pCountry = mysqli_real_escape_string($sql, $_POST['args']['pCountry']);
-    $pPhone = mysqli_real_escape_string($sql, $_POST['args']['pPhone']);
+    $pStreet = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pStreet']));
+    $pCity = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pCity']));
+    $pProvince = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pProvince']));
+    $pPostal = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pPostal']));
+    $pCountry = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pCountry']));
+    $pPhone = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pPhone']));
 
     $query = "INSERT INTO athletequeue VALUES ($studentId, $resident, '$lastName', '$firstName', '$initials', '$gender', '$dob', '$height', 
               '$weight', '$email', '$hometown', '$highSchool', $gradYear, '$program', '$cStreet', '$cCity', '$cProvince', '$cPostal', '$cCountry', 
@@ -130,35 +129,38 @@
   function approve() {
     global $sql;
 
+    //Security check
+    if (!$_SESSION['isAdmin']) die();
+
     // get form information from post
-    $studentId = mysqli_real_escape_string($sql, $_POST['args']['studentId']);
-    $resident = mysqli_real_escape_string($sql, $_POST['args']['resident']);
-    $lastName = mysqli_real_escape_string($sql, $_POST['args']['lastName']);
-    $firstName = mysqli_real_escape_string($sql, $_POST['args']['firstName']);
-    $initials = mysqli_real_escape_string($sql, $_POST['args']['initials']);
-    $gender = mysqli_real_escape_string($sql, $_POST['args']['gender']);
-    $dob = mysqli_real_escape_string($sql, $_POST['args']['dob']);
-    $height = mysqli_real_escape_string($sql, $_POST['args']['height']);
-    $weight = mysqli_real_escape_string($sql, $_POST['args']['weight']);
-    $email = mysqli_real_escape_string($sql, $_POST['args']['email']);
-    $hometown = mysqli_real_escape_string($sql, $_POST['args']['hometown']);
-    $highSchool = mysqli_real_escape_string($sql, $_POST['args']['highSchool']);
-    $gradYear = mysqli_real_escape_string($sql, $_POST['args']['gradYear']);
-    $program = mysqli_real_escape_string($sql, $_POST['args']['program']);
+    $studentId = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['studentId']));
+    $resident = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['resident']));
+    $lastName = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['lastName']));
+    $firstName = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['firstName']));
+    $initials = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['initials']));
+    $gender = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gender']));
+    $dob = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['dob']));
+    $height = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['height']));
+    $weight = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['weight']));
+    $email = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['email']));
+    $hometown = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['hometown']));
+    $highSchool = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['highSchool']));
+    $gradYear = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gradYear']));
+    $program = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['program']));
 
-    $cStreet = mysqli_real_escape_string($sql, $_POST['args']['cStreet']);
-    $cCity = mysqli_real_escape_string($sql, $_POST['args']['cCity']);
-    $cProvince = mysqli_real_escape_string($sql, $_POST['args']['cProvince']);
-    $cPostal = mysqli_real_escape_string($sql, $_POST['args']['cPostal']);
-    $cCountry = mysqli_real_escape_string($sql, $_POST['args']['cCountry']);
-    $cPhone = mysqli_real_escape_string($sql, $_POST['args']['cPhone']);
+    $cStreet = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cStreet']));
+    $cCity = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cCity']));
+    $cProvince = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cProvince']));
+    $cPostal = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cPostal']));
+    $cCountry = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cCountry']));
+    $cPhone = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cPhone']));
 
-    $pStreet = mysqli_real_escape_string($sql, $_POST['args']['pStreet']);
-    $pCity = mysqli_real_escape_string($sql, $_POST['args']['pCity']);
-    $pProvince = mysqli_real_escape_string($sql, $_POST['args']['pProvince']);
-    $pPostal = mysqli_real_escape_string($sql, $_POST['args']['pPostal']);
-    $pCountry = mysqli_real_escape_string($sql, $_POST['args']['pCountry']);
-    $pPhone = mysqli_real_escape_string($sql, $_POST['args']['pPhone']);
+    $pStreet = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pStreet']));
+    $pCity = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pCity']));
+    $pProvince = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pProvince']));
+    $pPostal = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pPostal']));
+    $pCountry = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pCountry']));
+    $pPhone = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pPhone']));
 
     // create athlete record
     $query = "INSERT INTO athletes VALUES ($studentId, $resident, '$lastName', '$firstName', '$initials', '$gender', '$dob', '$height', 
@@ -197,35 +199,38 @@
   function update() {
     global $sql;
 
+    //Security check
+    if (!$_SESSION['isAdmin']) die();
+
     // get form information from post
-    $studentId = mysqli_real_escape_string($sql, $_POST['args']['studentId']);
-    $resident = mysqli_real_escape_string($sql, $_POST['args']['resident']);
-    $lastName = mysqli_real_escape_string($sql, $_POST['args']['lastName']);
-    $firstName = mysqli_real_escape_string($sql, $_POST['args']['firstName']);
-    $initials = mysqli_real_escape_string($sql, $_POST['args']['initials']);
-    $gender = mysqli_real_escape_string($sql, $_POST['args']['gender']);
-    $dob = mysqli_real_escape_string($sql, $_POST['args']['dob']);
-    $height = mysqli_real_escape_string($sql, $_POST['args']['height']);
-    $weight = mysqli_real_escape_string($sql, $_POST['args']['weight']);
-    $email = mysqli_real_escape_string($sql, $_POST['args']['email']);
-    $hometown = mysqli_real_escape_string($sql, $_POST['args']['hometown']);
-    $highSchool = mysqli_real_escape_string($sql, $_POST['args']['highSchool']);
-    $gradYear = mysqli_real_escape_string($sql, $_POST['args']['gradYear']);
-    $program = mysqli_real_escape_string($sql, $_POST['args']['program']);
+    $studentId = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['studentId']));
+    $resident = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['resident']));
+    $lastName = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['lastName']));
+    $firstName = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['firstName']));
+    $initials = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['initials']));
+    $gender = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gender']));
+    $dob = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['dob']));
+    $height = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['height']));
+    $weight = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['weight']));
+    $email = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['email']));
+    $hometown = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['hometown']));
+    $highSchool = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['highSchool']));
+    $gradYear = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gradYear']));
+    $program = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['program']));
 
-    $cStreet = mysqli_real_escape_string($sql, $_POST['args']['cStreet']);
-    $cCity = mysqli_real_escape_string($sql, $_POST['args']['cCity']);
-    $cProvince = mysqli_real_escape_string($sql, $_POST['args']['cProvince']);
-    $cPostal = mysqli_real_escape_string($sql, $_POST['args']['cPostal']);
-    $cCountry = mysqli_real_escape_string($sql, $_POST['args']['cCountry']);
-    $cPhone = mysqli_real_escape_string($sql, $_POST['args']['cPhone']);
+    $cStreet = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cStreet']));
+    $cCity = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cCity']));
+    $cProvince = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cProvince']));
+    $cPostal = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cPostal']));
+    $cCountry = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cCountry']));
+    $cPhone = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cPhone']));
 
-    $pStreet = mysqli_real_escape_string($sql, $_POST['args']['pStreet']);
-    $pCity = mysqli_real_escape_string($sql, $_POST['args']['pCity']);
-    $pProvince = mysqli_real_escape_string($sql, $_POST['args']['pProvince']);
-    $pPostal = mysqli_real_escape_string($sql, $_POST['args']['pPostal']);
-    $pCountry = mysqli_real_escape_string($sql, $_POST['args']['pCountry']);
-    $pPhone = mysqli_real_escape_string($sql, $_POST['args']['pPhone']);
+    $pStreet = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pStreet']));
+    $pCity = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pCity']));
+    $pProvince = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pProvince']));
+    $pPostal = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pPostal']));
+    $pCountry = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pCountry']));
+    $pPhone = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pPhone']));
 
     $query = "UPDATE athletes SET a_resident = $resident, a_lastName = '$lastName', a_firstName = '$firstName', a_initials = '$initials', 
               a_gender = '$gender', a_dob = '$dob', a_height = '$height', a_weight = '$weight', a_email = '$email', 
@@ -240,10 +245,13 @@
 
   function getAthlete() {
     global $sql;
-    
+
     // get query information
     $studentId = mysqli_real_escape_string($sql, $_POST['args']['id']);
     $queue = ($_POST['args']['queue'] == "yes") ? true : false;
+
+    //Security check
+    if (!$_SESSION['isAdmin'] && $_SESSION['studentId'] != $studentId) die();
 
     // get athlete information
     $info = array(($queue) ? "aq_" : "a_");

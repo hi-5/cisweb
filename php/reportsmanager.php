@@ -2,6 +2,9 @@
 
 include "connect.php";
 
+session_start();
+loggedAdmin();
+
 $action = $_POST['action'];
   switch ( $action ) {
 

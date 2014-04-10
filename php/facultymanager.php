@@ -1,10 +1,11 @@
 <?php
 
-  session_start();
-  if ($_SESSION['isAdmin'] != true)
-    exit();
-
   include "connect.php";
+  include "cislib.php";
+
+//Security check
+  session_start();
+  loggedAdmin();
 
   $action = $_POST['action'];
   switch ( $action ) {
