@@ -1,5 +1,6 @@
 <?PHP
   include "connect.php";
+  include "cislib.php";
 
   session_start();
   loggedAdmin();

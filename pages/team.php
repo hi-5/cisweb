@@ -78,7 +78,7 @@
  	function init() {
     addEventListeners();
 
-    cislib.managerRequest("team", "getList", undefined, populateTeamList);
+    cislib.managerRequest("teams", "getDistinctTeamList", undefined, populateTeamList);
     cislib.managerRequest("faculty", "getAll", undefined, populateFacultySelects);
 
     for (i = new Date().getFullYear(); i > 1900; i--) {

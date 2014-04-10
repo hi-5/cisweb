@@ -145,7 +145,7 @@
   function init() {
     addEventListeners();
     populateReportList();
-    cislib.managerRequest("team", "getList", undefined, populateTeamList);
+    cislib.managerRequest("teams", "getDistinctTeamList", undefined, populateTeamList);
 
     //Populate the year list
     for (i = new Date().getFullYear(); i > 1900; i--) {
