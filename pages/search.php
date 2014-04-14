@@ -50,23 +50,41 @@
   var resultType = "",
       resultList = [];
 
+  /**
+   * entry point. called from the bottom.
+   */
   function init() {
     $("#search-mode").change(searchModeChange);
     $("#search-button").click(searchButtonClick);
   }
 
+  /**
+   * callback for search mode select box change
+   * event. sets the placeholder text for the
+   * search box.
+   * @param event the click event
+   */
   function searchModeChange( event ) {
     var mode = event.target.value,
         placeholder = (mode == "Athlete") ? "by student #, last name or first name..." : "by year...";
     $("#search-text").attr("placeholder", placeholder);
   }
 
+  /**
+   * makes a search request for either
+   * and athlete or a team.
+   */
   function searchButtonClick() {
     var action = ($("#search-mode").val() == "Athlete") ? "getAthlete" : "getTeam",
         searchText = $("#search-text").val();
     cislib.managerRequest("search", action, searchText, redrawContainer);
   }
 
+  /**
+   * callback managerRequest() in searchButtonClick().
+   * redraws the search table based on search results.
+   * @param result array results of the database search
+   */
   function redrawContainer(result) {
     resultType = result[0];
     var tableString = "";
@@ -101,15 +119,6 @@
     }
     tableString += "</tbody>";
     $("#search-results").html(tableString);
-    //addEventListeners();
-  }
-
-  function addEventListeners() {
-    console.log(resultList.length);
-    for (var i = 0; i < resultList.length; i++) {
-      $("#search-athlete-id-" + i).css("cursor", "pointer");
-      $("#search-athlete-id-" + i).css("text-decoration", "underline");
-    }
   }
 
   init();

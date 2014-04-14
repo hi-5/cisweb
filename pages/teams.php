@@ -73,6 +73,9 @@
   var teamList = [],
       confirm = false;
 
+  /**
+   * entry point. called at bottom.
+   */
   function init() {
     $("#modal-button").click(createTeam);
     $("#create-year-button").click(createYear);
@@ -82,6 +85,11 @@
     cislib.managerRequest("teams", "getYearList", undefined, populateYearList);
   }
 
+  /**
+   * populate the year list select box
+   * with available years from database
+   * @param result array of years
+   */
   function populateYearList(result) {
     var selectBox = $("#year-select");
     for (var i = 0; i < result.length; i++)
@@ -89,11 +97,21 @@
     getTeams();
   }
 
+  /**
+   * request list of teams for the
+   * selected year.
+   */
   function getTeams() {
     var year = $("#year-select").val().substr(0, 4);
     cislib.managerRequest("teams", "getTeamsByYear", year, redrawTable);
   }
 
+  /**
+   * callback for managerRequest() in getTeams().
+   * displays teams and adds buttons and event
+   * listeners to modify teams
+   * @param result array of teams from database
+   */
   function redrawTable(result) {
     if (result.length == 0) 
       return;
@@ -121,6 +139,11 @@
 
   // == button event listeners ==
 
+  /**
+   * callback for create year button click.
+   * confirms and then adds a new year to database
+   * based off previous years team list
+   */
   function createYear() {
     var year = $("option")[0].innerHTML.substr(0, 4);
     if (confirm) {
@@ -134,6 +157,11 @@
     }
   }
 
+  /**
+   * callback for create team button click.
+   * adds a new team to the currently selected
+   * year.
+   */
   function createTeam() {
     var teamObject = {
       year: $("#year-select").val().substr(0, 4),
@@ -144,6 +172,11 @@
     });
   }
 
+  /**
+   * callback for a delete team button click.
+   * deletes the related team
+   * @param event the click event
+   */
   function deleteTeam(event) {
     if (event.currentTarget.innerHTML == "delete") {
       event.currentTarget.innerHTML = "confirm";

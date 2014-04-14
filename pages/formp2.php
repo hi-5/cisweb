@@ -398,6 +398,9 @@
       currentId = "000000000",
       formType = "reg";
       
+  /**
+   * entry point. called at the bottom.
+   */
   function init() {
     // get target studentId and form type from the URL
     currentId = cislib.getURLParameter("i");
@@ -405,6 +408,10 @@
     initializeForm();
   }
 
+  /**
+   * sets up the form according to form
+   * type. called from init()
+   */
   function initializeForm() {
     // populate university team list on page and add appropriate buttons for form type
     cislib.managerRequest("teams", "getDistinctTeamList", undefined, function(result) {
@@ -503,6 +510,12 @@
     }
   }
 
+  /**
+   * callback from managerRequest()'s in
+   * initializeForm(). fills in the form with
+   * known data.
+   * @param result the athlete data returned from database 
+   */
   function populateKnownFields(result) {
     var infoPrefix = result[0],
         info = result[1];
@@ -552,6 +565,11 @@
 
   // == team history ==
 
+  /**
+   * redraws the team history table and
+   * removes/adds event listeners to the
+   * corresponding edit and remove buttons
+   */
   function redrawTeamTable() {
     for (var i = 0; i < numOfEventListeners; i++) {
       $("#team-edit-" + i).unbind();
@@ -559,7 +577,7 @@
     }
     numOfEventListeners = 0;
 
-    // create table
+    // create table based off teamHistory data
     var tableString = "";
     for (var j = 0; j < teamHistory.length; j++) {
       tableString += "<tr>";
@@ -584,6 +602,17 @@
     }
   }
 
+  /**
+   * add a team to teamHistory to be used
+   * when redrawing the team history table.
+   * @param year the team year
+   * @param institute the team school
+   * @param teamId associated team database id (if uofl team, else 0)
+   * @param teamName the team name
+   * @param position the athlete position
+   * @param jersey the athlete jersey number
+   * @param charged year charged boolean
+   */
   function addTeam(year, institute, teamId, teamName, position, jersey, charged) {
 
     // format charged
@@ -605,6 +634,11 @@
     redrawTeamTable();
   }
 
+  /**
+   * remove a team from teamHistory by
+   * the index. hide team table if empty.
+   * @param index the index of the team in teamHistory
+   */
   function removeTeam(index) {
     teamHistory.splice(index, 1);
     if (teamHistory.length == 0)
@@ -612,6 +646,11 @@
     redrawTeamTable();
   }
 
+  /**
+   * compares the team name with the teamList
+   * and returns the id if it is a UofL team.
+   * @returns UofL team id or 0
+   */
   function getSelectedTeamId() {
     var selectedTeam = $("#team-list").val();
     for (var i = 0; i < teamList.length; i++)
@@ -622,6 +661,12 @@
 
   // == team history event listeners ==
 
+  /**
+   * add UofL team button click callback. opens
+   * and configures a modal box to add a UofL
+   * specific team.
+   * @param event the click event
+   */
   function addUofLTeamClick(event) {
     $("#modal-label").html("Add UofL Team");
     $("#modal-button").html("Add");
@@ -633,6 +678,12 @@
     $("#team-jersey").val("");
   }
 
+  /**
+   * add non-UofL team button click callback. opens
+   * and configures a modal box to add a non-UofL
+   * specific team.
+   * @param event the click event
+   */
   function addNonUofLTeamClick(event) {
     $("#modal-label").html("Add Non-UofL Team");
     $("#modal-button").html("Add");
@@ -645,6 +696,12 @@
     $("#team-jersey").val("");
   }
 
+  /**
+   * edit team button click callback. opens
+   * and configures a modal box to edit a
+   * team history record.
+   * @param event the click event
+   */
   function editTeamClick(event) {
     $("#modal-label").html("Edit Team History");
     $("#modal-button").html("Update");
@@ -661,6 +718,11 @@
     $("#team-jersey").val(team.jersey);
   }
 
+  /**
+   * remove team button click callback. confirms
+   * and deletes team history record.
+   * @param event the click event
+   */
   function removeTeamClick(event) {
     if (event.target.innerHTML == "remove") {
       event.target.innerHTML = "confirm";
@@ -681,6 +743,12 @@
 
   // == modal event listeners ==
 
+  /**
+   * callback for dynamic modal button. adds
+   * and updates team history records. STILL NEEDS
+   * TO BE FIXED FOR UPDATING, DOES NOT UPDATE!!!
+   * @param event the click event
+   */
   function addUpdateTeamClick(event) {
     // !!! validate input
     var years = $("#team-year").val().split("-"),
@@ -720,6 +788,11 @@
 
   // == form submit event listeners ==
 
+  /**
+   * callback for register button. validates
+   * form and sends it through AJAX
+   * @param event the click event
+   */
   function registerButtonClick(event) {
     if (validateForm()) return;
 
@@ -732,10 +805,20 @@
     });
   }
 
+  /**
+   * callback for verify button. validates
+   * form and sends it through AJAX
+   * @param event the click event
+   */
   function verifyButtonClick(event) {
 
   }
 
+  /**
+   * callback for update button. validates
+   * form and sends it through AJAX
+   * @param event the click event
+   */
   function updateButtonClick(event) {
     if (validateForm()) return;
 
@@ -748,6 +831,11 @@
     });
   }
 
+  /**
+   * callback for approve button. validates
+   * form and sends it through AJAX
+   * @param event the click event
+   */
   function approveButtonClick(event) {
     if (validateForm()) return;
 
@@ -760,6 +848,11 @@
     });
   }
 
+  /**
+   * callback for delete button. validates
+   * form and sends it through AJAX
+   * @param event the click event
+   */
   function deleteButtonClick(event) {
     if (event.target.innerHTML == "Delete") {
       event.target.innerHTML = "Confirm";
@@ -775,6 +868,12 @@
 
   // == data functions ==
 
+  /**
+   * validate form input. if input is bad,
+   * the page will scroll to the textbox and
+   * display a tool tip on how to correct it.
+   * @return whether or not a validation error exists
+   */
   function validateForm() {
     var email = $("#email").val(),
         lastName = $("#last-name").val(),
@@ -866,6 +965,11 @@
     return foundError;
   }
 
+  /**
+   * packages and returns form information 
+   * in a json object
+   * @return form json object
+   */
   function getAthleteObject() {
     // store the information as an object
     return {

@@ -36,12 +36,19 @@
 
 <script>
 
+  /**
+   * entry point. called from the bottom.
+   */
   function init() {
     displayNotice();
     $("#reg-team-table").css("display", "none");  
     cislib.managerRequest("inbox", "retrieve", undefined, redrawTable);
   }
 
+  /**
+   * displays a notice if the URL
+   * contains an 'r' flag
+   */
   function displayNotice() {
     var r = cislib.getURLParameter("r");
     if (r) {
@@ -62,6 +69,11 @@
     }
   }
 
+  /**
+   * callback for managerRequest() in init().
+   * displays pending registrations
+   * @param event the click event
+   */
   function redrawTable(result) {
     if (result.length == 0) {
       $("#inbox-body").html("There is nothing waiting in the inbox...");
