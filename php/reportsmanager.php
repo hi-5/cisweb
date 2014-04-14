@@ -4,7 +4,12 @@ include "connect.php";
 include "cislib.php";
 
 session_start();
+
+//Stops non-admins from executing any code in this document
 loggedAdmin();
+if (!$_SESSION['isAdmin']) {
+  die();
+}
 
 $action = $_POST['action'];
   switch ( $action ) {

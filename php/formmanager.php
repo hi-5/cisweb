@@ -3,6 +3,11 @@
 
   session_start();
 
+  //Prevents unauthenticated AJAX posting
+  if (!$_SESSION['loggedIn']) {
+    die();
+  }
+
   $action = $_POST['action'];
   switch ($action) {
 
