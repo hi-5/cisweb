@@ -1,3 +1,15 @@
+<!--
+  - This page is included from body.php. It
+  - displays the option to register to everyone
+  - who has logged in. More options become
+  - available if a user is faculty or admin status.
+  -
+  - File: menu.php
+  - Author: Chris Wright/Mike Paulson
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
+
 <h3>Athletes</h3>
 <div class="list-group">
   <a href="?p=form&t=reg" class="list-group-item">Register</a>

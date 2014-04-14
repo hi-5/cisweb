@@ -1,7 +1,17 @@
+<!--
+  - This page is included from settings.php. It
+  - lists teams by year and can be used to delete,
+  - add or update teams. A new sporting year can
+  - be created from here as well.
+  -
+  - File: teams.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
+
 <?php
-
   loggedAdmin();
-
 ?>
 
 <br />

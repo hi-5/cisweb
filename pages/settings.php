@@ -1,3 +1,15 @@
+<!--
+  - This page is included from body.php. It
+  - displays a tabbed navigation for
+  - settings. Includes either faculty or
+  - team settings information.
+  -
+  - File: settings.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
+
 <!-- get setting type and tab class information -->
 <?php
 

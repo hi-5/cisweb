@@ -1,15 +1,20 @@
+<!--
+  - This page is included from index.php. It
+  - acts as the hub for including all content
+  - pages. This page is only accessible if
+  - $_SESSION["loggedIn"] = true;
+  -
+  - File: body.php
+  - Author: Chris Wright/Mike Paulson
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
+
 <br /><br /><br /><br />
 
 <div id="wrapper">
 
   <?php
-
-    // DEBUG - next 4 lines
-    //$_SESSION['studentId'] = "123456789";
-    //$_SESSION['loggedIn'] = true;
-    //$_SESSION['isAthlete'] = true;
-    //$_SESSION['isFaculty'] = true;
-
     if ($_SESSION['loggedIn']) {
   ?>
 

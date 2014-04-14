@@ -1,3 +1,17 @@
+<!--
+  - This page is included from index.php. It
+  - is a fixed header that displays the Sign In
+  - button that leads to the Shibboleth Identity
+  - Provider, or the currenly logged in student
+  - number (with the option to log out through 
+  - logout.php).
+  -
+  - File: header.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
+
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
 

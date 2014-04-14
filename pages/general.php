@@ -1,1 +1,0 @@
-<br />General settings will go here. Things like color scheme, session time, etc.

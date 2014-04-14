@@ -1,8 +1,17 @@
-<?php
+<!--
+  - This page is included from body.php. Admins
+  - can see the pending registrations and
+  - choose to view them.
+  -
+  - File: inbox.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
 
+<?php
   include "./php/cislib.php";
   loggedAdmin();
-
 ?>
 
 <div id="inbox-notice"></div>

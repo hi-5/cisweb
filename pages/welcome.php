@@ -1,3 +1,13 @@
+<!--
+  - This page is included from body.php. It
+  - is the default page for logged out users.
+  -
+  - File: welcome.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
+
 Welcome to our CIT System Design project.<br /><br />
 There are 2 types of accounts in our system; athlete and faculty.<br />
 - All faculty type accounts can search athlete/team data and generate reports<br />

@@ -1,3 +1,15 @@
+<!--
+  - This page is included from body.php. It includes
+  - either the initial consent form when registering
+  - or the athlete information form when registering,
+  - approving, deleting, or updating athlete information.
+  -
+  - File: form.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
+
 <?php
 
   // register, verify, or inbox

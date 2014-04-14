@@ -1,8 +1,17 @@
-<?php
+<!--
+  - This page is included from body.php. It
+  - is used to generate reports based on
+  - custom criteria chosen by the user.
+  -
+  - File: reports.php
+  - Author: Mike Paulson
+  - Last updated: 2014/04/14
+  - Last updated by: Mike Paulson
+-->
 
+<?php
   include "./php/cislib.php";
   loggedAdmin();
-
 ?>
 
 <!-- new row -->

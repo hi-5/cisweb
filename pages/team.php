@@ -1,10 +1,17 @@
-<?php
+<!--
+  - This page is included from body.php. Displays
+  - team information.
+  -
+  - File: team.php
+  - Author: Mike Paulson
+  - Last updated: 2014/04/14
+  - Last updated by: Mike Paulson
+-->
 
+<?php
   include "./php/cislib.php";
   loggedAdmin();
-
 ?>
-
 
 <form class="form-inline">
 	<label for="inputTeam">Team </label>

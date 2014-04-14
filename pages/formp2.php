@@ -1,9 +1,18 @@
+<!--
+  - This page is included from form.php. It is
+  - used to display/update athlete information
+  - from the database, or to register as an
+  - athlete for the first time.
+  -
+  - File: formp2.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
 
 <?php
-
   include "./php/cislib.php";
   loggedStudent($_REQUEST['i']);
-
 ?>
 
 <div id="header" class="row">

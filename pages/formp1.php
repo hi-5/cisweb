@@ -1,3 +1,16 @@
+<!--
+  - This page is included from form.php. It
+  - is only displayed when registering for the
+  - first time. Clicking Next>> at the bottom
+  - redirects the athlete to the information
+  - form.
+  -
+  - File: formp1.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
+
 <div class="row">
   <div class="col-md-2">
     <img src="images/letterhead.png" />

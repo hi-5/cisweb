@@ -1,7 +1,17 @@
+<!--
+  - This page is included from settings.php. It
+  - manages faculty records from the client
+  - side. Admins can add, remove and edit
+  - faculty from here. 
+  -
+  - File: faculty.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/14
+  - Last updated by: Chris W.
+-->
+
 <?php
-
   loggedAdmin();
-
 ?>
 
 <br />
@@ -128,9 +138,15 @@
 
  <script>
 
-  var currentLetter = "a",
-      facultyList = [];
+  var currentLetter = "a", /**< the currently selected letter. */ 
+      facultyList = [];    /**< a list of the returned faculty. */ 
 
+  /**
+   * entry point. adds event listener to button,
+   * hides empty <table> and requests a faculty list
+   * from the database based on the "l" parameter in the
+   * address. called at the bottom.
+   */
   function init() {
     // add button event listener
     $("#faculty-add-button").click(addButtonClick);
@@ -143,6 +159,10 @@
     cislib.managerRequest("faculty", "getList", currentLetter, redrawTable);
   }
 
+  /**
+   * the callback function from the managerRequest() in init().
+   * @param result the array returned by the database.
+   */
   function redrawTable(result) {
 
     // show notice and exit if there are no records
@@ -184,6 +204,11 @@
     }
   }
 
+  /**
+   * called when the add button is clicked. opens and
+   * configures a modal to add a new faculty member
+   * @param event the click event
+   */
   function addButtonClick(event) {
     // make modal form blank
     $("#faculty-modal-student-num").val("");
@@ -203,6 +228,11 @@
     });
   }
 
+  /**
+   * called when the edit button is clicked. opens and
+   * configures a modal to edit an existing faculty member
+   * @param event the click event
+   */
   function editButtonClick(event) {
     var index = event.target.id.substr(20),
         faculty = facultyList[index];
@@ -225,6 +255,12 @@
     });
   }
 
+  /**
+   * called when a delete button is clicked. called twice,
+   * once to change text to confirm, and once more to delete
+   * the specific faculty member
+   * @param event the click event
+   */
   function deleteButtonClick(event) {
     if (event.target.innerHTML == "delete") {
       event.target.innerHTML = "confirm";
@@ -237,7 +273,14 @@
     }
   }
 
+  /**
+   * called when the dynamic modal button is clicked.
+   * adds a new faculty member, or updates an existing one.
+   * @param event the click event
+   */
   function modalButtonClick(event) {
+
+    // create faculty member json object to send to server
     var facultyObject = {
       studentId : $("#faculty-modal-student-num").val(),
       lastName  : $("#faculty-modal-last-name").val(),
@@ -248,6 +291,7 @@
       isAdmin   : $("#faculty-modal-admin").prop("checked"),
     };
 
+    // take appropriate action based on dynamic modal button text
     var buttonName = $("#faculty-modal-button").html();
     switch (buttonName) {
 
