@@ -189,6 +189,10 @@
   }
 
   function delete() {
+
+    //Security check
+    if (!$_SESSION['isAdmin']) die();
+
     global $sql;
 
     $studentId = mysqli_real_escape_string($sql, $_POST['args']);

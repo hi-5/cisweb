@@ -4,7 +4,11 @@
   include "cislib.php";
 
   session_start();
-  loggedAdmin();
+
+  //Prevents unauthenticated AJAX posting
+  if (!$_SESSION['loggedIn']) {
+    die();
+  }
 
   $action = $_POST["action"];
   switch ($action) {
@@ -42,6 +46,9 @@
 
   function createNewTeam() {
     global $sql;
+
+    loggedAdmin();
+
     $year = $_POST["args"]["year"];
     $name = $_POST["args"]["name"];
 
@@ -58,6 +65,8 @@
   function createNewYear() {
     global $sql;
 
+    loggedAdmin();
+
     $year = $_POST["args"];
     $query = "INSERT INTO teams (t_id, t_name, t_year, t_headCoachId, t_asstCoachId, t_managerId, t_trainerId, t_doctorId, t_therapistId) SELECT t_id, t_name, " . ($year + 1) . ", t_headCoachId, t_asstCoachId, t_managerId, t_trainerId, t_doctorId, t_therapistId FROM teams WHERE t_year = $year";
     $result = mysqli_query($sql, $query);
@@ -66,6 +75,8 @@
 
   function deleteTeam() {
     global $sql;
+
+    loggedAdmin();
 
     $year = $_POST["args"]["year"];
     $id = $_POST["args"]["id"];
@@ -76,6 +87,8 @@
 
   function getYearList() {
     global $sql;
+
+    // loggedAdmin();
 
     $query = "SELECT DISTINCT t_year FROM teams ORDER BY t_year DESC";
     $result = mysqli_query($sql, $query);
@@ -89,6 +102,8 @@
 
   function getTeamsByYear() {
     global $sql;
+
+    loggedAdmin();
 
     $year = mysqli_real_escape_string($sql, $_POST["args"]);
     $query = "SELECT t_id, t_name FROM teams WHERE t_year = $year ORDER BY t_id ASC";

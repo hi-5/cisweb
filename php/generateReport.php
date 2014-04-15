@@ -49,6 +49,7 @@ if ($order == "YOE" || $order == "lastTeam") {
 if ($report != "") $report .= ",";
 
 $filename = $year . preg_replace("([^\w\s\d\-_~,;:\[\]\(\]]|[\.]{2,})", '', $teamName);
+$filename =  str_replace(' ', '', $filename);
 
 //Builder report header
 $reportHeader = "<h1>University of Lethbridge $teamName</h1>\n<h2>$report $year - " . ($year+1) . "</h2>\n";

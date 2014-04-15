@@ -40,11 +40,7 @@
 
   </div>
 
-<?php
-  }
-?>
-
-<script>
+  <script>
 
   function init() {
     cislib.managerRequest("inbox", "getAmount", undefined, updateBadge)
@@ -56,4 +52,8 @@
 
   init();
 
-</script>
+  </script>
+
+<?php
+  }
+?>

@@ -378,13 +378,19 @@
     }); 
   }
 
-  function deleteReport() {
+  //Deletes the selected report after a second click.
+  function deleteReport(event) {
+    if (event.target.innerHTML == '<span class="glyphicon glyphicon-remove"></span> Delete') {
+      event.target.innerHTML = '<span class="glyphicon glyphicon-remove"></span> Confirm';
+    } else {
 
-    var obj = new Object();
-    obj.id = $("#report-select option:selected").val();
-    var string = JSON.stringify(obj);
+      var obj = new Object();
+      obj.id = $("#report-select option:selected").val();
+      var string = JSON.stringify(obj);
 
-    cislib.managerRequest("reports", "delete", string, populateReportList);
+      cislib.managerRequest("reports", "delete", string, populateReportList);
+      event.target.innerHTML = '<span class="glyphicon glyphicon-remove"></span> Delete';
+    }
   }
 
   //Does AJAX request to generate a sample table of the selected report

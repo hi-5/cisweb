@@ -668,6 +668,10 @@ $styles =  "<Styles>
  </Worksheet>
 </Workbook>";
 
+$filename = $year . preg_replace("([^\w\s\d\-_~,;:\[\]\(\]]|[\.]{2,})", '', $teamName);
+$filename =  str_replace(' ', '', $filename);
+$filename .= "SIDRoster";
+
 header("Content-type: application/octet-stream");
 header("Content-Disposition: attachment; filename=$filename.xml");
 header("Pragma: no-cache");
