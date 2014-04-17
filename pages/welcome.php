@@ -12,6 +12,7 @@ Welcome to our CIT System Design project.<br /><br />
 There are 2 types of accounts in our system; athlete and faculty.<br />
 - All faculty type accounts can search athlete/team data and generate reports<br />
 - Both athlete and faculty account types can submit registration forms<br /><br />
+- The GIT Hub repository for this project is located <a href="https://github.com/hi-5/cisweb">here</a><br /><br />
 
 
 Athlete (athlete type):<br />
