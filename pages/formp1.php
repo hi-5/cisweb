@@ -103,7 +103,7 @@
     <div class="col-md-10"></div>
     <div class="col-md-2">
       <?php 
-        echo "<a href='?p=form&t=reg&s=2&i=" . $_SESSION['studentId'] . "'><button type='button' class='btn btn-lg btn-primary btn-block'>Next &raquo;</button></a>";
+        echo "<a href='/?p=form&t=reg&s=2&i=" . $_SESSION['studentId'] . "' class='btn btn-lg btn-primary btn-block'>Next &raquo</a>";
       ?>
     </div>
   </div>
