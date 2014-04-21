@@ -1,3 +1,13 @@
+<!--
+  - This file is used to destroy the session
+  - to log the user out of the system.
+  -
+  - File: logout.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?php
 
   session_start();

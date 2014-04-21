@@ -1,10 +1,14 @@
-<?php
+<!--
+  - this is the library file for php functions called by the manager files
+  - contains all functions that are used by other functions
+  -
+  - File: cislib.php
+  - Author: Chris Wright/Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
 
-  function getCurrentYear() {
-    // calculate the current year and return it here
-    // DUMMY FUNCTION. ARE WE USING THIS ANYWHERE?
-    return 2013;
-  }
+<?php
 
   // queries the database to determine the athletes current years charged and returns answer. Expects the athletes studentId and the sql.
   function getEligibility($studentId, $sql) {

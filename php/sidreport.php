@@ -1,9 +1,16 @@
-<?php
+<!--
+  - This file will generate a excel formatted xml file for the SID  report. 
+  - It expects a teamId number as well as the year for which to generate the report.
+  - If you have come here looking to change the output format... good luck. 
+  - This was done in a hurry by simply converting an existing xls file to xml and writing it out with new data.
+  -
+  - File: sidreport.php
+  - Author: Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
 
-/*
-This file will generate a excel formatted xml file for the sid report. It expects a teamId number as well as the year for which to generate the report.
-If you have come here looking to change the output format... good luck. This was done in a hurry by simply conversting an existing xls file to xml and spitting it out.
-*/
+<?php
 
 include "cislib.php";
 include "connect.php";

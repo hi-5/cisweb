@@ -1,3 +1,14 @@
+<!--
+  - This file is used in AJAX calls from the pages.
+  - It contains a switch statement used to call various functions
+  - for displaying inbox data for administrators.
+  -
+  - File: inboxmanager.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?PHP
   include "connect.php";
   include "cislib.php";
@@ -19,6 +30,7 @@
       break;
   }
 
+  //Gets the number of entries waiting in the queues
   function getAmount() {
     global $sql;
 
@@ -29,6 +41,7 @@
     echo $row[0];
   }
 
+  //Gets a list of the entries waiting in the queues
   function retrieveInbox() {
     global $sql;
 

@@ -1,3 +1,14 @@
+<!--
+  - This file is used in AJAX calls from the pages.
+  - It contains a switch statement used to call various functions
+  - for CRUD proccesses associated with the teams table.
+  -
+  - File: teamsmanager.php
+  - Author: Chris Wright/Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?php
 
   include "connect.php";
@@ -44,6 +55,7 @@
       break;
   }
 
+  //Creates a new team with the posted year and name
   function createNewTeam() {
     global $sql;
 
@@ -62,6 +74,7 @@
     echo $result;
   }
 
+  //creates a new year of teams from the previous years teams
   function createNewYear() {
     global $sql;
 
@@ -73,6 +86,7 @@
     echo $result;
   }
 
+  //Deletes a team record from the database
   function deleteTeam() {
     global $sql;
 
@@ -85,6 +99,7 @@
     echo $result;
   }
 
+  //Gets a list of all years that any team exists for.
   function getYearList() {
     global $sql;
 
@@ -100,6 +115,7 @@
     echo json_encode($yearData);
   }
 
+  //Gets a list of teams that exists for the given year
   function getTeamsByYear() {
     global $sql;
 

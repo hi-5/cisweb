@@ -1,3 +1,16 @@
+<!--
+  - This file generates a table or csv document
+  - based on input.
+  - This page expects a json string properly formated by
+  - the reports.php page which is used to generate the
+  - requested data.
+  -
+  - File: generateReport.php
+  - Author: Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?php
 
 include "cislib.php";

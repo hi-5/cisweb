@@ -1,3 +1,15 @@
+<!--
+  - This file is used in AJAX calls from the pages.
+  - It contains a switch statement used to call various functions
+  - for CRUD proccesses associated with the athlete, athletehistory
+  - athletequeue, and athletehistoryqueue tables.
+  -
+  - File: formmanager.php
+  - Author: Chris Wright/Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?PHP
   include "connect.php";
 
@@ -47,6 +59,7 @@
       break;
   }
 
+  //Adds an athletehistory record to the database with provided information
   function addTeam() { 
     global $sql;
 
@@ -70,6 +83,7 @@
     echo json_encode($_POST['args']);
   }
 
+  //Removes an athletehistory record from the database
   function removeTeam() {
     global $sql;
 
@@ -86,6 +100,7 @@
     echo json_encode($_POST['args']);
   }
 
+  //Enters a athletes information into the athletequeue for approval.
   function register() {
     global $sql;
 
@@ -128,6 +143,8 @@
     echo $result;
   }
 
+  //Takes the data from queue and moves it to final tables
+  //Deletes athletequeue and athletehistory queue data
   function approve() {
     global $sql;
 
@@ -186,6 +203,7 @@
     echo $result;
   }
 
+  // Deletes a record from the queue
   function delete() {
 
     //Security check
@@ -203,6 +221,7 @@
     echo $result;
   }
 
+  //Updates a record in the athlete table.
   function update() {
     global $sql;
 
@@ -251,6 +270,7 @@
     echo $result;
   }
 
+  //Gets athlete infromation based on ID
   function getAthlete() {
     global $sql;
 

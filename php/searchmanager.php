@@ -1,3 +1,14 @@
+<!--
+  - This file is used in AJAX calls from the pages.
+  - It contains a switch statement used to call various functions
+  - for searching users and teams within the database.
+  -
+  - File: searchmanager.php
+  - Author: Chris Wright/Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?PHP
   include "connect.php";
   include "cislib.php";
@@ -19,6 +30,7 @@
       break;
   }
 
+  //Gets athletes with names LIKE provided name
   function getAthlete() {
     global $sql;
 
@@ -32,6 +44,7 @@
     echo json_encode($athletes);
   }
 
+  //Gets teams with names LIKE provided name
   function getTeam() {
     global $sql;
 

@@ -1,3 +1,13 @@
+<!--
+  - This is a test login page used during development.
+  - It creates a session based on the type passed to it.
+  -
+  - File: login.php
+  - Author: Chris Wright
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?php
 
   session_start();

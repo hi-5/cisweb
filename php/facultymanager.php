@@ -1,3 +1,14 @@
+<!--
+  - This file is used in AJAX calls from the pages.
+  - It contains a switch statement used to call various functions
+  - for CRUD proccesses associated with the faculty table.
+  -
+  - File: facultymanager.php
+  - Author: Chris Wright/Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?php
 
   include "connect.php";
@@ -41,6 +52,7 @@
       break;
   }
 
+  //Gets a list of faculty that start with the given letter
   function getList() {
     global $sql;
 
@@ -56,6 +68,7 @@
     echo json_encode($faculty);
   }
 
+  //Adds a faculty member to the database
   function add() {
     global $sql;
 
@@ -72,6 +85,7 @@
     echo $result; 
   }
 
+  //Deletes a faculty member from the database
   function delete() {
     global $sql;
 
@@ -83,6 +97,7 @@
     echo $result; 
   }
 
+  //Updates a faculty member in the database
   function update() {
     global $sql;
 
@@ -99,6 +114,7 @@
     echo $result; 
   }
 
+  //Gets a list of all faculty in the database
   function getAll() {
     global $sql;
 

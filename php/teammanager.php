@@ -1,3 +1,14 @@
+<!--
+  - This file is used in AJAX calls from the pages.
+  - It contains a switch statement used to call various functions
+  - for managing the eligibility status and faculty of a team.
+  -
+  - File: teammanager.php
+  - Author: Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?php
 
   include "connect.php";
@@ -30,6 +41,7 @@
       break; 
   }
 
+  //Gets a roster for the given team
   function getRosterTable() {
     global $sql;
 
@@ -113,6 +125,7 @@
 
   }
 
+  //Updates faculty ID numbers in the team record
   function saveFaculty() {
     global $sql;
 

@@ -1,3 +1,14 @@
+<!--
+  - This file is used in AJAX calls from the pages.
+  - It contains a switch statement used to call various functions
+  - for CRUD proccesses associated with the reports table.
+  -
+  - File: reportsmanager.php
+  - Author: Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
+-->
+
 <?php
 
 include "connect.php";
@@ -35,6 +46,7 @@ $action = $_POST['action'];
       break;
   }
 
+  //Adds a report to the database
   function addReport($name, $string) {
     global $sql;
 
@@ -52,6 +64,7 @@ $action = $_POST['action'];
 
   }
 
+  //Deletes a report of the given ID from the database.
   function deleteReport($args) {
     global $sql;
 
@@ -65,6 +78,7 @@ $action = $_POST['action'];
     print json_encode("success");
   }
 
+  //Gets a list of all saved reports.
   function getReports() {
     global $sql;
 
@@ -79,6 +93,7 @@ $action = $_POST['action'];
     print json_encode($reports);
   }
 
+  //Gets the report string of the given report ID
   function getReportString($id) {
     global $sql;
 
