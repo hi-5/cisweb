@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/*
   - This file will generate a excel formatted xml file for the SID  report. 
   - It expects a teamId number as well as the year for which to generate the report.
   - If you have come here looking to change the output format... good luck. 
@@ -8,9 +10,7 @@
   - Author: Mike Paulson
   - Last updated: 2014/04/21
   - Last updated by: Mike P.
--->
-
-<?php
+*/
 
 include "cislib.php";
 include "connect.php";
@@ -53,7 +53,7 @@ $teamName = $temp['t_name'];
 $yearTeamName = $year . "-" . ($year+1) . " " . $teamName . " Sports Information Roster";
 
 //Get athlete info
-$athleteQuery = "SELECT athletes.a_studentId, athletehistory.ah_jerseyNumber, athletes.a_firstName, athletes.a_lastName, athletehistory.ah_position, athletes.a_height, athletes.a_weight, athletes.a_dob, athletes.a_program, athletes.a_hometown
+$athleteQuery = "SELECT athletes.a_studentId, athletehistory.ah_jerseyNumber, athletes.a_firstName, athletes.a_lastName, athletehistory.ah_position, athletes.a_height, athletes.a_weight, athletes.a_dob, athletes.a_program, athletes.a_hometown, athletes.a_yearOfStudy
 FROM athletehistory
 INNER JOIN athletes
 ON athletehistory.ah_studentId=athletes.a_studentId
@@ -75,7 +75,7 @@ while($row = mysqli_fetch_assoc($athleteResult)) {
     <Cell ss:StyleID=\"s116\"><Data ss:Type=\"Number\">" . getEligibility($row['a_studentId'], $sql) . "</Data></Cell>
     <Cell ss:StyleID=\"s119\"><Data ss:Type=\"DateTime\">" . $row['a_dob'] . "</Data></Cell>
     <Cell ss:StyleID=\"s116\"><Data ss:Type=\"String\">" . $row['a_program'] . "</Data></Cell>
-    <Cell ss:StyleID=\"s116\"><Data ss:Type=\"Number\">1</Data></Cell>
+    <Cell ss:StyleID=\"s116\"><Data ss:Type=\"Number\">" . $row['a_yearOfStudy'] . "</Data></Cell>
     <Cell ss:StyleID=\"s116\"><Data ss:Type=\"String\">" . $row['a_hometown'] . "</Data></Cell>
     <Cell ss:StyleID=\"s117\"><Data ss:Type=\"String\">" . getLastTeamPlayed($row['a_studentId'], $sql) . "</Data></Cell>
     </Row>";

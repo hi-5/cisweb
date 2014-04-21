@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/*
   - This file is used in AJAX calls from the pages.
   - It contains a switch statement used to call various functions
   - for CRUD proccesses associated with the reports table.
@@ -7,9 +9,8 @@
   - Author: Mike Paulson
   - Last updated: 2014/04/21
   - Last updated by: Mike P.
--->
+*/
 
-<?php
 
 include "connect.php";
 include "cislib.php";

@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/*
   - this is the library file for php functions called by the manager files
   - contains all functions that are used by other functions
   -
@@ -6,9 +8,7 @@
   - Author: Chris Wright/Mike Paulson
   - Last updated: 2014/04/21
   - Last updated by: Mike P.
--->
-
-<?php
+*/
 
   // queries the database to determine the athletes current years charged and returns answer. Expects the athletes studentId and the sql.
   function getEligibility($studentId, $sql) {

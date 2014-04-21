@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/*
   - This file generates a table or csv document
   - based on input.
   - This page expects a json string properly formated by
@@ -9,9 +11,7 @@
   - Author: Mike Paulson
   - Last updated: 2014/04/21
   - Last updated by: Mike P.
--->
-
-<?php
+*/
 
 include "cislib.php";
 include "connect.php";
