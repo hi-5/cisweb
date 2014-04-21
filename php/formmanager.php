@@ -21,10 +21,6 @@
       removeTeam();
       break;
 
-    // update team in history
-    case "updateTeam":
-      break;
-
     // submit registration form
     case "register":
       register();
@@ -101,13 +97,14 @@
     $initials = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['initials']));
     $gender = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gender']));
     $dob = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['dob']));
-    $height = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['height']));
+    $height = mysqli_real_escape_string($sql, $_POST['args']['height']);
     $weight = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['weight']));
     $email = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['email']));
     $hometown = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['hometown']));
     $highSchool = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['highSchool']));
     $gradYear = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gradYear']));
     $program = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['program']));
+    $yearOfStudy = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['yearOfStudy']));
 
     $cStreet = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cStreet']));
     $cCity = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cCity']));
@@ -124,7 +121,7 @@
     $pPhone = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['pPhone']));
 
     $query = "INSERT INTO athletequeue VALUES ($studentId, $resident, '$lastName', '$firstName', '$initials', '$gender', '$dob', '$height', 
-              '$weight', '$email', '$hometown', '$highSchool', $gradYear, '$program', '$cStreet', '$cCity', '$cProvince', '$cPostal', '$cCountry', 
+              '$weight', '$email', '$hometown', '$highSchool', $gradYear, '$program', $yearOfStudy, '$cStreet', '$cCity', '$cProvince', '$cPostal', '$cCountry', 
               '$cPhone', '$pStreet', '$pCity', '$pProvince', '$pPostal', '$pCountry', '$pPhone')";
     $result = mysqli_query($sql, $query);
 
@@ -152,6 +149,7 @@
     $highSchool = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['highSchool']));
     $gradYear = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gradYear']));
     $program = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['program']));
+    $yearOfStudy = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['yearOfStudy']));
 
     $cStreet = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cStreet']));
     $cCity = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cCity']));
@@ -169,7 +167,7 @@
 
     // create athlete record
     $query = "INSERT INTO athletes VALUES ($studentId, $resident, '$lastName', '$firstName', '$initials', '$gender', '$dob', '$height', 
-              '$weight', '$email', '$hometown', '$highSchool', $gradYear, '$program', '$cStreet', '$cCity', '$cProvince', '$cPostal', '$cCountry', 
+              '$weight', '$email', '$hometown', '$highSchool', $gradYear, '$program', $yearOfStudy, '$cStreet', '$cCity', '$cProvince', '$cPostal', '$cCountry', 
               '$cPhone', '$pStreet', '$pCity', '$pProvince', '$pPostal', '$pCountry', '$pPhone');";
     $result = mysqli_query($sql, $query);
 
@@ -226,6 +224,7 @@
     $highSchool = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['highSchool']));
     $gradYear = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['gradYear']));
     $program = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['program']));
+    $yearOfStudy = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['yearOfStudy']));
 
     $cStreet = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cStreet']));
     $cCity = mysqli_real_escape_string($sql, htmlspecialchars($_POST['args']['cCity']));
@@ -243,8 +242,8 @@
 
     $query = "UPDATE athletes SET a_resident = $resident, a_lastName = '$lastName', a_firstName = '$firstName', a_initials = '$initials', 
               a_gender = '$gender', a_dob = '$dob', a_height = '$height', a_weight = '$weight', a_email = '$email', 
-              a_hometown = '$hometown', a_highSchool = '$highSchool', a_gradYear = '$gradYear', a_program = '$program', a_cStreet = '$cStreet',
-              a_cCity = '$cCity', a_cProvince = '$cProvince', a_cPostalCode = '$cPostal', a_cCountry = '$cCountry',
+              a_hometown = '$hometown', a_highSchool = '$highSchool', a_gradYear = '$gradYear', a_program = '$program', a_yearOfStudy = $yearOfStudy, 
+              a_cStreet = '$cStreet', a_cCity = '$cCity', a_cProvince = '$cProvince', a_cPostalCode = '$cPostal', a_cCountry = '$cCountry',
               a_cPhone = '$cPhone', a_pStreet = '$pStreet', a_pCity = '$pCity', a_pProvince = '$pProvince', 
               a_pPostalCode = '$pPostal', a_pCountry = '$pCountry', a_pPhone = '$pPhone' WHERE a_studentId = $studentId";
     $result = mysqli_query($sql, $query);

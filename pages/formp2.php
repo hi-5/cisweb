@@ -59,22 +59,28 @@
 
       <!-- new row -->
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-3">
           <div class="form-group">
             <label>First Name</label>
             <input id="first-name" type="input" class="form-control">
           </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
           <div class="form-group">
             <label>Last Name</label>
             <input id="last-name" type="input" class="form-control">
           </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
           <div class="form-group">
             <label>Initial(s)</label>
             <input id="initials" type="input" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Hometown</label>
+            <input id="hometown" type="input" class="form-control">
           </div>
         </div>
       </div>
@@ -132,14 +138,16 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label>Hometown</label>
-            <input id="hometown" type="input" class="form-control">
+            <label>University Program</label>
+            <input id="program" type="input" class="form-control">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <label>University Program</label>
-            <input id="program" type="input" class="form-control">
+            <label>Year of Study</label>
+            <select id="year-of-study" class="form-control">
+              <!-- populates in initializeForm() -->
+            </select>
           </div>
         </div>
       </div>
@@ -279,7 +287,6 @@
               <th>Position</th>
               <th>Jersey</th>
               <th>Charged</th>
-              <th> </th>
               <th> </th>
             </tr>
           </thead>
@@ -447,7 +454,7 @@
     // buttons to add teams
     $("#non-uofl-team-button").click(addNonUofLTeamClick);
     $("#uofl-team-button").click(addUofLTeamClick);
-    $("#modal-button").click(addUpdateTeamClick);
+    $("#modal-button").click(addTeamClick);
 
     // hide team table
     $("#team-table").css("display", "none");
@@ -464,6 +471,12 @@
         inches = 11;
       }
     }
+    heightBox.val("6\'0\"");
+
+    // populate year of study select box
+    var yearStudyBox = $("#year-of-study");
+    for (var i = 1; i < 9; i++)
+      yearStudyBox.append("<option>" + i + "</option>");
 
     // populate the year select box
     for (var i = new Date().getFullYear() + 1; i > 1970; i--)
@@ -528,11 +541,13 @@
     $("#gender").val(info[infoPrefix + "gender"]);
     $("#date-of-birth").val(info[infoPrefix + "dob"]);
     $("#height").val(info[infoPrefix + "height"]);
+   
     $("#weight").val(info[infoPrefix + "weight"]);
     $("#hometown").val(info[infoPrefix + "hometown"]);
     $("#high-school").val(info[infoPrefix + "highSchool"]);
     $("#year-of-graduation").val(info[infoPrefix + "gradYear"]);
     $("#program").val(info[infoPrefix + "program"]);
+    $("#year-of-study").val(info[infoPrefix + "yearOfStudy"]);
 
     $("#current-street").val(info[infoPrefix + "cStreet"]);
     $("#current-city").val(info[infoPrefix + "cCity"]);
@@ -571,10 +586,8 @@
    * corresponding edit and remove buttons
    */
   function redrawTeamTable() {
-    for (var i = 0; i < numOfEventListeners; i++) {
-      $("#team-edit-" + i).unbind();
+    for (var i = 0; i < numOfEventListeners; i++)
       $("#team-remove-" + i).unbind();
-    }
     numOfEventListeners = 0;
 
     // create table based off teamHistory data
@@ -587,7 +600,6 @@
       tableString += "<td>" + teamHistory[j].position + "</td>";
       tableString += "<td>" + teamHistory[j].jersey + "</td>";
       tableString += "<td>" + teamHistory[j].charged + "</td>";
-      tableString += "<td><button id='team-edit-" + j + "' type='button' class='btn btn-xs btn-warning' data-toggle='modal' data-target='#modal'>edit</button></td>";
       tableString += "<td><button id='team-remove-" + j + "' type='button' class='btn btn-xs btn-danger'>remove</button></td>";
       tableString += "</tr>";
       numOfEventListeners++;
@@ -596,10 +608,8 @@
     $("#team-table").css("display", "block");
 
     // add event listeners
-    for (var k = 0; k < numOfEventListeners; k++) {
-      $("#team-edit-" + k).click(editTeamClick);
+    for (var k = 0; k < numOfEventListeners; k++)
       $("#team-remove-" + k).click(removeTeamClick);
-    }
   }
 
   /**
@@ -641,9 +651,9 @@
    */
   function removeTeam(index) {
     teamHistory.splice(index, 1);
+    redrawTeamTable();
     if (teamHistory.length == 0)
       $("#team-table").hide();
-    redrawTeamTable();
   }
 
   /**
@@ -697,28 +707,6 @@
   }
 
   /**
-   * edit team button click callback. opens
-   * and configures a modal box to edit a
-   * team history record.
-   * @param event the click event
-   */
-  function editTeamClick(event) {
-    $("#modal-label").html("Edit Team History");
-    $("#modal-button").html("Update");
-    $("#team-list-container").hide();
-    $("#team-name-container").show();
-    $("#school-name-container").show();
-
-    var index = event.target.id.substr(10);
-    var team = teamHistory[index];
-    $("#school-name").val(team.institute);
-    $("#team-year").val(parseInt(team.year) + "-" + parseInt(Number(team.year) + 1));
-    $("#team-name").val(team.teamName);
-    $("#team-position").val(team.position);
-    $("#team-jersey").val(team.jersey);
-  }
-
-  /**
    * remove team button click callback. confirms
    * and deletes team history record.
    * @param event the click event
@@ -744,12 +732,11 @@
   // == modal event listeners ==
 
   /**
-   * callback for dynamic modal button. adds
-   * and updates team history records. STILL NEEDS
-   * TO BE FIXED FOR UPDATING, DOES NOT UPDATE!!!
+   * callback for modal button. adds
+   * team history record. 
    * @param event the click event
    */
-  function addUpdateTeamClick(event) {
+  function addTeamClick(event) {
     // !!! validate input
     var years = $("#team-year").val().split("-"),
         startYear = years[0],
@@ -769,7 +756,7 @@
       teamName = $("#team-name").val();
     }
 
-    // send team to server
+    // create team object to send to server
     var teamObject = {
       queue     : (formType == "reg" || formType == "app") ? "yes" : "no",
       studentId : currentId,
@@ -973,34 +960,35 @@
   function getAthleteObject() {
     // store the information as an object
     return {
-      studentId  : $("#student-number").val(),
-      resident   : $("#resident-select").prop("selectedIndex"),
-      lastName   : $("#last-name").val(),
-      firstName  : $("#first-name").val(),
-      initials   : $("#initials").val(),
-      gender     : $("#gender").val(),
-      dob        : $("#date-of-birth").val(),
-      height     : $("#height").val(),
-      weight     : $("#weight").val(),
-      email      : $("#email").val(),
-      hometown   : $("#hometown").val(),
-      highSchool : $("#high-school").val(),
-      gradYear   : $("#year-of-graduation").val(),
-      program    : $("#program").val(),
+      studentId   : $("#student-number").val(),
+      resident    : $("#resident-select").prop("selectedIndex"),
+      lastName    : $("#last-name").val(),
+      firstName   : $("#first-name").val(),
+      initials    : $("#initials").val(),
+      gender      : $("#gender").val(),
+      dob         : $("#date-of-birth").val(),
+      height      : $("#height").val(),
+      weight      : $("#weight").val(),
+      email       : $("#email").val(),
+      hometown    : $("#hometown").val(),
+      highSchool  : $("#high-school").val(),
+      gradYear    : $("#year-of-graduation").val(),
+      program     : $("#program").val(),
+      yearOfStudy : $("#year-of-study").val(),
 
-      cStreet    : $("#current-street").val(),
-      cCity      : $("#current-city").val(),
-      cProvince  : $("#current-province").val(),
-      cPostal    : $("#current-postal").val(),
-      cCountry   : $("#current-country").val(),
-      cPhone     : $("#current-phone").val(),
+      cStreet     : $("#current-street").val(),
+      cCity       : $("#current-city").val(),
+      cProvince   : $("#current-province").val(),
+      cPostal     : $("#current-postal").val(),
+      cCountry    : $("#current-country").val(),
+      cPhone      : $("#current-phone").val(),
 
-      pStreet    : $("#permanent-street").val(),
-      pCity      : $("#permanent-city").val(),
-      pProvince  : $("#permanent-province").val(),
-      pPostal    : $("#permanent-postal").val(),
-      pCountry   : $("#permanent-country").val(),
-      pPhone     : $("#permanent-phone").val()
+      pStreet     : $("#permanent-street").val(),
+      pCity       : $("#permanent-city").val(),
+      pProvince   : $("#permanent-province").val(),
+      pPostal     : $("#permanent-postal").val(),
+      pCountry    : $("#permanent-country").val(),
+      pPhone      : $("#permanent-phone").val()
     };
   }
 

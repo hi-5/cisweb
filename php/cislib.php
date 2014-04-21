@@ -2,6 +2,7 @@
 
   function getCurrentYear() {
     // calculate the current year and return it here
+    // DUMMY FUNCTION. ARE WE USING THIS ANYWHERE?
     return 2013;
   }
 

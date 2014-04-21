@@ -23,8 +23,7 @@
         <tr>
           <th>Student #</th>
           <th>Athlete Name</th>
-          <th>Type</th>
-          <th>Sport</th>
+          <th>Most Recent</th>
           <th>&nbsp</th>
         </tr>
       </thead>
@@ -83,7 +82,6 @@
         tableString += "<tr>";
         tableString += "<td>" + result[i]["id"] + "</td>";
         tableString += "<td>" + result[i]["last"] + ", " + result[i]["first"] + "</td>";
-        tableString += "<td>" + result[i]["type"] + "</td>";
         tableString += "<td>" + result[i]["team"] + "</td>";
         tableString += "<td><a href='?p=form&t=app&i=" + result[i]["id"] + "'><button type='button' class='btn btn-xs btn-primary'>view</button></a></td></tr>";
       }
