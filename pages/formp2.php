@@ -12,6 +12,7 @@
 
 <?php
   include "./php/cislib.php";
+  include "./php/connect.php";
   loggedStudent($_REQUEST['i']);
 ?>
 
@@ -37,7 +38,7 @@
         <div class="col-md-3">
          <div class="form-group">
             <label>Student #</label>
-            <input id="student-number" type="input" class="form-control">
+            <input id="student-number" type="input" class="form-control" <?php if (isAdmin($_SESSION['studentId'], $sql)) echo ''; else echo 'disabled'; ?>>
           </div>
         </div>
         <div class="col-md-6">
@@ -450,7 +451,7 @@
     });
 
     // disable ability to change studentId
-    $("#student-number").attr("disabled", "disabled");
+    // $("#student-number").attr("disabled", "disabled");
 
     // buttons to add teams
     $("#non-uofl-team-button").click(addNonUofLTeamClick);
@@ -489,7 +490,7 @@
 
       // registration form
       case "reg":
-        $("#student-number").val(currentId);
+        if ($("#student-number").prop('disabled')) $("#student-number").val(currentId);
         $("#buttons-2").html("<button id='register-button' type='button' class='btn btn-lg btn-primary'>Register</button>");
         $("#register-button").click(registerButtonClick);
         break;
