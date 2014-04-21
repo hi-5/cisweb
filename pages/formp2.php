@@ -268,6 +268,7 @@
     </div>
   </div>
 
+  <p><span class="glyphicon glyphicon-asterisk"></span>Please use the buttons below and the subsequent forms to indicate any past years for which you played a sport in a post-secondary institution.</p>
   <div class="panel panel-default">
     <div class="panel-heading">
       Athlete History
@@ -286,7 +287,7 @@
               <th>Team</th>
               <th>Position</th>
               <th>Jersey</th>
-              <th>Charged</th>
+              <th>Eligibility Charged</th>
               <th> </th>
             </tr>
           </thead>
@@ -370,16 +371,16 @@
             </div>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="form-group">
               <label>Jersey #</label>
               <input id="team-jersey" type="input" class="form-control">
             </div>
           </div>
 
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="form-group">
-              <label>Year Charged</label>
+              <label>Eligibility Charged</label>
               <select id="team-charged" class="form-control">
                 <option>yes</option>
                 <option>no</option>

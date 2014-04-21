@@ -62,6 +62,7 @@
             <option value="athletes.a_highSchool">High School</option>
             <option value="athletes.a_gradYear">Grad Year</option>
             <option value="athletes.a_program">Program</option>
+            <option value="athletes.a_yearOfStudy">Year of Study</option>
             <option value="athletehistory.ah_position">Position</option>
             <option value="athletehistory.ah_jerseyNumber">Jersey Number</option>
             <option value="athletehistory.ah_charged">Eligibility Charged</option>

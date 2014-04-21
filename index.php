@@ -12,11 +12,11 @@
     <!-- style -->
     <link href="css/main.css" rel="stylesheet" />
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="js/jquery.js"></script>
     <!-- bootstrap framework -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <script src="js/bootstrap.min.js"></script>
     <!-- bootstrap datepicker -->
     <link href="css/datepicker.css" rel="stylesheet">
     <script src="js/datepicker.js"></script>
