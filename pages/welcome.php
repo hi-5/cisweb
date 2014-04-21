@@ -1,33 +1,13 @@
 <!--
   - This page is included from body.php. It
   - is the default page for logged out users.
+  - University will want to put shibboleth login redirect here.
   -
   - File: welcome.php
-  - Author: Chris Wright
-  - Last updated: 2014/04/14
-  - Last updated by: Chris W.
+  - Author: Chris Wright/Mike Paulson
+  - Last updated: 2014/04/21
+  - Last updated by: Mike P.
 -->
 
-Welcome to our CIT System Design project.<br /><br />
-There are 2 types of accounts in our system; athlete and faculty.<br />
-- All faculty type accounts can search athlete/team data and generate reports<br />
-- Both athlete and faculty account types can submit registration forms<br /><br />
-- The GIT Hub repository for this project is located <a href="https://github.com/hi-5/cisweb">here</a><br /><br />
-
-
-Athlete (athlete type):<br />
-<a href="php/login.php?t=athlete">Log in as an Athlete</a>
-
-<br /><br />
-
-Coach (faculty type /w no special permissions):<br />
-<a href="php/login.php?t=coach">Login in as a Coach</a>
-
-<br /><br />
-
-Admin (faculty type /w admin permission):<br />
-- can approve/delete registration forms<br />
-- can update athlete information<br />
-- can add/update faculty<br />
-- can add/update teams<br />
-<a href="php/login.php?t=admin">Login in as Admin</a>
+<p>Welcome to the University of Lethbridge CIS Athletic Database</p><br>
+<p>Please login to continue</p>
