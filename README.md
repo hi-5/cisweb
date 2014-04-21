@@ -28,14 +28,21 @@ Authors
 --------------
 The initial version of this application was written by
 
+
 Mike Paulson
+
 Chris Wright
+
 
 With support from the following individuals
 
+
 Jesse Wilson
+
 Kyungman Kim
+
 Brian Booth
+
 
 These individuals made up the group that worked on this project as part of a Computer Information and Technology program at the Lethbridge College.
 
