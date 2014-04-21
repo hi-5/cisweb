@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/*
   - This file is used in AJAX calls from the pages.
   - It contains a switch statement used to call various functions
   - for managing the eligibility status and faculty of a team.
@@ -7,9 +9,7 @@
   - Author: Mike Paulson
   - Last updated: 2014/04/21
   - Last updated by: Mike P.
--->
-
-<?php
+*/
 
   include "connect.php";
   include "cislib.php";

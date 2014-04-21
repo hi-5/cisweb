@@ -1,4 +1,6 @@
-<!--
+<?PHP
+
+/*
   - This file is used in AJAX calls from the pages.
   - It contains a switch statement used to call various functions
   - for CRUD proccesses associated with the athlete, athletehistory
@@ -8,9 +10,9 @@
   - Author: Chris Wright/Mike Paulson
   - Last updated: 2014/04/21
   - Last updated by: Mike P.
--->
+*/
 
-<?PHP
+
   include "connect.php";
 
   session_start();

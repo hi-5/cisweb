@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/*
   - This file will generate a excel formatted xml file for the CIS standard report. 
   - It expects a teamId number as well as the year for which to generate the report.
   - If you have come here looking to change the output format... good luck. 
@@ -8,9 +10,7 @@
   - Author: Mike Paulson
   - Last updated: 2014/04/21
   - Last updated by: Mike P.
--->
-
-<?php
+*/
 
 include "cislib.php";
 include "connect.php";
@@ -51,7 +51,7 @@ $temp = mysqli_fetch_assoc($result);
 $teamName = $temp['t_name'];
 
 //Get athlete info
-$athleteQuery = "SELECT athletes.a_studentId, athletehistory.ah_jerseyNumber, athletes.a_firstName, athletes.a_lastName, athletehistory.ah_position, athletes.a_height, athletes.a_weight, athletes.a_dob, athletes.a_program, athletes.a_cProvince, athletes.a_hometown
+$athleteQuery = "SELECT athletes.a_studentId, athletehistory.ah_jerseyNumber, athletes.a_firstName, athletes.a_lastName, athletehistory.ah_position, athletes.a_height, athletes.a_weight, athletes.a_dob, athletes.a_program, athletes.a_cProvince, athletes.a_hometown, athletes.a_yearOfStudy
 FROM athletehistory
 INNER JOIN athletes
 ON athletehistory.ah_studentId=athletes.a_studentId
@@ -83,7 +83,7 @@ while($row = mysqli_fetch_assoc($athleteResult)) {
       ss:Name=\"Print_Area\"/></Cell>
     <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">" . $row['a_program'] . "</Data><NamedCell
       ss:Name=\"Print_Area\"/></Cell>
-    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"Number\">0</Data><NamedCell
+    <Cell ss:StyleID=\"s83\"><Data ss:Type=\"Number\">" . $row['a_yearOfStudy'] . "</Data><NamedCell
       ss:Name=\"Print_Area\"/></Cell>
     <Cell ss:StyleID=\"s83\"><Data ss:Type=\"String\">" . $row['a_hometown'] . "</Data><NamedCell
       ss:Name=\"Print_Area\"/></Cell>
