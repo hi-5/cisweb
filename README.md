@@ -7,6 +7,8 @@ CIS Web is a PHP, jQuery, and MySQL based database application used to track and
 
 This application was developed as part of a college project and was primarily developed specifically for the University of Lethbridge.
 
+This branch is the point which we began finalizing code to be delivered to the University and our instructor. At this time testing features were removed.
+
 How it Works
 --------------
 The application does not strictly follow any development framework. The application is largely divided between views or pages and the PHP documents that allow for the interaction with the database. These PHP files located in the /php folder largely correspond to interactions regarding a specific view or a specific table in the database.
