@@ -269,7 +269,7 @@
     </div>
   </div>
 
-  <p><span class="glyphicon glyphicon-asterisk"></span>Please use the buttons below and the subsequent forms to indicate any past years for which you played a sport in a post-secondary institution.</p>
+  <p><span class="glyphicon glyphicon-asterisk"></span>Please use the buttons below and the subsequent forms to indicate any past years for which you played a sport in a post-secondary institution, as well as for the year you are currently enrolling in.</p>
   <div class="panel panel-default">
     <div class="panel-heading">
       Athlete History
