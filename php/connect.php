@@ -1,4 +1,6 @@
-<!--
+<?php
+
+/*
   - This file creates the sql variable that is used by all
   - database interaction scripts.
   -
@@ -6,11 +8,10 @@
   - Author: Chris Wright/Mike Paulson
   - Last updated: 2014/04/21
   - Last updated by: Mike P.
--->
+*/
 
-<?php
   // create connection
-  $sql = new mysqli("localhost", "username", "password", "databaseName");
+  $sql = new mysqli("localhost", "mike", "onetwo", "cis");
 
   // check connection
   if (mysqli_connect_errno()) {
